@@ -1,0 +1,132 @@
+[
+  {
+    "id": "vsthouse",
+    "name": "VSTHouse",
+    "enabled": true,
+    "respect_robots": false,
+    "base_url": "https://vsthouse.ru/",
+    "hosts": [
+      "vsthouse.ru"
+    ],
+    "search_path": "/search/",
+    "method": "GET",
+    "query_param": "q",
+    "params": {
+      "t": "0"
+    },
+    "max_query": 30,
+    "item_selector": ".eBlock",
+    "title_selector": ".eTitle a",
+    "link_selector": null,
+    "description_selector": ".eMessage",
+    "next_selector": "a.swchItem-next, .pagesBlockuz2 a.swchItem1:last-child",
+    "download_selector": "a.sprite[href], a[href^='magnet:?']",
+    "detail_selector": null,
+    "published_selector": null,
+    "modified_selector": null,
+    "interval": 1.0,
+    "sections": [
+      {
+        "id": "recentes",
+        "name": "Recentes",
+        "path": "/"
+      },
+      {
+        "id": "vsti",
+        "name": "VSTi",
+        "path": "/load/2"
+      },
+      {
+        "id": "vst",
+        "name": "VST",
+        "path": "/load/10"
+      },
+      {
+        "id": "samples",
+        "name": "Samples e presets",
+        "path": "/load/25"
+      },
+      {
+        "id": "apps",
+        "name": "Aplicativos",
+        "path": "/load/13"
+      }
+    ],
+    "note": "Busca pública configurada por HTTP, sem aplicar o bloqueio local de robots, conforme solicitado. A origem pode limitar ou recusar requisições. Sem contornar login ou CAPTCHA. Domínio .org indisponível no ambiente de inspeção."
+  },
+  {
+    "id": "plugins4free",
+    "name": "Plugins4Free",
+    "enabled": true,
+    "respect_robots": true,
+    "base_url": "https://plugins4free.com/",
+    "hosts": [
+      "plugins4free.com"
+    ],
+    "search_path": "/search",
+    "method": "GET",
+    "query_param": "term",
+    "params": {},
+    "max_query": 200,
+    "item_selector": "a.plugin-card",
+    "title_selector": ".plugin-name",
+    "link_selector": ":scope",
+    "description_selector": ".plugin-fx",
+    "next_selector": null,
+    "download_selector": "a.download-item[onclick]",
+    "download_adapter": "plugins4free",
+    "detail_selector": ".plugin-detail",
+    "published_selector": null,
+    "modified_selector": null,
+    "interval": 1.0,
+    "sections": [
+      {
+        "id": "recentes",
+        "name": "Recentes",
+        "path": "/newplugins"
+      },
+      {
+        "id": "hosts",
+        "name": "Hosts",
+        "path": "/hosts"
+      }
+    ],
+    "note": "Catálogo gratuito público com busca HTML e resolução dos links de arquivo por JSON, verificados somente por cabeçalhos. Robots aplicado. Sem IA, login ou CAPTCHA. Nenhum binário é baixado pelo servidor."
+  },
+  {
+    "id": "musicmakers",
+    "name": "Musicmakers (experimental)",
+    "enabled": false,
+    "respect_robots": true,
+    "base_url": "https://musicmakers.ru/",
+    "hosts": [
+      "musicmakers.ru"
+    ],
+    "search_path": "/",
+    "method": "POST",
+    "query_param": "story",
+    "params": {
+      "do": "search",
+      "subaction": "search"
+    },
+    "max_query": 200,
+    "item_selector": "article.shortstory",
+    "title_selector": "h2.title a[href]",
+    "link_selector": null,
+    "description_selector": ".text",
+    "next_selector": null,
+    "download_selector": ".attachment a.dow[href]",
+    "detail_selector": "article.fullstory",
+    "published_selector": "time.date[datetime]",
+    "modified_selector": null,
+    "interval": 1.0,
+    "sections": [
+      {
+        "id": "vsti",
+        "name": "VSTi",
+        "path": "/vsti/"
+      }
+    ],
+    "note": "Experimental e desativada. Downloads restritos por robots e não validados. Detalhes públicos inspecionados; busca POST identificada, mas política da origem requer revisão. Paginação de pesquisa não confirmada."
+  }
+]

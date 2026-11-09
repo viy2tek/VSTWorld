@@ -90,6 +90,16 @@ class SearchFormTests(unittest.IsolatedAsyncioTestCase):
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):
+    async def test_disabled_included_source_is_not_queried_automatically(self):
+        calls = []
+        def handler(request):
+            calls.append(request)
+            raise AssertionError('Fonte restrita não deve ser consultada automaticamente')
+        result = await detect_source('https://musicmakers.ru/', [], httpx.MockTransport(handler))
+        self.assertFalse(result['source']['enabled'])
+        self.assertTrue(result['source']['respect_robots'])
+        self.assertEqual(calls, [])
+        self.assertNotIn('verified', [check['status'] for check in result['checks']])
     def transport(self, *, home=FORM + ITEMS, detail=DETAIL, robots='', search=None):
         self.calls = []
         def handler(req):

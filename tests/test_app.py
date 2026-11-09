@@ -12,6 +12,17 @@ from test_catalog import PAGE, source
 
 
 class AppTests(unittest.TestCase):
+    def test_included_sources_and_optional_ai_rejections(self):
+        presets = self.client.get('/api/source-presets').json()
+        self.assertEqual(presets[0]['id'], 'vsthouse')
+        self.assertTrue(any(s['id'] == 'plugins4free' and s['download_adapter'] == 'plugins4free' for s in presets))
+        self.assertTrue(any(s['id'] == 'musicmakers' and not s['enabled'] for s in presets))
+        for body in [{'url':'https://127.0.0.1/'}, {'url':'https://new.example.org/', 'model':'test:cloud'}]:
+            response = self.client.post('/api/source-detect-ai', json=body)
+            self.assertEqual(response.status_code, 200)
+            self.assertIsNone(response.json()['source'])
+        self.assertEqual(self.client.post('/api/source-detect-ai', json={'url':'https://example.org/'},
+            headers={'origin':'https://evil.example'}).status_code, 403)
     def setUp(self):
         self.directory = tempfile.TemporaryDirectory()
         self.addCleanup(self.directory.cleanup)

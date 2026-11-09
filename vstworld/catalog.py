@@ -22,6 +22,10 @@ class SourceError(Exception):
     pass
 
 
+def select_node(node, selector):
+    return node if selector == ':scope' else node.select_one(selector)
+
+
 def normalized_path(value):
     # RFC 9309: decodificar apenas octetos ASCII não reservados.
     value = quote(value, safe="/%?&=;:+,$@!*'()-._~")
@@ -133,7 +137,7 @@ class Catalog:
         return saved[1].delay
 
     async def fetch(self, source, url, *, method='GET', data=None, robots=True, headers_only=False,
-                    content_types=('text/', 'xml', 'json'), max_bytes=MAX_BYTES):
+                    content_types=('text/', 'xml', 'json'), max_bytes=MAX_BYTES, json_body=None, request_headers=None):
         for _ in range(6):
             url = self.url(source, url)
             delay = await self.policy(source, url) if robots else 0
@@ -141,7 +145,7 @@ class Catalog:
                 wait = self.last_request.get(source.id, 0) + max(source.interval, delay) - time.monotonic()
                 if wait > 0:
                     await asyncio.sleep(wait)
-                async with self.client.stream(method, url, data=data) as response:
+                async with self.client.stream(method, url, data=data, json=json_body, headers=request_headers) as response:
                     self.last_request[source.id] = time.monotonic()
                     if response.is_redirect:
                         location = response.headers.get('location')
@@ -150,6 +154,7 @@ class Catalog:
                         url = self.url(source, location, url)
                         if response.status_code == 303 or (method == 'POST' and response.status_code in (301, 302)):
                             method, data = 'GET', None
+                            json_body, request_headers = None, None
                         continue
                     if headers_only:
                         return response, b''
@@ -196,8 +201,8 @@ class Catalog:
                 soup = BeautifulSoup(body, 'html.parser')
                 items = []
                 for node in soup.select(source.item_selector)[:100]:
-                    title = node.select_one(source.title_selector)
-                    link = node.select_one(source.link_selector) if source.link_selector else title
+                    title = select_node(node, source.title_selector)
+                    link = select_node(node, source.link_selector) if source.link_selector else title
                     if not title or not link or not link.get('href'):
                         continue
                     try:
@@ -243,6 +248,10 @@ class Catalog:
                 response.raise_for_status()
                 soup = BeautifulSoup(body, 'html.parser')
                 candidates = soup.select(source.download_selector)
+                if source.download_adapter == 'plugins4free':
+                    from .plugins4free import download_links
+                    candidates, adapter_notices = await download_links(self, source, candidates, body)
+                    notices.extend(adapter_notices)
                 seen = set()
                 for node in candidates[:10]:
                     raw = node.get('href', '')

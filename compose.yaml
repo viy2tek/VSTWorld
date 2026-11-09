@@ -13,5 +13,16 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
+  ollama:
+    image: ollama/ollama:latest
+    profiles: [ai]
+    network_mode: service:vstworld
+    environment:
+      OLLAMA_HOST: "127.0.0.1:11434"
+      OLLAMA_NO_CLOUD: "1"
+    volumes:
+      - model-data:/root/.ollama
+    restart: unless-stopped
 volumes:
   source-data:
+  model-data:

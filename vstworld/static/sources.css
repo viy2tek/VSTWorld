@@ -10,6 +10,8 @@
 #source-list button {text-align: left; overflow-wrap: anywhere; font-size: 13px; background: white; border-color: transparent;}
 #source-list button[aria-current=true] {background: #eaf0f4; border-color: #c8d5df; color: #315e75;}
 #source-list small {display: block; font-size: 11px; color: #697782; font-weight: normal;}
+#source-presets {display:grid; gap:8px;}
+#source-presets button {font-size:12px; text-align:left;}
 #editor h2 {font-size: 18px; margin: 0 0 20px;}
 #source-form {margin: 0;}
 #editor fieldset {border: 0; border-top: 1px solid var(--line); margin: 0 0 25px; padding: 15px 0 0; min-width: 0;}

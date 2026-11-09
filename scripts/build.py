@@ -29,5 +29,6 @@ subprocess.run([
     '--collect-submodules', 'uvicorn',
     '--add-data', f'{root / "vstworld/static"}:vstworld/static',
     '--add-data', f'{root / "sources.json"}:.', str(root / 'run.py'),
+    '--add-data', f'{root / "vstworld/presets.json"}:vstworld',
     '--add-data', f'{notices_path}:.',
 ], cwd=root, check=True)

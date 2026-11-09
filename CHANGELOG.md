@@ -2,6 +2,10 @@
 
 ## 0.2.0-dev — experimental, não publicada
 
+- IA local opcional acionada por botão, instruções de Ollama e perfil Docker opt-in; sem dependência de modelo para buscas normais.
+- Plugins4Free: busca, seções, detalhes e adaptador de download JSON/CSRF com validação de cabeçalhos.
+- Fontes prontas no editor; Musicmakers disponível apenas como candidata desativada com limitações explícitas.
+- Dados do executável experimental em pasta separada, copiando a configuração estável apenas na primeira execução.
 - Identificação de campos por tipo, rótulos e contexto, sem depender apenas de uma lista de nomes.
 - Captura de filtros selecionados, opções marcadas, controles associados e botão de envio.
 - Avisos de formulários ambíguos ou ainda não representáveis; nomes repetidos não são descartados silenciosamente.

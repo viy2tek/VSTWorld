@@ -1,18 +1,20 @@
 # Depois da primeira beta
 
-Esta lista registra candidatos e melhorias. Não confirma suporte e não adiciona fontes à configuração da versão 0.1.0-beta.1.
+Esta lista registra candidatos e melhorias. A versão 0.1.0-beta.1 publicada continua somente com VSTHouse. O desenvolvimento 0.2.0-dev já inclui Plugins4Free e uma candidata Musicmakers desativada; as demais não são anunciadas como suportadas.
 
 ## Fontes experimentais
 
-Inspeção preliminar em 2026-11-08:
+Inspeção atualizada em 2026-11-09:
 
 | Fonte | Evidência observada | Próxima verificação |
 |---|---|---|
-| [Musicmakers](https://musicmakers.ru/) | A página inicial apresenta busca, categorias de plugins/samples e links de itens. | Método e parâmetros do formulário, paginação, detalhes, política de acesso e destinos de downloads. Nenhum adaptador validado. |
-| [4download](https://4download.net/) | O acesso pelo navegador de pesquisa falhou. | Verificar disponibilidade e estrutura real; não presumir parâmetros ou domínio alternativo. |
-| [VSTWarehouse](https://vstwarehouse.com/) | Candidato indicado pelo Similarweb; fonte ainda não inspecionada. | Busca e links oficiais, licença e atribuição. |
-| [Plugins4Free](https://plugins4free.com/) | Candidato indicado pelo Similarweb; fonte ainda não inspecionada. | Busca, paginação, ficha técnica e destinos de download. |
+| [Musicmakers](https://musicmakers.ru/) | Formulário POST identificado, detalhes públicos inspecionados; configuração experimental desativada. | Restrições de robots em pesquisa/download/redirecionamento; não promover a fonte completa. [Inspeção](MUSICMAKERS_INSPECTION.md). |
+| [4download](https://4download.net/) | Busca POST, segunda página por formulário GET e detalhes inspecionados via HTTP normal. | Downloads usam página intermediária com fragmentos/JS e espelhos externos; sem arquivo direto confirmado. [Inspeção](MUSICMAKERS_INSPECTION.md). |
+| [VSTWarehouse](https://vstwarehouse.com/) | Busca, paginação e ficha públicas funcionaram. | Botão de download depende de modal/EDD; nenhum arquivo direto validado. [Inspeção](FREE_SOURCES_INSPECTION.md). |
+| [Plugins4Free](https://plugins4free.com/) | Integrada: busca HTML, seções, detalhes e três arquivos resolvidos por JSON + HEAD, sem baixar corpos. | Monitorar mudanças no fluxo CSRF e no layout. [Inspeção](FREE_SOURCES_INSPECTION.md). |
 | [KVR Audio](https://www.kvraudio.com/) | Candidato indicado pelo Similarweb; fonte ainda não inspecionada. | Verificar acesso permitido e se serve como catálogo de metadados/links oficiais. |
+| VSTon / vstion.site | Redirecionamento e detalhe público inspecionados; robots restringe busca/downloads. | Acesso permitido e política da origem antes de qualquer integração. |
+| PositiveRecords | Falha de validação TLS nos domínios consultados. | Aguardar certificado/cadeia verificável; não desativar validação TLS. |
 
 O [Similarweb consultado](https://www.similarweb.com/website/vsthouse.ru/competitors/) mostrava estimativas referentes a setembro de 2026. Também listava vston.ru, vst-store.com, positiverecords.ru, plugincrack.com, guitarist1.ru, splice.com e audioz.download. Similaridade de audiência não comprova compatibilidade, autorização ou qualidade; esses nomes são apenas pistas de pesquisa, sem adaptadores implementados.
 

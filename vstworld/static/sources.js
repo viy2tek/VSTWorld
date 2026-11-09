@@ -1,11 +1,11 @@
 'use strict';
 const $ = (selector) => document.querySelector(selector);
 const form = $('#source-form');
-const state = {sources: [], revision: '', selected: null, dirty: false, rawDirty: false, urlChanged: false, ready: false, busy: false, version: 0};
+const state = {sources: [], presets: [], revision: '', selected: null, dirty: false, rawDirty: false, urlChanged: false, ready: false, busy: false, version: 0};
 const blank = () => ({id: '', name: '', enabled: true, respect_robots: true, base_url: '', hosts: [],
   search_path: '', method: 'GET', query_param: 'q', params: {}, max_query: 200,
   item_selector: '', title_selector: '', link_selector: null, description_selector: null,
-  next_selector: null, download_selector: '', detail_selector: null, published_selector: null,
+  next_selector: null, download_selector: '', download_adapter:'html', detail_selector: null, published_selector: null,
   modified_selector: null, interval: 1, sections: [], note: ''});
 function element(tag, text) {
   const value = document.createElement(tag);
@@ -81,6 +81,18 @@ function renderList() {
     $('#source-list').append(button);
   });
   $('#delete-source').disabled = state.selected === null || state.busy;
+  $('#source-presets').replaceChildren();
+  state.presets.forEach((preset) => {
+    const exists = state.sources.some((source) => source.id === preset.id || source.hosts.some((host) => preset.hosts.includes(host)));
+    const button = element('button', `${preset.name}${exists ? ' · cadastrada' : !preset.enabled ? ' · experimental, desativada' : ' · adicionar'}`);
+    button.dataset.registered = String(exists);
+    button.type = 'button'; button.disabled = exists || state.busy;
+    button.addEventListener('click', () => ifClean(() => {
+      select(null); fillForm(preset); state.ready = true; markDirty();
+      message(preset.enabled ? 'Fonte pronta para revisar e salvar.' : 'Fonte parcial e desativada. Leia as limitações antes de salvar ou habilitar.');
+    }));
+    $('#source-presets').append(button);
+  });
 }
 function select(index) {
   state.selected = index;
@@ -111,8 +123,9 @@ function setBusy(busy) {
   state.busy = busy;
   $('#raw-source').disabled = busy;
   for (const field of form.elements) field.disabled = busy;
-  for (const selector of ['#new-source', '#reload-sources', '#apply-json', '#refresh-json', '#test-source', '#detect-source', '#site-url']) $(selector).disabled = busy;
+  for (const selector of ['#new-source', '#reload-sources', '#apply-json', '#refresh-json', '#test-source', '#detect-source', '#detect-ai', '#ai-model', '#site-url']) $(selector).disabled = busy;
   for (const button of $('#source-list').querySelectorAll('button')) button.disabled = busy;
+  for (const button of $('#source-presets').querySelectorAll('button')) button.disabled = busy || button.dataset.registered === 'true';
   $('#delete-source').disabled = busy || state.selected === null;
   $('#save-source').disabled = busy || !state.ready;
 }
@@ -159,8 +172,9 @@ $('#delete-source').addEventListener('click', () => {
 async function load() {
   setBusy(true);
   try {
-    const result = await request('/api/source-config');
+    const [result, presets] = await Promise.all([request('/api/source-config'), request('/api/source-presets')]);
     state.sources = result.sources;
+    state.presets = Array.isArray(presets) ? presets : [];
     state.revision = result.revision;
     select(state.sources.length ? 0 : null);
     message('Configuração carregada. Escolha uma fonte ou adicione um site.');
@@ -187,17 +201,18 @@ $('#apply-json').addEventListener('click', () => {
     message('JSON aplicado ao formulário. Revise e clique em Salvar fonte para persistir.');
   } catch (error) { message(`Não foi possível aplicar o JSON: ${error.message}`, true); }
 });
-$('#detect-source').addEventListener('click', async () => {
+async function identify(withAI = false) {
   if (state.busy) return;
   let url = $('#site-url').value.trim();
   if (!url) { message('Cole o link do site que deseja adicionar.', true); $('#site-url').focus(); return; }
   if (!url.includes('://')) url = 'https://' + url;
   if (url.startsWith('http://')) url = 'https://' + url.slice(7);
   setBusy(true);
-  message('Inspecionando o site e conferindo sua busca…');
+  message(withAI ? 'Consultando a IA local e verificando a proposta no site… Pode levar alguns minutos.' : 'Inspecionando o site e conferindo sua busca…');
   $('#detection-checks').replaceChildren();
   try {
-    const result = await request('/api/source-detect', {url});
+    const result = await request(withAI ? '/api/source-detect-ai' : '/api/source-detect',
+      withAI ? {url, model:$('#ai-model').value.trim()} : {url});
     if (result.source) {
       const index = state.sources.findIndex((source) => source.id === result.source.id);
       state.selected = index >= 0 ? index : null;
@@ -207,12 +222,12 @@ $('#detect-source').addEventListener('click', async () => {
       renderList();
     }
     const names = {homepage:'Página do site', form:'Busca', results:'Resultados', search:'Teste da busca',
-      pagination:'Próxima página', detail:'Página do item', download:'Links de download', robots:'Política da fonte', access:'Acesso', url:'Endereço'};
+      pagination:'Próxima página', detail:'Página do item', download:'Links de download', robots:'Política da fonte', access:'Acesso', url:'Endereço', ai:'IA local'};
     const verified = {homepage:'Acessível.', form:'Campo de pesquisa identificado.', results:'Títulos identificados.',
       search:'O teste encontrou resultados.', pagination:'Link encontrado; a página seguinte ainda não foi testada.',
       detail:'Página consultada.', download:'Link encontrado; o arquivo não foi baixado nem validado.', robots:'Regras da fonte verificadas.'};
     result.checks.forEach((check) => {
-      const text = check.name === 'form' && check.status !== 'verified' ? check.message :
+      const text = ['ai','preset'].includes(check.name) || (check.name === 'form' && check.status !== 'verified') ? check.message :
         check.status === 'verified' ? (verified[check.name] || 'Verificado.') :
         check.status === 'blocked' ? 'Não foi possível consultar esta parte do site. Veja o relatório avançado para o motivo.' :
         check.name === 'robots' ? 'Segue a política de acesso já definida para esta fonte.' : 'Ainda não confirmado nesta amostra.';
@@ -221,11 +236,13 @@ $('#detect-source').addEventListener('click', async () => {
       $('#detection-checks').append(item);
     });
     $('#detection-report').textContent = result.checks.map((check) => `${check.name}: ${check.message}`).join('\n');
-    message(result.source ? 'Fonte preparada. Confira o que foi identificado e clique em Salvar fonte.' :
-      'Não conseguimos identificar este site automaticamente. Veja as verificações; a configuração manual fica em Avançadas.', !result.source);
+    message(result.message || (result.source ? 'Fonte preparada. Confira as verificações antes de salvar.' :
+      'Não conseguimos identificar este site automaticamente. A configuração manual fica em Avançadas.'), !result.source);
   } catch (error) { message(error.message, true); }
   finally { setBusy(false); }
-});
+}
+$('#detect-source').addEventListener('click', () => identify());
+$('#detect-ai').addEventListener('click', () => identify(true));
 $('#test-source').addEventListener('click', async () => {
   if (!form.reportValidity() || state.busy) return;
   if (state.rawDirty) { message('Aplique o JSON ao formulário antes de testar.', true); return; }

@@ -8,6 +8,21 @@ PAGE = 'https://vsthouse.ru/load/item/38-1-0-41735'
 
 
 class DetailsTests(unittest.TestCase):
+    def test_dle_installation_and_gallery_are_not_lost(self):
+        result = extract_details(Path('tests/fixtures/musicmakers.html').read_bytes(), 'https://musicmakers.ru/item', 'article.fullstory')
+        self.assertTrue(result['installation'])
+        self.assertEqual(len(result['images']), 1)
+        self.assertEqual(len(result['metadata']), 5)
+        self.assertIn('do=go', result['images'][0]['url'])
+
+    def test_plugins4free_structured_facts_and_main_screenshot(self):
+        result = extract_details(Path('tests/fixtures/plugins4free.html').read_bytes(), 'https://plugins4free.com/plugin/970', '.plugin-detail')
+        facts = {field['label']:field['value'] for field in result['metadata']}
+        self.assertEqual(facts['Operating system'], 'Win64')
+        self.assertEqual(facts['Format'], 'VST')
+        self.assertEqual(len(result['images']), 1)
+        self.assertFalse(result['images'][0]['original_available'])
+
     def extract(self, html, selector=None):
         return extract_details(html.encode('utf-8'), PAGE, selector)
 

@@ -38,6 +38,7 @@ class Source(BaseModel):
     description_selector: str | None = None
     next_selector: str | None = None
     download_selector: str = Field(min_length=1, max_length=2000)
+    download_adapter: Literal['html', 'plugins4free'] = 'html'
     detail_selector: str | None = None
     published_selector: str | None = None
     modified_selector: str | None = None
@@ -48,6 +49,8 @@ class Source(BaseModel):
     @model_validator(mode='after')
     def validate_source(self):
         base = public_url(self.base_url)
+        if self.download_adapter == 'plugins4free' and (base.host != 'plugins4free.com' or self.hosts != ['plugins4free.com']):
+            raise ValueError('O adaptador Plugins4Free só aceita seu domínio oficial')
         if base.host not in self.hosts:
             raise ValueError('O domínio base precisa constar em hosts')
         for host in self.hosts:

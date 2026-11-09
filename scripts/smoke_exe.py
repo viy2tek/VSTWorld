@@ -42,9 +42,16 @@ with tempfile.TemporaryDirectory(prefix='vstworld-smoke-') as folder:
                 for route in ('/', '/sources', '/static/app.js', '/static/item.js'):
                     with urllib.request.urlopen(base + route, timeout=3) as response:
                         assert response.status == 200
+                with urllib.request.urlopen(base + '/api/source-presets', timeout=3) as response:
+                    assert any(source['id'] == 'plugins4free' for source in json.load(response))
+                request = urllib.request.Request(base + '/api/source-detect-ai', method='POST',
+                    data=b'{"url":"https://127.0.0.1/"}', headers={'Content-Type':'application/json'})
+                with urllib.request.urlopen(request, timeout=3) as response:
+                    assert json.load(response)['source'] is None
                 with urllib.request.urlopen(base + '/api/source-config', timeout=3) as response:
                     config = json.load(response)
-                assert len(config['sources']) == 1 and config['sources'][0]['id'] == 'vsthouse'
+                assert config['sources'][0]['id'] == 'vsthouse'
+                assert any(source['id'] == 'plugins4free' and source['enabled'] for source in config['sources'])
                 if attempt == 0:
                     config['sources'][0]['name'] = 'Persistence smoke test'
                     request = urllib.request.Request(base + '/api/source-config',
@@ -54,7 +61,8 @@ with tempfile.TemporaryDirectory(prefix='vstworld-smoke-') as folder:
                         assert response.status == 200
                 else:
                     assert config['sources'][0]['name'] == 'Persistence smoke test'
-                assert (Path(folder) / 'VSTWorld/sources.json').exists()
+                directory = 'VSTWorld Experimental' if '-dev' in health['version'] else 'VSTWorld'
+                assert (Path(folder) / directory / 'sources.json').exists()
                 print(f'PASS .exe: inicialização {attempt + 1}, interface e configuração')
             finally:
                 subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],

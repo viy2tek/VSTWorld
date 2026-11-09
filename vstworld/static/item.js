@@ -7,7 +7,7 @@ const labels = {'дата выпуска':'Data de lançamento', 'год вып�
   'таблетка':'Ativação informada pela fonte', 'системные требования':'Requisitos do sistema', 'размер':'Tamanho',
   'язык интерфейса':'Idioma', 'операционная система':'Sistema operacional', 'платформа':'Plataforma',
   'version':'Versão', 'developer':'Desenvolvedora', 'publisher':'Distribuidora', 'size':'Tamanho',
-  'release date':'Data de lançamento', 'system requirements':'Requisitos do sistema', 'format':'Formato'};
+  'release date':'Data de lançamento', 'system requirements':'Requisitos do sistema', 'format':'Formato', 'operating system':'Sistema operacional'};
 function node(tag, text, className) {
   const result = document.createElement(tag);
   if (text !== undefined) result.textContent = text;

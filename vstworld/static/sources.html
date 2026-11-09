@@ -24,6 +24,7 @@
         <button id="new-source" type="button" class="primary">Adicionar fonte</button>
         <div id="source-list"></div>
         <button id="reload-sources" type="button">Atualizar lista</button>
+        <details class="raw-editor"><summary>Fontes incluídas</summary><p class="hint">Adicione uma fonte pronta sem alterar as já cadastradas.</p><div id="source-presets"></div></details>
         <p class="hint">O salvamento vale imediatamente. As outras abas do catálogo precisam ser recarregadas.</p>
       </aside>
       <section id="editor" aria-labelledby="editor-title">
@@ -36,6 +37,13 @@
           <div class="editor-actions"><button type="submit" form="source-form" id="save-source" class="primary">Salvar fonte</button><button type="button" id="delete-source">Remover fonte</button><span id="dirty-label"></span></div>
         </section>
         <div id="decision" hidden class="editor-decision"><p id="decision-text"></p><button id="decision-confirm" type="button">Confirmar</button> <button id="decision-cancel" type="button">Cancelar</button></div>
+        <details class="raw-editor" id="local-ai"><summary>IA local opcional</summary>
+          <p class="hint">Não é necessária para pesquisar nem para usar fontes prontas. Ajuda a propor configurações de sites desconhecidos; o app verifica o resultado antes de preparar a fonte.</p>
+          <ol class="hint"><li>Instale o <a href="https://ollama.com/download/windows" target="_blank" rel="noopener noreferrer">Ollama</a>.</li><li>Ative o modo local com <code>OLLAMA_NO_CLOUD=1</code> e reinicie o Ollama.</li><li>Baixe um modelo: <code>ollama pull qwen3.5:4b</code>.</li><li>Com o Ollama aberto, cole o site acima e clique no botão abaixo.</li></ol>
+          <label for="ai-model">Modelo instalado<input id="ai-model" value="qwen3.5:4b" maxlength="120" autocomplete="off"></label>
+          <button id="detect-ai" type="button">Identificar com IA local</button>
+          <p class="hint">Conecta somente a 127.0.0.1:11434. O modelo é um download separado e pode consumir vários GB. Nada é instalado automaticamente. O HTML público é enviado ao modelo local apenas ao clicar neste botão. Para Docker, veja as instruções de IA local no README.</p>
+        </details>
         <details id="advanced-settings" class="advanced-settings"><summary>Configurações avançadas</summary>
         <details class="raw-editor"><summary>Relatório técnico da identificação</summary><pre id="detection-report" class="code"></pre></details>
         <form id="source-form">
@@ -64,6 +72,7 @@
             <label>Seletor da descrição <small>(opcional)</small><input name="description_selector" placeholder=".eMessage"></label>
             <label>Link da próxima página <small>(opcional)</small><input name="next_selector" placeholder="a.swchItem-next"><small>Precisa ter href; a próxima página é consultada por GET.</small></label>
             <label>Links de download no detalhe<input name="download_selector" required placeholder="a.sprite[href]"><small>Arquivos, rotas intermediárias ou magnets.</small></label>
+            <label>Integração de download<select name="download_adapter"><option value="html">Links HTML</option><option value="plugins4free">Plugins4Free (integração verificada)</option></select></label>
             <label>Conteúdo do detalhe (opcional)<input name="detail_selector" placeholder=".eText"></label>
             <label>Data de publicação na listagem (opcional)<input name="published_selector" placeholder="time[datetime]"></label>
             <label>Data de atualização na listagem (opcional)<input name="modified_selector" placeholder="time.updated"></label>

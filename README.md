@@ -4,7 +4,7 @@
 
 Catálogo self-hosted em Python, com interface local e fontes HTML configuráveis. Sem anúncios incorporados, SaaS, banco de dados ou build de frontend. Usa a mesma base técnica do EveryTune: FastAPI, HTTPX, BeautifulSoup e interface servida no navegador.
 
-Projeto independente, sem afiliação à VSTHouse ou aos fabricantes. Esta versão inclui somente a fonte VSTHouse; outras fontes e melhorias propostas estão no [roadmap](docs/ROADMAP.md). Nenhum instalador, plugin ou torrent é incluído no executável ou no repositório.
+Projeto independente, sem afiliação à VSTHouse ou aos fabricantes. O release `0.1.0-beta.1` inclui somente VSTHouse. A versão experimental `0.2.0-dev` inclui também Plugins4Free e uma configuração candidata Musicmakers desativada. Consulte o [roadmap](docs/ROADMAP.md). Nenhum instalador, plugin ou torrent é incluído no executável ou no repositório.
 
 **Estado da fonte principal:** a busca pública do VSTHouse usa HTTP/HTML, com redirecionamento e cookies de sessão. A pedido do usuário, essa fonte está configurada com `respect_robots: false`: o app não aplica o bloqueio local baseado em robots. Isso não altera a resposta do servidor nem garante disponibilidade. Novas fontes respeitam robots por padrão. [Inspeção, evidências e limitações](docs/INSPECAO.md).
 
@@ -29,9 +29,17 @@ O build também inclui os avisos de licença das dependências em `THIRD_PARTY_N
 
 ### Experimento de identificação de formulários
 
-A branch `codex/form-discovery` contém a versão `0.2.0-dev`, sem novo release. Para gerar um binário separado: `.\.venv\Scripts\python scripts/build.py --experimental`. A saída é `dist/experimental/VSTWorld.exe`; feche a outra instância antes de usar, pois ambas usam a mesma pasta de fontes. O comando `.\.venv\Scripts\python scripts/smoke_exe.py dist/experimental/VSTWorld.exe` verifica esse arquivo com dados temporários.
+A branch `codex/form-discovery` contém a versão `0.2.0-dev`, sem novo release. Para gerar um binário separado: `.\.venv\Scripts\python scripts/build.py --experimental`. A saída é `dist/experimental/VSTWorld.exe`, com dados em `%LOCALAPPDATA%\VSTWorld Experimental`; na primeira execução copia a configuração estável, se existir, sem alterá-la. O comando `.\.venv\Scripts\python scripts/smoke_exe.py dist/experimental/VSTWorld.exe` verifica esse arquivo com dados temporários.
 
 O experimento amplia a identificação de campos de busca e parâmetros de formulários HTML. Não é um navegador com JavaScript, não habilita automaticamente novos sites e não confirma downloads apenas porque reconheceu o formulário. [Cobertura, exemplo Musicmakers e limitações](docs/DISCOVERY.md).
+
+### IA opcional e fontes incluídas
+
+A busca normal e as fontes prontas funcionam sem IA. **Fontes → Fontes incluídas** permite preparar e salvar Plugins4Free em uma instalação antiga sem substituir suas configurações. Musicmakers é candidata parcial e permanece desativada; seus downloads não foram confirmados e existem restrições da origem. VSTHouse permanece em primeiro lugar.
+
+Plugins4Free foi testado com busca HTML por `piano`, seções Recentes/Hosts e três downloads gerados pela API pública do próprio site, confirmados por HEAD sem ler os arquivos. O adaptador não executa JavaScript: extrai argumentos literais e token temporário observados, pede o endereço por JSON na mesma sessão e valida o domínio e os cabeçalhos. [Inspeção](docs/FREE_SOURCES_INSPECTION.md).
+
+Para ajuda em sites desconhecidos, expanda **Fontes → IA local opcional**. Instale Ollama e baixe um modelo separadamente apenas se desejar usar esse botão. O app não instala nem consulta IA automaticamente; modelos remotos são recusados e propostas de seletores precisam passar pela inspeção real antes de preparar a fonte. [Passo a passo Windows e Docker](docs/LOCAL_AI.md). Os testes de IA usam respostas simuladas; ainda não medimos a qualidade do modelo real.
 
 ## Executar pelo código no Windows
 

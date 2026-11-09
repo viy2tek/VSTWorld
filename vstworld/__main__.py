@@ -11,15 +11,19 @@ import webbrowser
 import uvicorn
 
 from .app import create_app
+from . import __version__
 
 
-def desktop_sources():
-    directory = Path(os.getenv('LOCALAPPDATA', Path.home() / 'AppData/Local')) / 'VSTWorld'
+def desktop_sources(experimental=False):
+    directory = Path(os.getenv('LOCALAPPDATA', Path.home() / 'AppData/Local')) / ('VSTWorld Experimental' if experimental else 'VSTWorld')
     return directory / 'sources.json'
 
 
 def migrate_sources(target):
     legacy = target.parent.parent / 'VSTHouse Brasil' / 'sources.json'
+    stable = target.parent.parent / 'VSTWorld' / 'sources.json'
+    if target.parent.name == 'VSTWorld Experimental' and stable.exists():
+        legacy = stable
     if target.exists() or not legacy.exists():
         return
     from .config import load_sources
@@ -77,7 +81,7 @@ def main():
     if not os.getenv('VSTWORLD_SOURCES') and os.getenv('VSTHOUSE_SOURCES'):
         os.environ['VSTWORLD_SOURCES'] = os.environ['VSTHOUSE_SOURCES']
     if desktop and not args.sources and not os.getenv('VSTWORLD_SOURCES'):
-        target = desktop_sources()
+        target = desktop_sources(experimental='-dev' in __version__)
         migrate_sources(target)
         os.environ['VSTWORLD_SOURCES'] = str(target)
     app = create_app(args.sources)

@@ -54,6 +54,10 @@ class DetectSource(BaseModel):
     url: str = Field(min_length=1, max_length=2000)
 
 
+class AIDetectSource(DetectSource):
+    model: str = Field(default='qwen3.5:4b', min_length=1, max_length=120)
+
+
 def create_app(config_path=None, transport=None):
     configured_path = os.getenv('VSTWORLD_SOURCES') or os.getenv('VSTHOUSE_SOURCES')
     path = Path(config_path or configured_path or ROOT / 'sources.json').resolve()
@@ -113,6 +117,10 @@ def create_app(config_path=None, transport=None):
                  'note': s.note, 'sections': [section.model_dump(exclude={'path'}) for section in s.sections]}
                 for s in app.state.catalog.sources.values()]
 
+    @app.get('/api/source-presets')
+    async def source_presets():
+        return [source.model_dump() for source in load_sources(Path(__file__).with_name('presets.json'))]
+
     @app.get('/api/source-config')
     async def get_source_config():
         try:
@@ -156,6 +164,11 @@ def create_app(config_path=None, transport=None):
     async def detect_source_config(body: DetectSource):
         from .discovery import detect_source
         return await detect_source(body.url, list(app.state.catalog.sources.values()), transport=transport)
+
+    @app.post('/api/source-detect-ai')
+    async def detect_source_ai(body: AIDetectSource):
+        from .local_ai import detect_with_ai
+        return await detect_with_ai(body.url, list(app.state.catalog.sources.values()), body.model, transport=transport)
 
     @app.post('/api/search')
     async def search(body: Search, request: Request):

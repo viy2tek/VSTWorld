@@ -10,6 +10,18 @@ from vstworld.__main__ import desktop_sources, migrate_sources, open_when_ready,
 
 
 class LauncherTests(unittest.TestCase):
+    def test_experimental_clones_stable_without_changing_it(self):
+        with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {'LOCALAPPDATA':folder}):
+            stable = desktop_sources()
+            stable.parent.mkdir()
+            stable.write_text('[]', encoding='utf-8')
+            target = desktop_sources(experimental=True)
+            self.assertNotEqual(stable, target)
+            migrate_sources(target)
+            self.assertEqual(target.read_text(), '[]')
+            target.write_text('[1]', encoding='utf-8')
+            self.assertEqual(stable.read_text(), '[]')
+
     def test_rename_copies_legacy_sources_without_overwriting(self):
         with tempfile.TemporaryDirectory() as folder:
             old = Path(folder) / 'VSTHouse Brasil/sources.json'

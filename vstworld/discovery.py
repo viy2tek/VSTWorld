@@ -1,13 +1,14 @@
 """Inspeção limitada de formulários e HTML público; não salva configurações."""
 import asyncio
 import re
+from pathlib import Path
 from urllib.parse import parse_qsl, urlsplit
 
 import httpx
 from bs4 import BeautifulSoup
 
-from .catalog import Catalog, SourceError
-from .config import Source
+from .catalog import Catalog, SourceError, select_node
+from .config import Source, load_sources
 from .http import public_url
 
 
@@ -171,6 +172,14 @@ async def detect_source(url: str, existing_sources: list[Source], transport=None
         return report()
     origin = str(supplied.copy_with(path='/', query=None))
     existing = next((s for s in existing_sources if supplied.host in s.hosts), None)
+    if existing is None:
+        presets = load_sources(Path(__file__).with_name('presets.json'))
+        existing = next((s for s in presets if supplied.host in s.hosts), None)
+        if existing and any(s.id == existing.id for s in existing_sources):
+            existing = None
+        if existing and not existing.enabled:
+            return {'source':existing.model_dump(), 'checks':[{'name':'preset', 'status':'unverified', 'message':existing.note}],
+                    'message':'Configuração experimental desativada. Confira as limitações antes de habilitar; nenhuma consulta foi feita.'}
     source_id = re.sub('[^a-z0-9_-]', '-', supplied.host.lower())[:45].strip('-') or 'fonte'
     stem, suffix = source_id, 2
     while any(s.id == source_id for s in existing_sources):
@@ -201,15 +210,15 @@ async def detect_source(url: str, existing_sources: list[Source], transport=None
                   form_issues[-1] if form_issues else
                   'Não encontrei um campo de busca identificável no HTML. A busca pode depender de JavaScript ou de uma integração específica.')
             pattern = (source.item_selector, source.title_selector) if existing else result_pattern(home)
-            if not pattern or not any(n.select_one(pattern[1]) for n in home.select(pattern[0])):
+            if not pattern or not any(select_node(n, pattern[1]) for n in home.select(pattern[0])):
                 check('results', 'unverified', 'Não encontrei blocos de resultados e títulos compatíveis no HTML inicial.')
                 return report()
             item_selector, title_selector = pattern
             check('results', 'verified', f'Estrutura observada: {item_selector}; títulos: {title_selector}.')
             sample = None
             for node in home.select(item_selector):
-                title = node.select_one(title_selector)
-                link = node.select_one(source.link_selector) if existing and source.link_selector else title
+                title = select_node(node, title_selector)
+                link = select_node(node, source.link_selector) if existing and source.link_selector else title
                 if title and link and link.get('href') and title.get_text(' ', strip=True):
                     try:
                         sample = title.get_text(' ', strip=True), catalog.url(source, link['href'], home_url)
@@ -231,7 +240,7 @@ async def detect_source(url: str, existing_sources: list[Source], transport=None
                 search, search_url = await page(str(httpx.URL(search_url).copy_merge_params(params))
                     if settings['method'] == 'GET' else search_url,
                     method=settings['method'], data=params if settings['method'] == 'POST' else None)
-                titles = [n.select_one(title_selector) for n in search.select(item_selector)]
+                titles = [select_node(n, title_selector) for n in search.select(item_selector)]
                 matched = any(t and query.casefold() in t.get_text(' ', strip=True).casefold() for t in titles)
                 check('search', 'verified' if matched else 'unverified',
                       f'Pesquisa enviada com o título real “{query}”; ' + ('resultados compatíveis encontrados.' if matched else

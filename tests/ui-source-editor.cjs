@@ -2,12 +2,12 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 class Element {
-  constructor() { this.value = ''; this.children = []; this.listeners = {}; }
+  constructor() { this.value = ''; this.children = []; this.listeners = {}; this.dataset = {}; }
   append(...items) { this.children.push(...items); }
   replaceChildren(...items) { this.children = items; }
   setAttribute() {}
   addEventListener(name, handler) { this.listeners[name] = handler; }
-  querySelectorAll() { return []; }
+  querySelectorAll(selector) { return selector === 'button' ? this.children.filter(child => child.listeners?.click) : []; }
   focus() {}
 }
 const elements = new Map();
@@ -24,11 +24,18 @@ get('#editor-status').dataset = {};
 const context = vm.createContext({
   document: {querySelector: get, createElement: () => new Element()},
   window: {addEventListener() {}},
-  fetch: async () => ({ok: true, json: async () => ({revision: 'revision', sources: []})})
+  fetch: async (path) => ({ok: true, json: async () => path === '/api/source-presets' ?
+    [{id:'plugins4free',name:'Plugins4Free',hosts:['plugins4free.com'],base_url:'https://plugins4free.com/',enabled:true,download_adapter:'plugins4free'}] : {revision: 'revision', sources: []}})
 });
 vm.runInContext(fs.readFileSync('vstworld/static/sources.js', 'utf8'), context);
 (async () => {
   await new Promise(setImmediate);
+  const preset = get('#source-presets').children[0];
+  assert.ok(preset, 'fontes incluídas devem aparecer já no primeiro carregamento');
+  assert.equal(preset.disabled, false, 'fonte pronta pode ser selecionada após carregar');
+  preset.listeners.click();
+  assert.equal(context.readForm().download_adapter, 'plugins4free');
+  assert.equal(get('#save-source').disabled, false);
   context.select(null);
   get('#site-url').value = 'https://example.com/';
   get('#site-url').listeners.input();

@@ -152,6 +152,15 @@ def extract_details(body: bytes, page_url: str, selector: str | None = None) -> 
         return result
     for unwanted in content.select('.comments, .comment, .ads, .advertisement, [caramel-id], .uSpoilerButBl script'):
         unwanted.decompose()
+    for heading in list(content.select('.title_spoiler'))[:30]:
+        inner = heading.find_next_sibling()
+        if inner is not None and 'text_spoiler' in inner.get('class', []):
+            section, summary = soup.new_tag('details'), soup.new_tag('summary')
+            summary.string = heading.get_text(' ', strip=True)
+            heading.insert_before(section)
+            section.append(summary)
+            section.append(inner.extract())
+            heading.decompose()
     candidates = []
     for node in content.select('iframe[src], a[href], script')[:500]:
         if node.name == 'script':
@@ -196,7 +205,21 @@ def extract_details(body: bytes, page_url: str, selector: str | None = None) -> 
 
     for node in content.select('.uSpoilerClosed, .uSpoilerOpened, details, script, style, .gallery, .screenshots'):
         node.decompose()
-    seen_facts = set()
+    for image in content.select('img.plugin-main-img[src]')[:5]:
+        target = safe_url(image.get('src'), page_url)
+        if target and target not in seen_images:
+            seen_images.add(target)
+            result['images'].append({'thumbnail':target, 'url':target, 'original_available':False})
+    for group in content.select('.label-group')[:20]:
+        label = group.select_one('.label-prefix')
+        if label is None:
+            continue
+        key = clean(label.get_text(' ', strip=True)).rstrip(' :').casefold()
+        name = {'system':'Operating system', 'format':'Format'}.get(key)
+        value = clean(' '.join(child.get_text(' ', strip=True) for child in group.find_all(recursive=False) if child is not label))
+        if name and value:
+            result['metadata'].append({'label':name, 'value':value})
+    seen_facts = {(field['label'].casefold(), field['value']) for field in result['metadata']}
     for block in text_blocks(content, page_url):
         current = None
         for line in block.get('text', '').splitlines():

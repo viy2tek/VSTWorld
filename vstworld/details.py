@@ -149,6 +149,8 @@ def extract_details(body: bytes, page_url: str, selector: str | None = None) -> 
     content = soup.select_one(selector or '.eText, [itemprop="articleBody"], .entry-content, article')
     if content is None:
         result['notices'].append('Conteúdo do item não identificado; o layout da fonte pode ter mudado.')
+        from .filtering import extract_filters
+        result['filters'] = extract_filters(None, result['title'])
         return result
     for unwanted in content.select('.comments, .comment, .ads, .advertisement, [caramel-id], .uSpoilerButBl script'):
         unwanted.decompose()
@@ -241,4 +243,6 @@ def extract_details(body: bytes, page_url: str, selector: str | None = None) -> 
         result['notices'].append('Algumas imagens oferecem apenas miniatura ou página do hospedeiro; o original ainda não foi confirmado.')
     if not result['installation']:
         result['notices'].append('Nenhuma seção de instalação identificada nesta página.')
+    from .filtering import extract_filters
+    result['filters'] = extract_filters(content, result['title'], result['metadata'])
     return result

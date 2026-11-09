@@ -13,6 +13,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from .catalog import Catalog, SourceError
 from .config import Source, ConfigConflict, load_sources, source_snapshot, save_sources, validate_sources
 from . import __version__
+from .filtering import NativeFilters
 
 ROOT = Path(__file__).resolve().parent.parent
 STATIC = Path(__file__).resolve().parent / 'static'
@@ -24,6 +25,7 @@ class Search(BaseModel):
     query: str = Field(default='', max_length=500)
     cursor: str | None = Field(default=None, pattern=r'^[A-Za-z0-9_-]{32}$')
     section: str | None = Field(default=None, pattern=r'^[a-z0-9_-]{1,50}$')
+    filters: NativeFilters = Field(default_factory=NativeFilters)
 
 
 class Files(BaseModel):
@@ -174,7 +176,7 @@ def create_app(config_path=None, transport=None):
     async def search(body: Search, request: Request):
         async with use_catalog(request.app) as catalog:
             try:
-                return await catalog.search(body.source, body.query, body.cursor, body.section)
+                return await catalog.search(body.source, body.query, body.cursor, body.section, filters=body.filters.model_dump())
             except SourceError as exc:
                 source = catalog.sources.get(body.source)
                 return {'source': body.source, 'name': source.name if source else body.source,

@@ -41,6 +41,10 @@ Plugins4Free foi testado com busca HTML por `piano`, seções Recentes/Hosts e t
 
 Para ajuda em sites desconhecidos, expanda **Fontes → IA local opcional**. Instale Ollama e baixe um modelo separadamente apenas se desejar usar esse botão. O app não instala nem consulta IA automaticamente; modelos remotos são recusados e propostas de seletores precisam passar pela inspeção real antes de preparar a fonte. [Passo a passo Windows e Docker](docs/LOCAL_AI.md). Os testes de IA usam respostas simuladas; ainda não medimos a qualidade do modelo real.
 
+### Filtros na versão experimental
+
+O painel da busca inclui sistema, formato, arquitetura, tipo, desenvolvedora, versão e intervalo de publicação/atualização. Todos refinam os itens carregados; na busca de texto do Plugins4Free, sistema e grupos de formato também são enviados à origem. **Ler fichas dos itens carregados** preenche dados adicionais sem consultar downloads; permite interromper a fila. Dados ausentes são sinalizados, sem assumir compatibilidade ou datas. Os controles e as fontes selecionadas são preservados na URL ao abrir detalhes e voltar. [Alcance, parâmetros e exemplos testados](docs/FILTERS.md).
+
 ## Executar pelo código no Windows
 
 Requer Python **3.12 ou superior**. Ambiente testado: Python 3.14.6. Na pasta do projeto, PowerShell:

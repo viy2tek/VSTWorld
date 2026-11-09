@@ -76,3 +76,8 @@ class AppTests(unittest.TestCase):
         options = soup.select('#sort option')
         self.assertEqual([option.get('value') for option in options], ['source','published-new','published-old','modified'])
         self.assertIsNotNone(soup.select_one('#sort-published'))
+        for name in ('system','format','architecture','kind','developer','version','dateField','from','to'):
+            self.assertIsNotNone(soup.select_one('#search-form #f-' + name))
+        scripts = [script.get('src') for script in soup.select('script[src]')]
+        self.assertLess(scripts.index('/static/filters.js'), scripts.index('/static/app.js'))
+        self.assertEqual(self.client.post('/api/search', json={'source':'test','query':'A', 'filters':{'system':'invalid'}}).status_code, 422)

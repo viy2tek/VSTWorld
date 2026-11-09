@@ -2,6 +2,10 @@
 
 ## 0.2.0-dev — experimental, não publicada
 
+- Filtros de sistema, formato, arquitetura, tipo, desenvolvedora, versão e datas, com alcance explícito nos resultados carregados.
+- Sistema/formato do Plugins4Free enviados à busca nativa; paginação vinculada aos filtros.
+- Leitura opcional e interrompível de fichas para completar dados, mantendo títulos como única informação da listagem.
+- Filtros, seleção de fontes e ordenação preservados na URL ao navegar entre resultados e detalhes.
 - IA local opcional acionada por botão, instruções de Ollama e perfil Docker opt-in; sem dependência de modelo para buscas normais.
 - Plugins4Free: busca, seções, detalhes e adaptador de download JSON/CSRF com validação de cabeçalhos.
 - Fontes prontas no editor; Musicmakers disponível apenas como candidata desativada com limitações explícitas.

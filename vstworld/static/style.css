@@ -430,3 +430,12 @@ footer p {
 .sort-controls {margin:22px 0 10px; font-size:12px;}
 .sort-controls label {margin-right:10px; font-weight:bold;}
 .sort-controls select {font:inherit; padding:7px 10px; border:1px solid #b8c3cb; background:white; border-radius:3px;}
+.search-filters {margin:20px 0; border:1px solid var(--line); padding:14px;}
+.search-filters summary {cursor:pointer; font-size:14px; font-weight:bold;}
+.filter-grid {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px;}
+.filter-grid label {font-size:12px; font-weight:bold; min-width:0;}
+.filter-grid input,.filter-grid select {display:block; width:100%; min-width:0; padding:8px; margin-top:5px; border:1px solid #b8c3cb; background:white; border-radius:3px; font:inherit;}
+.filter-actions {display:flex; flex-wrap:wrap; gap:8px; margin-top:15px;}
+.filter-actions button {font-size:12px;}
+@media(max-width:680px) {.filter-grid {grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:440px) {.filter-grid {grid-template-columns:1fr;}}

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import logging
 import re
 import secrets
@@ -11,6 +12,7 @@ import httpx
 from bs4 import BeautifulSoup
 
 from .http import PublicTransport, public_url
+from .filtering import NativeFilters, extract_filters, native_params
 
 USER_AGENT = 'VSTWorld'
 MAX_BYTES = 2_000_000
@@ -173,14 +175,19 @@ class Catalog:
                     return response, bytes(body)
         raise SourceError('Excesso de redirecionamentos')
 
-    async def search(self, source_id, query, cursor=None, section=None):
+    async def search(self, source_id, query, cursor=None, section=None, filters=None):
         source = self.source(source_id)
+        filters = NativeFilters.model_validate(filters or {})
+        filter_params, applied = native_params(source, filters) if not section else ({}, [])
+        context = query + '\0' + (section or '')
+        if any(filters.model_dump().values()):
+            context += '\0' + json.dumps(filters.model_dump(), sort_keys=True)
         if len(query) > source.max_query:
             raise SourceError(f'Esta fonte aceita até {source.max_query} caracteres')
         try:
             async with self.semaphore, asyncio.timeout(40):
                 if cursor:
-                    _, url = self.recall(cursor, 'page', source_id, query + '\0' + (section or ''))
+                    _, url = self.recall(cursor, 'page', source_id, context)
                     method, data = 'GET', None
                 elif section:
                     selected = next((item for item in source.sections if item.id == section), None)
@@ -191,7 +198,7 @@ class Catalog:
                     if not query.strip():
                         raise SourceError('Digite uma pesquisa ou escolha uma seção')
                     url = self.url(source, source.search_path)
-                    params = {**source.params, source.query_param: query}
+                    params = {**source.params, source.query_param: query, **filter_params}
                     method = source.method
                     data = params if method == 'POST' else None
                     if method == 'GET':
@@ -221,6 +228,7 @@ class Catalog:
                         except ValueError:
                             dates[key] = None
                     items.append({'title': title.get_text(' ', strip=True)[:500], 'url': target, **dates,
+                        'filters': extract_filters(node, title.get_text(' ', strip=True), section=section),
                         'description': description.get_text(' ', strip=True)[:600] if description else '',
                         'ref': self.remember('item', source_id, target)})
                 next_node = soup.select_one(source.next_selector) if source.next_selector else None
@@ -228,11 +236,14 @@ class Catalog:
                 if next_node and next_node.get('href'):
                     try:
                         target = self.url(source, next_node['href'], str(response.url))
-                        next_ref = self.remember('page', source_id, target, query + '\0' + (section or ''))
+                        if filter_params and urlsplit(target).path == '/search':
+                            target = str(httpx.URL(target).copy_merge_params(filter_params))
+                        next_ref = self.remember('page', source_id, target, context)
                     except ValueError:
                         pass
                 log.debug('source=%s operation=search items=%d', source_id, len(items))
                 return {'source': source_id, 'name': source.name, 'items': items, 'next': next_ref,
+                        'native_filters': applied,
                         'status': 'ok', 'message': '' if items else 'Nenhum resultado extraível nesta página; a fonte pode ter mudado.'}
         except (httpx.HTTPError, OSError, ValueError, TimeoutError) as exc:
             log.debug('source=%s operation=search error=%s', source_id, type(exc).__name__)

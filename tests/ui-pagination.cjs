@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 class Element {
-  constructor(tag) { this.tag = tag; this.children = []; this.listeners = {}; }
+  constructor(tag) { this.tag = tag; this.children = []; this.listeners = {}; this.value = ''; }
   append(...items) { for (const item of items) { item.parent = this; this.children.push(item); } }
   replaceChildren(...items) { this.children = []; this.append(...items); }
   setAttribute() {}
@@ -35,6 +35,7 @@ async function check(failure) {
       return {status: 'ok', items: [], next: null};
     }})
   });
+  vm.runInContext(fs.readFileSync('vstworld/static/filters.js', 'utf8'), context);
   vm.runInContext(fs.readFileSync('vstworld/static/app.js', 'utf8'), context);
   vm.runInContext('state.generation = 1; state.controller = new AbortController()', context);
   const group = new Element('section');

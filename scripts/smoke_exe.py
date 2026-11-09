@@ -39,7 +39,7 @@ with tempfile.TemporaryDirectory(prefix='vstworld-smoke-') as folder:
                         time.sleep(.1)
                 else:
                     raise RuntimeError('O executável não iniciou a tempo')
-                for route in ('/', '/sources', '/static/app.js', '/static/item.js'):
+                for route in ('/', '/sources', '/static/app.js', '/static/item.js', '/static/filters.js'):
                     with urllib.request.urlopen(base + route, timeout=3) as response:
                         assert response.status == 200
                 with urllib.request.urlopen(base + '/api/source-presets', timeout=3) as response:

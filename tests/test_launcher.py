@@ -6,10 +6,20 @@ import unittest
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from vstworld.__main__ import desktop_sources, migrate_sources, open_when_ready, reserve_port
+from vstworld.__main__ import desktop_sources, desktop_url, migrate_sources, open_when_ready, reserve_port
 
 
 class LauncherTests(unittest.TestCase):
+    def test_local_name_requires_exact_loopback_mapping(self):
+        with patch('vstworld.__main__.socket.gethostbyname', return_value='127.0.0.1'):
+            self.assertEqual(desktop_url(8792), 'http://vstworld.local:8792')
+            self.assertEqual(desktop_url(80), 'http://vstworld.local')
+        for address in ('203.0.113.1', '127.0.0.2'):
+            with patch('vstworld.__main__.socket.gethostbyname', return_value=address):
+                self.assertEqual(desktop_url(8792), 'http://127.0.0.1:8792')
+        with patch('vstworld.__main__.socket.gethostbyname', side_effect=OSError()):
+            self.assertEqual(desktop_url(8792), 'http://127.0.0.1:8792')
+
     def test_experimental_clones_stable_without_changing_it(self):
         with tempfile.TemporaryDirectory() as folder, patch.dict(os.environ, {'LOCALAPPDATA':folder}):
             stable = desktop_sources()

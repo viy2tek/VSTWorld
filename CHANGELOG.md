@@ -1,5 +1,11 @@
 # Histórico
 
+## Em desenvolvimento
+
+- Executável Windows sem console na barra de tarefas, com menu Abrir/Encerrar na bandeja e logs em arquivo.
+- Porta 80 preferida no desktop; endereço sem porta quando disponível. Código/Docker continuam usando 8787.
+- Nome local vstworld.local aceito e preferido quando configurado para 127.0.0.1; não modifica hosts automaticamente.
+
 ## 0.2.0-beta.1 — 2026-11-09
 
 - Interface reorganizada: busca em primeiro plano, filtros/categorias recolhidos, cadastro com feedback contextual e downloads próximos ao título do item.

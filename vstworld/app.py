@@ -91,7 +91,7 @@ def create_app(config_path=None, transport=None):
 
     app = FastAPI(title='VSTWorld', version=__version__, lifespan=lifespan)
     app.add_middleware(TrustedHostMiddleware, allowed_hosts=[
-        '127.0.0.1', 'localhost', 'testserver',
+        '127.0.0.1', 'localhost', 'vstworld.local', 'testserver',
         *filter(None, (os.getenv('VSTWORLD_ALLOWED_HOSTS') or os.getenv('VSTHOUSE_ALLOWED_HOSTS', '')).split(','))])
 
     @app.middleware('http')

@@ -42,6 +42,8 @@ class AppTests(unittest.TestCase):
         self.assertIn('VSTWorld', home.text)
         self.assertIn("default-src 'self'", home.headers['content-security-policy'])
         self.assertEqual(len(self.client.get('/api/sources').json()), 2)
+        self.assertEqual(self.client.get('/api/health', headers={'host':'vstworld.local:8792'}).status_code, 200)
+        self.assertEqual(self.client.get('/api/health', headers={'host':'unknown.example'}).status_code, 400)
 
     def test_search_error_isolated_and_input_validation(self):
         first = self.client.post('/api/search', json={'source': 'test', 'query': 'fail'})

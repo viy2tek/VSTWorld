@@ -24,7 +24,8 @@ notices_path = root / 'build/THIRD_PARTY_NOTICES.txt'
 notices_path.parent.mkdir(exist_ok=True)
 notices_path.write_text('\n'.join(notices), encoding='utf-8')
 subprocess.run([
-    sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--onefile', '--console',
+    sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--onefile', '--windowed',
+    '--hidden-import', 'pystray._win32',
     '--name', 'VSTWorld', '--distpath', str(root / ('dist/experimental' if args.experimental else 'dist')),
     '--collect-submodules', 'uvicorn',
     '--add-data', f'{root / "vstworld/static"}:vstworld/static',

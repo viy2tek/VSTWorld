@@ -40,6 +40,10 @@ Mantenha a janela do programa aberta enquanto usa o app. Para encerrar, feche es
 
 O aplicativo tenta usar `http://127.0.0.1:8787`. Se a porta estiver ocupada, o executável escolhe outra e abre o endereço correto. O binário é para **Windows x64**, não tem assinatura digital e pode gerar um aviso do Windows. O arquivo `SHA256SUMS.txt` está disponível nos [arquivos do release](https://github.com/viy2tek/VSTWorld/releases/tag/v0.2.0-beta.1).
 
+**Desktop em desenvolvimento:** o novo build Windows fica na bandeja, perto do relógio, com **Abrir VSTWorld** e **Encerrar**; não mantém uma janela na barra de tarefas. Logs ficam em `vstworld.log`, junto do JSON de fontes. Prefere a porta HTTP 80; se ela estiver livre, o endereço não mostra porta. Se estiver ocupada, usa outra porta e abre o endereço completo. Código e Docker continuam usando 8787.
+
+O novo build também aceita `vstworld.local`. Para esse nome funcionar, configure `127.0.0.1 vstworld.local` no arquivo de hosts do computador; o executável prefere esse endereço quando ele resolve para `127.0.0.1`. Essa configuração é local, não um domínio público, e o app não modifica hosts automaticamente. A beta 0.2.0-beta.1 já publicada ainda usa janela de console e não inclui essas mudanças. [Funcionamento e verificação do novo desktop](docs/DESKTOP.md).
+
 ### Atualizar uma versão anterior
 
 Feche o programa, baixe o novo executável e abra-o. As fontes pessoais são preservadas; não existe atualização automática.

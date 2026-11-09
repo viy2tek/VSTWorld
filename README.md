@@ -1,10 +1,10 @@
 # VSTWorld
 
-**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.1.0-beta.1/VSTWorld-windows-x64.exe)** · [Releases](https://github.com/viy2tek/VSTWorld/releases) · Primeira beta: `0.1.0-beta.1`.
+**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.2.0-beta.1/VSTWorld-windows-x64.exe)** · [Release 0.2.0-beta.1](https://github.com/viy2tek/VSTWorld/releases/tag/v0.2.0-beta.1) · [Todas as versões](https://github.com/viy2tek/VSTWorld/releases).
 
 Catálogo self-hosted em Python, com interface local e fontes HTML configuráveis. Sem anúncios incorporados, SaaS, banco de dados ou build de frontend. Usa a mesma base técnica do EveryTune: FastAPI, HTTPX, BeautifulSoup e interface servida no navegador.
 
-Projeto independente, sem afiliação à VSTHouse ou aos fabricantes. O release `0.1.0-beta.1` inclui somente VSTHouse. A versão experimental `0.2.0-dev` inclui também Plugins4Free e uma configuração candidata Musicmakers desativada. Consulte o [roadmap](docs/ROADMAP.md). Nenhum instalador, plugin ou torrent é incluído no executável ou no repositório.
+Projeto independente, sem afiliação à VSTHouse ou aos fabricantes. A beta `0.2.0-beta.1` inclui VSTHouse e Plugins4Free, além de uma configuração candidata Musicmakers desativada. Consulte o [roadmap](docs/ROADMAP.md). Nenhum instalador, plugin ou torrent é incluído no executável ou no repositório.
 
 **Estado da fonte principal:** a busca pública do VSTHouse usa HTTP/HTML, com redirecionamento e cookies de sessão. A pedido do usuário, essa fonte está configurada com `respect_robots: false`: o app não aplica o bloqueio local baseado em robots. Isso não altera a resposta do servidor nem garante disponibilidade. Novas fontes respeitam robots por padrão. [Inspeção, evidências e limitações](docs/INSPECAO.md).
 
@@ -13,6 +13,8 @@ Projeto independente, sem afiliação à VSTHouse ou aos fabricantes. O release 
 Abra `dist/VSTWorld.exe` com dois cliques. É um arquivo único, sem instalador e sem exigir Python no computador de destino. O servidor local inicia e abre a interface no navegador quando estiver pronto. Mantenha a janela do programa aberta; use Ctrl+C ou feche essa janela para encerrar. Fechar somente a aba não encerra o servidor.
 
 As fontes do executável ficam em `%LOCALAPPDATA%\VSTWorld\sources.json`. Na primeira execução são copiadas da configuração incluída no build; depois são preservadas nas atualizações. Para backup, copie esse JSON. A execução pelo código e o Docker continuam usando os caminhos descritos abaixo. O programa tenta a porta 8787; se estiver ocupada, escolhe outra porta local e abre o endereço correto. Para evitar instâncias com configurações concorrentes, mantenha apenas uma janela do executável aberta.
+
+**Atualizar a beta anterior:** feche a janela do VSTWorld, baixe o novo executável e abra-o. O app preserva as fontes cadastradas. Para acrescentar Plugins4Free numa instalação antiga, abra **Fontes → Fontes prontas para adicionar → Plugins4Free** e clique em **Salvar fonte**. Não há atualizador automático. A beta pública usa a pasta `VSTWorld`; configurações de testes em `VSTWorld Experimental` continuam separadas.
 
 Quem usou o executável com o nome anterior tem o JSON de `%LOCALAPPDATA%\VSTHouse Brasil` copiado para a nova pasta na primeira execução, desde que seja válido e o destino ainda não exista. O arquivo antigo é preservado. As variáveis antigas `VSTHOUSE_SOURCES` e `VSTHOUSE_ALLOWED_HOSTS` continuam aceitas como alternativas, com prioridade para `VSTWORLD_*`.
 
@@ -27,9 +29,9 @@ O empacotamento usa [PyInstaller](https://pyinstaller.org/en/stable/runtime-info
 
 O build também inclui os avisos de licença das dependências em `THIRD_PARTY_NOTICES.txt` dentro do pacote. Para verificar inicialização, interface e persistência do binário sem alterar seus dados: `.\.venv\Scripts\python scripts/smoke_exe.py`.
 
-### Experimento de identificação de formulários
+### Identificação de formulários
 
-A branch `codex/form-discovery` contém a versão `0.2.0-dev`, sem novo release. Para gerar um binário separado: `.\.venv\Scripts\python scripts/build.py --experimental`. A saída é `dist/experimental/VSTWorld.exe`, com dados em `%LOCALAPPDATA%\VSTWorld Experimental`; na primeira execução copia a configuração estável, se existir, sem alterá-la. O comando `.\.venv\Scripts\python scripts/smoke_exe.py dist/experimental/VSTWorld.exe` verifica esse arquivo com dados temporários.
+A beta 0.2.0 incorpora a identificação de formulários antes testada na branch `codex/form-discovery`. As builds antigas `0.2.0-dev` usam a pasta de dados `VSTWorld Experimental`; versões beta publicadas usam `VSTWorld` e preservam a configuração da beta anterior.
 
 O experimento amplia a identificação de campos de busca e parâmetros de formulários HTML. Não é um navegador com JavaScript, não habilita automaticamente novos sites e não confirma downloads apenas porque reconheceu o formulário. [Cobertura, exemplo Musicmakers e limitações](docs/DISCOVERY.md).
 
@@ -41,7 +43,7 @@ Plugins4Free foi testado com busca HTML por `piano`, seções Recentes/Hosts e t
 
 Para ajuda em sites desconhecidos, expanda **Fontes → IA local opcional**. Instale Ollama e baixe um modelo separadamente apenas se desejar usar esse botão. O app não instala nem consulta IA automaticamente; modelos remotos são recusados e propostas de seletores precisam passar pela inspeção real antes de preparar a fonte. [Passo a passo Windows e Docker](docs/LOCAL_AI.md). Os testes de IA usam respostas simuladas; ainda não medimos a qualidade do modelo real.
 
-### Filtros na versão experimental
+### Filtros de pesquisa
 
 O painel da busca inclui sistema, formato, arquitetura, tipo, desenvolvedora, versão e intervalo de publicação/atualização. Todos refinam os itens carregados; na busca de texto do Plugins4Free, sistema e grupos de formato também são enviados à origem. **Ler fichas dos itens carregados** preenche dados adicionais sem consultar downloads; permite interromper a fila. Dados ausentes são sinalizados, sem assumir compatibilidade ou datas. Os controles e as fontes selecionadas são preservados na URL ao abrir detalhes e voltar. [Alcance, parâmetros e exemplos testados](docs/FILTERS.md).
 

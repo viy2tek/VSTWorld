@@ -1,6 +1,6 @@
 # Depois da primeira beta
 
-Esta lista registra candidatos e melhorias. A versão 0.1.0-beta.1 publicada continua somente com VSTHouse. O desenvolvimento 0.2.0-dev já inclui Plugins4Free e uma candidata Musicmakers desativada; as demais não são anunciadas como suportadas.
+Esta lista registra candidatos e melhorias. A beta 0.2.0-beta.1 inclui VSTHouse, Plugins4Free e uma candidata Musicmakers desativada; as demais não são anunciadas como suportadas. Instalações antigas preservam suas fontes e podem adicionar Plugins4Free pela lista de fontes prontas.
 
 ## Fontes experimentais
 

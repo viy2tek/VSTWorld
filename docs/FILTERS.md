@@ -1,6 +1,6 @@
 # Filtros de pesquisa
 
-Disponíveis na versão experimental: sistema (Windows/macOS/Linux), formato (família VST, VST2, VST3, AU, AAX, Kontakt), arquitetura (32/64 bits), tipo (instrumentos, efeitos, samples/bibliotecas, presets, softwares/DAWs), desenvolvedora, versão e intervalo de publicação ou atualização da página. A ordenação também distingue publicação de atualização.
+Disponíveis na beta 0.2.0-beta.1: sistema (Windows/macOS/Linux), formato (família VST, VST2, VST3, AU, AAX, Kontakt), arquitetura (32/64 bits), tipo (instrumentos, efeitos, samples/bibliotecas, presets, softwares/DAWs), desenvolvedora, versão e intervalo de publicação ou atualização da página. A ordenação também distingue publicação de atualização.
 
 Os resultados continuam mostrando somente títulos. Campos de filtro são extraídos de rótulos técnicos e tokens explícitos do título; informações ausentes ficam desconhecidas. O prefixo comercial do título não vira desenvolvedora. `VST` sem número não é convertido em VST2. `Win64 + OSX` não comprova macOS 64 bits. Data de lançamento do produto não vira data de publicação/atualização.
 

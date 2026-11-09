@@ -1,6 +1,6 @@
 # Histórico
 
-## 0.2.0-dev — experimental, não publicada
+## 0.2.0-beta.1 — 2026-11-09
 
 - Interface reorganizada: busca em primeiro plano, filtros/categorias recolhidos, cadastro com feedback contextual e downloads próximos ao título do item.
 - Estilos compartilhados, foco por teclado, controles maiores e layouts adaptados para celular e tablet, sem novas dependências.

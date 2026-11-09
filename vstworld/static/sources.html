@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fontes — VSTWorld</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/sources.css">
+  <script src="/static/sources.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#editor">Ir para o editor</a>
+  <header class="topbar">
+    <a class="brand-small" href="/">VST<span>WORLD</span></a>
+    <nav aria-label="Navegação principal"><a href="/">Catálogo</a><a href="/sources" aria-current="page">Fontes</a></nav>
+    <span class="local">SELF-HOSTED</span>
+  </header>
+  <main class="shell settings-shell">
+    <div class="settings-heading"><div><h1>Fontes</h1><p>Adicione um site pelo endereço, sem preencher parâmetros técnicos.</p></div><a href="/">Voltar ao catálogo</a></div>
+    <p id="editor-status" class="editor-status" role="status" aria-live="polite">Carregando configuração…</p>
+    <div class="settings-layout">
+      <aside aria-label="Fontes cadastradas">
+        <button id="new-source" type="button" class="primary">Adicionar fonte</button>
+        <div id="source-list"></div>
+        <button id="reload-sources" type="button">Atualizar lista</button>
+        <p class="hint">O salvamento vale imediatamente. As outras abas do catálogo precisam ser recarregadas.</p>
+      </aside>
+      <section id="editor" aria-labelledby="editor-title">
+        <h2 id="editor-title">Nova fonte</h2>
+        <section class="simple-source" aria-label="Cadastro por link">
+          <label for="site-url">Link do site</label>
+          <div class="detect-row"><input id="site-url" type="url" placeholder="https://site.com/" autocomplete="url"><button id="detect-source" type="button">Identificar site</button></div>
+          <p class="hint">Cole o endereço. O app identifica a busca e os downloads e informa o que conseguiu verificar.</p>
+          <ul id="detection-checks" class="detection-checks" aria-live="polite"></ul>
+          <div class="editor-actions"><button type="submit" form="source-form" id="save-source" class="primary">Salvar fonte</button><button type="button" id="delete-source">Remover fonte</button><span id="dirty-label"></span></div>
+        </section>
+        <div id="decision" hidden class="editor-decision"><p id="decision-text"></p><button id="decision-confirm" type="button">Confirmar</button> <button id="decision-cancel" type="button">Cancelar</button></div>
+        <details id="advanced-settings" class="advanced-settings"><summary>Configurações avançadas</summary>
+        <details class="raw-editor"><summary>Relatório técnico da identificação</summary><pre id="detection-report" class="code"></pre></details>
+        <form id="source-form">
+          <fieldset><legend>Identificação</legend><div class="field-grid">
+            <label>Nome da fonte<input name="name" required maxlength="80" placeholder="Nome exibido no catálogo"></label>
+            <label>Identificador<input name="id" required pattern="[a-z0-9_-]{1,50}" maxlength="50" placeholder="minha-fonte"><small>Único; letras minúsculas, números, hífen ou sublinhado.</small></label>
+            <label>URL base<input name="base_url" type="url" required placeholder="https://site.example/"></label>
+            <label>Domínios permitidos<input name="hosts" required placeholder="site.example, arquivos.site.example"><small>Nomes exatos, separados por vírgula; sem https:// ou caminhos.</small></label>
+            <label class="wide">Observação<textarea name="note" rows="2" maxlength="1000" placeholder="Orientações ou limitações conhecidas da fonte"></textarea></label>
+            <label class="check wide"><input name="enabled" type="checkbox">Habilitar no catálogo</label>
+            <label class="check wide"><input name="respect_robots" type="checkbox">Aplicar as regras de robots.txt no app</label>
+            <p class="hint wide">Desmarcar permite enviar consultas públicas sem o bloqueio local de robots. Limites, validação de destinos e restrições reais do servidor continuam ativos.</p>
+          </div></fieldset>
+          <fieldset><legend>Requisição de busca</legend><div class="field-grid">
+            <label>Caminho de busca<input name="search_path" required placeholder="/search/"><small>Caminho ou URL dentro dos domínios permitidos.</small></label>
+            <label>Método<select name="method"><option>GET</option><option>POST</option></select><small>POST envia formulário, não JSON.</small></label>
+            <label>Parâmetro da consulta<input name="query_param" required placeholder="q"></label>
+            <label>Máximo de caracteres<input name="max_query" type="number" min="1" max="500" required></label>
+            <label>Intervalo entre requisições (s)<input name="interval" type="number" min="0" max="60" step="any" required></label>
+            <label class="wide">Parâmetros fixos — objeto JSON<textarea name="params" class="code" rows="3" spellcheck="false" placeholder='{"t": "0"}'></textarea><small>Chaves e valores como texto. Use {} se não houver.</small></label>
+          </div></fieldset>
+          <fieldset><legend>Resultados, paginação e downloads</legend><p class="hint">Seletores CSS do HTML real. Título, link e descrição são relativos a cada resultado.</p><div class="field-grid">
+            <label>Seletor de cada resultado<input name="item_selector" required placeholder=".eBlock"></label>
+            <label>Seletor do título<input name="title_selector" required placeholder=".eTitle a"></label>
+            <label>Seletor do link do detalhe <small>(opcional)</small><input name="link_selector" placeholder="Mesmo elemento do título, se vazio"></label>
+            <label>Seletor da descrição <small>(opcional)</small><input name="description_selector" placeholder=".eMessage"></label>
+            <label>Link da próxima página <small>(opcional)</small><input name="next_selector" placeholder="a.swchItem-next"><small>Precisa ter href; a próxima página é consultada por GET.</small></label>
+            <label>Links de download no detalhe<input name="download_selector" required placeholder="a.sprite[href]"><small>Arquivos, rotas intermediárias ou magnets.</small></label>
+            <label>Conteúdo do detalhe (opcional)<input name="detail_selector" placeholder=".eText"></label>
+            <label>Data de publicação na listagem (opcional)<input name="published_selector" placeholder="time[datetime]"></label>
+            <label>Data de atualização na listagem (opcional)<input name="modified_selector" placeholder="time.updated"></label>
+          </div></fieldset>
+          <fieldset><legend>Navegação por seções</legend>
+            <label>Seções — lista JSON<textarea name="sections" class="code" rows="4" spellcheck="false" placeholder='[{"id":"recentes","name":"Recentes","path":"/"}]'></textarea><small>Use [] se não houver. Cada seção tem id, name e path.</small></label>
+          </fieldset>
+        </form>
+        <section class="source-test" aria-labelledby="test-title">
+          <h3 id="test-title">Testar antes de salvar</h3>
+          <p class="hint">O teste usa os campos atuais, mesmo que a fonte esteja desativada. Não altera o arquivo.</p>
+          <div class="field-grid"><label>Consulta de teste<input id="test-query" type="search" maxlength="500" placeholder="Nome de um item conhecido"></label><label>Ou identificador de uma seção cadastrada<input id="test-section" placeholder="Por exemplo recentes"><small>Se preenchido, testa a seção em vez da busca.</small></label></div>
+          <button id="test-source" type="button">Testar configuração</button>
+          <div id="test-output" role="status" aria-live="polite"></div>
+        </section>
+        <details class="raw-editor"><summary>JSON avançado da fonte</summary><p class="hint">Edite todos os campos do conector. Clique em Aplicar JSON para preencher o formulário e depois em Salvar fonte.</p>
+          <label for="raw-source">Definição completa da fonte</label><textarea id="raw-source" class="code" rows="16" spellcheck="false"></textarea>
+          <button id="apply-json" type="button">Aplicar JSON ao formulário</button> <button id="refresh-json" type="button">Atualizar JSON com os campos atuais</button>
+        </details>
+        <p class="hint editor-limit">Compatível com fontes HTML por GET/POST. URLs e seletores são validados; robots segue a opção desta fonte. Não executa scripts do site nem remove restrições reais de acesso. Não armazene credenciais nos parâmetros.</p>
+        </details>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

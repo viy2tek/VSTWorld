@@ -1,0 +1,17 @@
+services:
+  vstworld:
+    build: .
+    ports:
+      - "127.0.0.1:8787:8787"
+    volumes:
+      - source-data:/data
+    environment:
+      VSTWORLD_ALLOWED_HOSTS: "${VSTWORLD_ALLOWED_HOSTS:-}"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+volumes:
+  source-data:

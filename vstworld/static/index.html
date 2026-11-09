@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catálogo self-hosted de plugins, instrumentos e samples.">
+  <title>VSTWorld</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Ir para a busca</a>
+  <header class="topbar">
+    <a class="brand-small" href="/">VST<span>WORLD</span></a>
+    <nav aria-label="Navegação principal"><a href="#main">Catálogo</a><a href="/sources">Fontes</a><a href="#about">Sobre</a></nav>
+    <span class="local">SELF-HOSTED</span>
+  </header>
+  <div class="shell">
+    <section class="masthead" aria-label="VSTWorld">
+      <p class="eyebrow">INSTRUMENTOS · PLUGINS · SAMPLES</p>
+      <h1>VST<span>WORLD</span></h1>
+      <p>Seu catálogo de produção musical.</p>
+    </section>
+    <main id="main">
+      <div class="breadcrumb">Início <span>/</span> Catálogo unificado</div>
+      <form id="search-form" role="search">
+        <label for="query">Pesquisar no catálogo</label>
+        <div class="search-row"><input id="query" name="q" type="search" placeholder="Nome do plugin, instrumento ou biblioteca" maxlength="500" autocomplete="off"><button type="submit" class="primary">Pesquisar <span aria-hidden="true">↗</span></button></div>
+        <p class="hint">A consulta segue a busca de cada origem. No VSTHouse, use palavras completas.</p>
+      </form>
+      <details id="sources">
+        <summary>Fontes de pesquisa <span id="source-count"></span></summary>
+        <div id="source-options"></div>
+        <p class="hint"><a href="/sources">Gerenciar fontes</a> para cadastrar, editar e testar sites.</p>
+      </details>
+      <nav id="sections" aria-label="Navegar no catálogo"></nav>
+      <div class="sort-controls"><label for="sort">Ordenar</label><select id="sort" disabled><option value="source">Ordem da fonte</option><option id="sort-published" value="published-new" disabled>Publicação mais recente</option><option id="sort-oldest" value="published-old" disabled>Publicação mais antiga</option><option id="sort-modified" value="modified" disabled>Atualização mais recente</option></select><p id="sort-note" class="hint">A ordenação por datas fica disponível quando a fonte informa datas verificáveis.</p></div>
+      <div class="results-heading"><h2 id="results-title">Catálogo</h2><p id="status" role="status" aria-live="polite">Carregando fontes…</p></div>
+      <div id="results" aria-busy="false"></div>
+      <noscript>Ative o JavaScript para consultar as fontes e navegar nos resultados.</noscript>
+    </main>
+    <footer id="about"><strong>VSTWorld</strong><p>Interface local, sem anúncios incorporados. Consultas e arquivos dependem das fontes. Torrents precisam de um cliente externo.</p><p>Use arquivos conforme suas licenças. A disponibilidade de um link não comprova autorização ou segurança.</p></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+.settings-shell {padding: 26px 30px;}
+.settings-heading {display: flex; justify-content: space-between; align-items: center; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 18px;}
+.settings-heading h1 {font-size: 25px; margin: 0 0 6px;}
+.settings-heading p {margin: 0; color: #697782; font-size: 14px;}
+.settings-heading a {font-size: 13px; white-space: nowrap;}
+.settings-layout {display: grid; grid-template-columns: 205px minmax(0,1fr); gap: 30px;}
+.settings-layout aside {border-right: 1px solid var(--line); padding-right: 20px;}
+.settings-layout aside > button {width: 100%; font-size: 12px;}
+#source-list {margin: 15px 0 24px; display: grid; gap: 6px;}
+#source-list button {text-align: left; overflow-wrap: anywhere; font-size: 13px; background: white; border-color: transparent;}
+#source-list button[aria-current=true] {background: #eaf0f4; border-color: #c8d5df; color: #315e75;}
+#source-list small {display: block; font-size: 11px; color: #697782; font-weight: normal;}
+#editor h2 {font-size: 18px; margin: 0 0 20px;}
+#source-form {margin: 0;}
+#editor fieldset {border: 0; border-top: 1px solid var(--line); margin: 0 0 25px; padding: 15px 0 0; min-width: 0;}
+#editor legend {padding-right: 10px; font-size: 14px; font-weight: bold;}
+.field-grid {display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 20px;}
+#editor label {display: block; font-size: 13px; font-weight: bold; margin: 0;}
+#editor input:not([type=checkbox]), #editor textarea, #editor select {display: block; width: 100%; min-width: 0; border: 1px solid #b8c3cb; border-radius: 3px; padding: 9px 10px; background: white; color: #313c43; margin: 6px 0 0; font: inherit; font-weight: normal;}
+#editor textarea {resize: vertical;}
+#editor input:focus-visible, #editor select:focus-visible, #editor textarea:focus-visible {outline: 3px solid #ba642a; outline-offset: 3px;}
+#editor small {display: block; font-size: 11px; font-weight: normal; color: #697782; margin-top: 4px;}
+#editor label > small {display: inline;}
+#editor .code {font-family: Consolas,monospace; font-size: 12px; line-height: 1.6;}
+.wide {grid-column: 1/-1;}
+#editor label.check {display: flex; align-items: center; gap: 8px; font-weight: normal;}
+.editor-status {min-height: 24px; font-size: 13px; margin: 16px 0 24px; white-space: pre-wrap; overflow-wrap: anywhere;}
+.editor-status[data-error=true] {color: #8c352b;}
+.editor-actions {display: flex; align-items: center; flex-wrap: wrap; gap: 10px;}
+.editor-actions button, .source-test button, .raw-editor button {font-size: 12px;}
+#dirty-label {font-size: 12px; color: #8b602f;}
+.editor-decision {border: 1px solid #d6bfa6; background: #fff9f2; padding: 15px; margin-top: 18px; font-size: 13px;}
+.editor-decision p {margin: 0 0 12px;}
+.source-test {margin-top: 28px; border-top: 1px solid var(--line); padding-top: 16px;}
+.source-test h3 {font-size: 15px; margin: 0 0 8px;}
+.source-test button {margin-top: 12px;}
+#test-output {font-size: 13px; overflow-wrap: anywhere;}
+#test-output ul {padding-left: 20px;}
+.raw-editor {margin-top: 24px;}
+.raw-editor textarea {margin-bottom: 12px !important;}
+.editor-limit {margin-top: 20px;}
+.simple-source {margin-bottom: 24px;}
+.detect-row {display:flex; gap:8px; align-items:stretch;}
+#editor .detect-row input {margin:6px 0 0;}
+.detect-row button {margin-top:6px; white-space:nowrap; font-size:12px;}
+.advanced-settings {background:#fafbfc; margin-top:24px;}
+.advanced-settings > summary {font-size:14px;}
+.advanced-settings form {margin-top:22px !important;}
+.simple-source .editor-actions {margin-top:20px;}
+.detection-checks {font-size:12px; padding-left:18px; color:#637582;}
+.detection-checks li {margin:7px 0;}
+.detection-checks [data-status=blocked] {color:#8c352b;}
+#detection-report {white-space:pre-wrap; overflow-wrap:anywhere; font-size:12px;}
+@media(max-width:600px) {.detect-row {flex-direction:column;}}
+@media(max-width:760px) {
+  .settings-shell {padding: 20px 17px;}
+  .settings-heading {display: block;}
+  .settings-heading a {display: inline-block; margin-top: 10px;}
+  .settings-layout {grid-template-columns: 1fr; gap: 24px;}
+  .settings-layout aside {border-right: 0; border-bottom: 1px solid var(--line); padding: 0 0 15px;}
+  #source-list {grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); margin-bottom: 15px;}
+  .field-grid {grid-template-columns: 1fr;}
+}

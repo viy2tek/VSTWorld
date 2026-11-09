@@ -1,0 +1,57 @@
+[
+  {
+    "id": "vsthouse",
+    "name": "VSTHouse",
+    "enabled": true,
+    "respect_robots": false,
+    "base_url": "https://vsthouse.ru/",
+    "hosts": [
+      "vsthouse.ru"
+    ],
+    "search_path": "/search/",
+    "method": "GET",
+    "query_param": "q",
+    "params": {
+      "t": "0"
+    },
+    "max_query": 30,
+    "item_selector": ".eBlock",
+    "title_selector": ".eTitle a",
+    "link_selector": null,
+    "description_selector": ".eMessage",
+    "next_selector": "a.swchItem-next, .pagesBlockuz2 a.swchItem1:last-child",
+    "download_selector": "a.sprite[href], a[href^='magnet:?']",
+    "detail_selector": null,
+    "published_selector": null,
+    "modified_selector": null,
+    "interval": 1.0,
+    "sections": [
+      {
+        "id": "recentes",
+        "name": "Recentes",
+        "path": "/"
+      },
+      {
+        "id": "vsti",
+        "name": "VSTi",
+        "path": "/load/2"
+      },
+      {
+        "id": "vst",
+        "name": "VST",
+        "path": "/load/10"
+      },
+      {
+        "id": "samples",
+        "name": "Samples e presets",
+        "path": "/load/25"
+      },
+      {
+        "id": "apps",
+        "name": "Aplicativos",
+        "path": "/load/13"
+      }
+    ],
+    "note": "Busca pública configurada por HTTP, sem aplicar o bloqueio local de robots, conforme solicitado. A origem pode limitar ou recusar requisições. Sem contornar login ou CAPTCHA. Domínio .org indisponível no ambiente de inspeção."
+  }
+]

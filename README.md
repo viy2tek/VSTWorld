@@ -203,7 +203,9 @@ Manutenção: [@viy2tek](https://github.com/viy2tek). Próximas possibilidades e
 
 ## Licença
 
-O repositório ainda não possui uma licença própria definida. Os avisos de terceiros incluídos no executável referem-se às dependências, não ao código do VSTWorld. Conteúdo e arquivos das fontes mantêm suas próprias condições de uso.
+O VSTWorld é distribuído sob a [licença MIT](LICENSE). Copyright © 2026 [viy2tek](https://github.com/viy2tek).
+
+Os avisos de terceiros incluídos no executável referem-se às dependências. Conteúdo e arquivos das fontes mantêm suas próprias condições de uso.
 
 ## Referências deste README
 

@@ -2,6 +2,9 @@
 
 ## 0.2.0-dev — experimental, não publicada
 
+- Interface reorganizada: busca em primeiro plano, filtros/categorias recolhidos, cadastro com feedback contextual e downloads próximos ao título do item.
+- Estilos compartilhados, foco por teclado, controles maiores e layouts adaptados para celular e tablet, sem novas dependências.
+
 - Filtros de sistema, formato, arquitetura, tipo, desenvolvedora, versão e datas, com alcance explícito nos resultados carregados.
 - Sistema/formato do Plugins4Free enviados à busca nativa; paginação vinculada aos filtros.
 - Leitura opcional e interrompível de fichas para completar dados, mantendo títulos como única informação da listagem.

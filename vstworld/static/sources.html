@@ -14,25 +14,26 @@
   <header class="topbar">
     <a class="brand-small" href="/">VST<span>WORLD</span></a>
     <nav aria-label="Navegação principal"><a href="/">Catálogo</a><a href="/sources" aria-current="page">Fontes</a></nav>
-    <span class="local">SELF-HOSTED</span>
+    <span class="local">No seu servidor</span>
   </header>
   <main class="shell settings-shell">
-    <div class="settings-heading"><div><h1>Fontes</h1><p>Adicione um site pelo endereço, sem preencher parâmetros técnicos.</p></div><a href="/">Voltar ao catálogo</a></div>
-    <p id="editor-status" class="editor-status" role="status" aria-live="polite">Carregando configuração…</p>
+    <div class="settings-heading"><div><p class="eyebrow">Seu catálogo, suas fontes</p><h1>Fontes de pesquisa</h1><p>Escolha onde pesquisar ou adicione um site pelo link.</p></div><a href="/">Voltar ao catálogo <span aria-hidden="true">→</span></a></div>
     <div class="settings-layout">
       <aside aria-label="Fontes cadastradas">
         <button id="new-source" type="button" class="primary">Adicionar fonte</button>
+        <p class="aside-label">Cadastradas</p>
         <div id="source-list"></div>
         <button id="reload-sources" type="button">Atualizar lista</button>
-        <details class="raw-editor"><summary>Fontes incluídas</summary><p class="hint">Adicione uma fonte pronta sem alterar as já cadastradas.</p><div id="source-presets"></div></details>
-        <p class="hint">O salvamento vale imediatamente. As outras abas do catálogo precisam ser recarregadas.</p>
+        <details class="raw-editor"><summary>Fontes prontas para adicionar</summary><p class="hint">Prepare uma fonte incluída no app e revise antes de salvar.</p><div id="source-presets"></div></details>
+        <p class="hint">Alterações salvas valem imediatamente.</p>
       </aside>
       <section id="editor" aria-labelledby="editor-title">
         <h2 id="editor-title">Nova fonte</h2>
+        <p id="editor-status" class="editor-status" role="status" aria-live="polite">Carregando configuração…</p>
         <section class="simple-source" aria-label="Cadastro por link">
           <label for="site-url">Link do site</label>
-          <div class="detect-row"><input id="site-url" type="url" placeholder="https://site.com/" autocomplete="url"><button id="detect-source" type="button">Identificar site</button></div>
-          <p class="hint">Cole o endereço. O app identifica a busca e os downloads e informa o que conseguiu verificar.</p>
+          <div class="detect-row"><input id="site-url" type="url" placeholder="https://site.com/" autocomplete="url" aria-describedby="detect-hint"><button id="detect-source" type="button">Identificar site</button></div>
+          <p id="detect-hint" class="hint">Cole o endereço. O app tenta encontrar a busca, os itens e os downloads e mostra o que conseguiu verificar.</p>
           <ul id="detection-checks" class="detection-checks" aria-live="polite"></ul>
           <div class="editor-actions"><button type="submit" form="source-form" id="save-source" class="primary">Salvar fonte</button><button type="button" id="delete-source">Remover fonte</button><span id="dirty-label"></span></div>
         </section>

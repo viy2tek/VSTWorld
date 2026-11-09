@@ -45,6 +45,8 @@ Para ajuda em sites desconhecidos, expanda **Fontes → IA local opcional**. Ins
 
 O painel da busca inclui sistema, formato, arquitetura, tipo, desenvolvedora, versão e intervalo de publicação/atualização. Todos refinam os itens carregados; na busca de texto do Plugins4Free, sistema e grupos de formato também são enviados à origem. **Ler fichas dos itens carregados** preenche dados adicionais sem consultar downloads; permite interromper a fila. Dados ausentes são sinalizados, sem assumir compatibilidade ou datas. Os controles e as fontes selecionadas são preservados na URL ao abrir detalhes e voltar. [Alcance, parâmetros e exemplos testados](docs/FILTERS.md).
 
+O catálogo mantém fontes, filtros e categorias recolhidos para priorizar a busca. Os detalhes mostram downloads próximos ao título, com ficha, instalação e mídia preservadas. [Auditoria e padrões do redesign](docs/REDESIGN.md).
+
 ## Executar pelo código no Windows
 
 Requer Python **3.12 ou superior**. Ambiente testado: Python 3.14.6. Na pasta do projeto, PowerShell:

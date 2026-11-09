@@ -62,6 +62,12 @@ async function check(failure) {
   assert.ok(group.list.children.every(item => item.children.length === 1), 'resultados mostram só o título');
   context.updateSorting();
   assert.equal(elements.get('#sort-modified').disabled, false);
+  elements.get('#f-system').value = 'windows';
+  context.updateFilterCount();
+  assert.equal(elements.get('#filter-count').textContent, '1 ativo(s)', 'resumo mostra filtro ativo mesmo recolhido');
+  elements.get('#f-system').value = '';
+  context.updateFilterCount();
+  assert.equal(elements.get('#filter-count').textContent, '', 'data padrão não conta como filtro ativo');
 }
 (async () => {
   await check('source');

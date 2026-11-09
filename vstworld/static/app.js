@@ -68,11 +68,21 @@ function syncFilterURL() {
   history.replaceState(null, '', '/' + (params.size ? '?' + params : ''));
 }
 function refreshFilteredResults() {
+  updateFilterCount();
   const error = validateFilters(readFilters());
   if (error) { $('#status').textContent = error; return; }
   syncFilterURL();
   state.groups.forEach(renderTitles);
   updateStatus();
+}
+function updateFilterCount() {
+  const filters = readFilters();
+  const count = Object.entries(filters).filter(([key,value]) => key !== 'dateField' && Boolean(value)).length;
+  $('#filter-count').textContent = count ? `${count} ativo(s)` : '';
+}
+function updateSourceCount() {
+  const count = state.sources.filter((source) => source.enabled && document.getElementById(`source-${source.id}`).checked).length;
+  $('#source-count').textContent = `${count} selecionada(s)`;
 }
 function updateSorting() {
   const items = state.groups.flatMap((group) => group.items || []);
@@ -244,6 +254,8 @@ async function initialize() {
     state.sources = await api('/api/sources');
     const params = new URLSearchParams(location.search);
     restoreFilters(params);
+    updateFilterCount();
+    if (Object.entries(readFilters()).some(([key,value]) => key !== 'dateField' && Boolean(value))) $('#filters-panel').open = true;
     if (['source','published-new','published-old','modified'].includes(params.get('sort'))) $('#sort').value = params.get('sort');
     state.sources.forEach((source) => {
       const container = node('div', undefined, 'source-option');
@@ -253,9 +265,14 @@ async function initialize() {
       checkbox.id = `source-${source.id}`;
       checkbox.checked = source.enabled && (!params.has('sources') || params.get('sources').split(',').includes(source.id));
       checkbox.disabled = !source.enabled;
+      checkbox.addEventListener('change', updateSourceCount);
       label.append(checkbox, document.createTextNode(source.name + (source.enabled ? '' : ' · desativada')));
       container.append(label);
-      if (source.note) container.append(node('p', source.note, 'source-note'));
+      if (source.note) {
+        const info = node('details', undefined, 'source-info');
+        info.append(node('summary', 'Sobre esta fonte'), node('p', source.note, 'source-note'));
+        container.append(info);
+      }
       $('#source-options').append(container);
       if (source.enabled) source.sections.forEach((section) => {
         const button = node('button', `${section.name} · ${source.name}`);
@@ -264,7 +281,7 @@ async function initialize() {
         $('#sections').append(button);
       });
     });
-    $('#source-count').textContent = `${state.sources.filter((source) => source.enabled).length} habilitada(s)`;
+    updateSourceCount();
     $('#status').textContent = 'Pronto para pesquisar';
     $('#results').append(node('p', 'Pesquise nas fontes selecionadas ou navegue pelos itens recentes.', 'empty'));
     if (params.get('q')) { $('#query').value = params.get('q'); startSearch(); }

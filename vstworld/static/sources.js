@@ -77,7 +77,7 @@ function renderList() {
     button.type = 'button';
     button.setAttribute('aria-current', String(state.selected === index));
     button.append(element('small', source.enabled ? 'Habilitada' : 'Desativada'));
-    button.addEventListener('click', () => ifClean(() => select(index)));
+    button.addEventListener('click', () => ifClean(() => { select(index); $('#site-url').focus(); }));
     $('#source-list').append(button);
   });
   $('#delete-source').disabled = state.selected === null || state.busy;

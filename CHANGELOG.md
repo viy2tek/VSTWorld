@@ -1,5 +1,12 @@
 # Histórico
 
+## 0.2.0-dev — experimental, não publicada
+
+- Identificação de campos por tipo, rótulos e contexto, sem depender apenas de uma lista de nomes.
+- Captura de filtros selecionados, opções marcadas, controles associados e botão de envio.
+- Avisos de formulários ambíguos ou ainda não representáveis; nomes repetidos não são descartados silenciosamente.
+- Musicmakers: formulário e resposta da busca observados, sem validar integração de downloads ou paginação.
+
 ## 0.1.0-beta.1 — 2026-11-08
 
 - Primeira beta pública com o nome VSTWorld, independente da VSTHouse.

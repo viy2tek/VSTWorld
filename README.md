@@ -27,6 +27,12 @@ O empacotamento usa [PyInstaller](https://pyinstaller.org/en/stable/runtime-info
 
 O build também inclui os avisos de licença das dependências em `THIRD_PARTY_NOTICES.txt` dentro do pacote. Para verificar inicialização, interface e persistência do binário sem alterar seus dados: `.\.venv\Scripts\python scripts/smoke_exe.py`.
 
+### Experimento de identificação de formulários
+
+A branch `codex/form-discovery` contém a versão `0.2.0-dev`, sem novo release. Para gerar um binário separado: `.\.venv\Scripts\python scripts/build.py --experimental`. A saída é `dist/experimental/VSTWorld.exe`; feche a outra instância antes de usar, pois ambas usam a mesma pasta de fontes. O comando `.\.venv\Scripts\python scripts/smoke_exe.py dist/experimental/VSTWorld.exe` verifica esse arquivo com dados temporários.
+
+O experimento amplia a identificação de campos de busca e parâmetros de formulários HTML. Não é um navegador com JavaScript, não habilita automaticamente novos sites e não confirma downloads apenas porque reconheceu o formulário. [Cobertura, exemplo Musicmakers e limitações](docs/DISCOVERY.md).
+
 ## Executar pelo código no Windows
 
 Requer Python **3.12 ou superior**. Ambiente testado: Python 3.14.6. Na pasta do projeto, PowerShell:

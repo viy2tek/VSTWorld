@@ -1,5 +1,6 @@
 """Verifica o .exe com dados temporários, sem consultar fontes externas."""
 import json
+import argparse
 import os
 from pathlib import Path
 import socket
@@ -9,7 +10,9 @@ import time
 import urllib.request
 
 
-exe = Path(__file__).resolve().parent.parent / 'dist/VSTWorld.exe'
+parser = argparse.ArgumentParser()
+parser.add_argument('exe', nargs='?', type=Path, default=Path(__file__).resolve().parent.parent / 'dist/VSTWorld.exe')
+exe = parser.parse_args().exe.resolve()
 with tempfile.TemporaryDirectory(prefix='vstworld-smoke-') as folder:
     env = dict(os.environ, LOCALAPPDATA=folder)
     for name in ('VSTWORLD_SOURCES', 'VSTHOUSE_SOURCES'):

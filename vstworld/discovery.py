@@ -1,7 +1,7 @@
 """Inspeção limitada de formulários e HTML público; não salva configurações."""
 import asyncio
 import re
-from urllib.parse import urlsplit
+from urllib.parse import parse_qsl, urlsplit
 
 import httpx
 from bs4 import BeautifulSoup
@@ -19,29 +19,111 @@ def result_pattern(soup):
     return None
 
 
-def search_form(soup, catalog, source, base):
-    for form in soup.select('form'):
-        if form.select_one('input[type="password"], input[type="file"]'):
+def disabled_control(node):
+    if node.has_attr('disabled'):
+        return True
+    for fieldset in node.find_parents('fieldset', disabled=True):
+        legend = fieldset.find('legend', recursive=False)
+        if legend is None or not any(parent is legend for parent in node.parents):
+            return True
+    return False
+
+
+def search_form(soup, catalog, source, base, issues=None):
+    issues = issues if issues is not None else []
+    search_words = re.compile(r'search|pesquis|busca|поиск|пошук|suche|recherch', re.I)
+    mutation = re.compile(r'(^|[^a-z])(delete|remove|edit|update|create|login|logout|register|subscribe|upload)([^a-z]|$)', re.I)
+    controls = soup.select('input, select, textarea, button')
+    for form in soup.select('form')[:50]:
+        fields = [node for node in controls if
+                  (node.get('form') == form.get('id') if node.has_attr('form') else node.find_parent('form') is form)
+                  and not disabled_control(node)]
+        if len(fields) > 200 or any(node.get('type', '').lower() in ('password', 'file') for node in fields):
+            issues.append('Não envio formulários de login, envio de arquivos ou formulários grandes demais.')
             continue
-        method = form.get('method', 'GET').upper()
-        if method not in ('GET', 'POST'):
+        text_fields = [node for node in fields if node.name == 'input' and node.get('name')
+                       and node.get('type', 'text').lower() in ('text', 'search')]
+        context = ' '.join(str(form.get(key, '')) for key in ('role', 'id', 'class', 'action'))
+        queries = []
+        for node in text_fields:
+            labels = soup.find_all('label', attrs={'for': node.get('id')}) if node.get('id') else []
+            if node.find_parent('label'):
+                labels.append(node.find_parent('label'))
+            signal = ' '.join([*(str(node.get(key, '')) for key in ('name', 'id', 'placeholder', 'aria-label')),
+                               *(label.get_text(' ', strip=True) for label in labels)])
+            if (node.get('type', '').lower() == 'search' or
+                    node['name'].lower() in ('q', 's', 'query', 'keyword', 'searchword') or
+                    search_words.search(signal) or (len(text_fields) == 1 and search_words.search(context))):
+                queries.append(node)
+        if len(queries) != 1:
+            if queries:
+                issues.append('Encontrei mais de um possível campo de busca e não vou escolher um ao acaso.')
             continue
-        query = next((node for node in form.select('input[name]')
-                      if node.get('name', '').lower() in ('q', 's', 'search', 'query', 'searchword', 'keyword')
-                      and node.get('type', 'text').lower() in ('text', 'search')), None)
-        if query is None:
+        query = queries[0]
+        submit = next((node for node in fields if node.get('type', 'submit' if node.name == 'button' else 'text').lower() == 'submit'), None)
+        method = (submit.get('formmethod') if submit else None) or form.get('method', 'GET')
+        method = method.upper()
+        encoding = (submit.get('formenctype') if submit else None) or form.get('enctype', 'application/x-www-form-urlencoded')
+        if method not in ('GET', 'POST') or (method == 'POST' and encoding.lower() != 'application/x-www-form-urlencoded'):
+            issues.append('A busca usa um tipo de envio que ainda precisa de uma integração específica.')
             continue
-        # Um formulário com outros campos editáveis pode executar outra operação.
-        if form.select('textarea, select') or any(node is not query and node.get('type', 'text').lower()
-                not in ('hidden', 'submit', 'button') for node in form.select('input')):
+        charset = form.get('accept-charset', 'utf-8').lower().strip()
+        if charset not in ('utf-8', 'utf8'):
+            issues.append('A busca declara uma codificação de texto ainda não suportada automaticamente.')
             continue
         try:
-            action = catalog.url(source, form.get('action') or base, base)
+            action = (submit.get('formaction') if submit else None) or form.get('action') or base
+            action = catalog.url(source, action.split('#', 1)[0] or base, base)
+            if method == 'GET':
+                action = str(httpx.URL(action).copy_with(query=None))
         except ValueError:
+            issues.append('O formulário envia a busca para outro domínio ou endereço não permitido.')
+            continue
+        params = {}
+        invalid = False
+        for node in fields:
+            name = node.get('name')
+            if node is query or not name:
+                continue
+            kind = node.get('type', 'submit' if node.name == 'button' else 'text').lower()
+            if node.name == 'select':
+                explicit = node.select('option[selected]')
+                options = [option for option in node.select('option') if not option.has_attr('disabled')
+                           and not option.find_parent('optgroup', disabled=True)]
+                selected = [option for option in explicit if any(option is enabled for enabled in options)]
+                if not node.has_attr('multiple'):
+                    selected = selected[-1:] if explicit else options[:1]
+                if len(selected) > 1:
+                    invalid = True
+                    break
+                if not selected:
+                    continue
+                value = selected[0].get('value', selected[0].get_text(' ', strip=True))
+            elif kind in ('checkbox', 'radio'):
+                if not node.has_attr('checked'):
+                    continue
+                value = node.get('value', 'on')
+            elif kind in ('reset', 'button') or (kind == 'submit' and node is not submit):
+                continue
+            elif (node.name == 'input' and kind == 'hidden') or node is submit:
+                value = node.get('value', '')
+            else:
+                invalid = True
+                break
+            if name in params or name == query['name']:
+                invalid = True
+                break
+            params[name] = value
+        if invalid:
+            issues.append('A busca tem campos adicionais ou vários valores com o mesmo nome; ainda não consigo reproduzi-la sem perder informações.')
+            continue
+        if mutation.search(urlsplit(action).path) or any(mutation.search(value) for key, value in
+                [*params.items(), *parse_qsl(urlsplit(action).query)]
+                if key.lower() in ('action', 'do', 'subaction', 'op', 'operation')):
+            issues.append('Este formulário parece alterar dados ou acessar uma conta; não foi enviado como busca.')
             continue
         maximum = query.get('maxlength', '200')
-        return dict(search_path=action, method=method, query_param=query['name'],
-                    params={node['name']: node.get('value', '') for node in form.select('input[type="hidden"][name]')},
+        return dict(search_path=action, method=method, query_param=query['name'], params=params,
                     max_query=min(500, max(1, int(maximum))) if maximum.isdigit() else 200)
     return None
 
@@ -111,10 +193,13 @@ async def detect_source(url: str, existing_sources: list[Source], transport=None
             check('robots', 'verified' if source.respect_robots else 'unverified',
                   'robots.txt aplicado às consultas.' if source.respect_robots else
                   'robots.txt não aplicado, conforme a configuração existente desta fonte.')
-            form = search_form(home, catalog, source, home_url)
+            form_issues = []
+            form = search_form(home, catalog, source, home_url, form_issues)
             check('form', 'verified' if form else 'unverified',
-                  f"Formulário nativo observado: {form['method']} {form['search_path']}; campo {form['query_param']}." if form else
-                  'Não encontrei formulário de pesquisa seguro no HTML inicial; login e formulários externos não são enviados.')
+                  f"Formulário nativo observado: {form['method']} {form['search_path']}; campo {form['query_param']}; "
+                  f"parâmetros adicionais: {', '.join(form['params']) or 'nenhum'}." if form else
+                  form_issues[-1] if form_issues else
+                  'Não encontrei um campo de busca identificável no HTML. A busca pode depender de JavaScript ou de uma integração específica.')
             pattern = (source.item_selector, source.title_selector) if existing else result_pattern(home)
             if not pattern or not any(n.select_one(pattern[1]) for n in home.select(pattern[0])):
                 check('results', 'unverified', 'Não encontrei blocos de resultados e títulos compatíveis no HTML inicial.')

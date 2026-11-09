@@ -1,11 +1,15 @@
 """Gera o executável Windows usando o ambiente Python atual."""
 from pathlib import Path
+import argparse
 import subprocess
 import sys
 from importlib.metadata import distributions
 
 
 root = Path(__file__).resolve().parent.parent
+parser = argparse.ArgumentParser()
+parser.add_argument('--experimental', action='store_true', help='Gerar em dist/experimental sem substituir a beta')
+args = parser.parse_args()
 notices = ['VSTWorld — avisos das dependências do ambiente de build\n'
            'As licenças abaixo pertencem aos respectivos componentes; não licenciam o código do VSTWorld.\n']
 notices.append((Path(sys.base_prefix) / 'LICENSE.txt').read_text(encoding='utf-8'))
@@ -21,7 +25,8 @@ notices_path.parent.mkdir(exist_ok=True)
 notices_path.write_text('\n'.join(notices), encoding='utf-8')
 subprocess.run([
     sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--onefile', '--console',
-    '--name', 'VSTWorld', '--collect-submodules', 'uvicorn',
+    '--name', 'VSTWorld', '--distpath', str(root / ('dist/experimental' if args.experimental else 'dist')),
+    '--collect-submodules', 'uvicorn',
     '--add-data', f'{root / "vstworld/static"}:vstworld/static',
     '--add-data', f'{root / "sources.json"}:.', str(root / 'run.py'),
     '--add-data', f'{notices_path}:.',

@@ -212,7 +212,8 @@ $('#detect-source').addEventListener('click', async () => {
       search:'O teste encontrou resultados.', pagination:'Link encontrado; a página seguinte ainda não foi testada.',
       detail:'Página consultada.', download:'Link encontrado; o arquivo não foi baixado nem validado.', robots:'Regras da fonte verificadas.'};
     result.checks.forEach((check) => {
-      const text = check.status === 'verified' ? (verified[check.name] || 'Verificado.') :
+      const text = check.name === 'form' && check.status !== 'verified' ? check.message :
+        check.status === 'verified' ? (verified[check.name] || 'Verificado.') :
         check.status === 'blocked' ? 'Não foi possível consultar esta parte do site. Veja o relatório avançado para o motivo.' :
         check.name === 'robots' ? 'Segue a política de acesso já definida para esta fonte.' : 'Ainda não confirmado nesta amostra.';
       const item = element('li', `${names[check.name] || check.name}: ${text}`);

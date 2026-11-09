@@ -1,14 +1,92 @@
 import unittest
 
 import httpx
+from bs4 import BeautifulSoup
 
 from vstworld.config import Source
-from vstworld.discovery import detect_source
+from vstworld.catalog import Catalog
+from vstworld.discovery import detect_source, search_form
 
 
 FORM = '<form action="/search/" method="get"><input name="q" maxlength="30"><input type="hidden" name="t" value="0"></form>'
 ITEMS = '<div class="eBlock"><h2 class="eTitle"><a href="/load/item">Piano One instrument</a></h2></div>'
 DETAIL = '<a class="sprite" href="/files/piano.torrent">Download</a>'
+
+
+class SearchFormTests(unittest.IsolatedAsyncioTestCase):
+    async def settings(self, html):
+        source = Source(id='test', name='test', base_url='https://example.com/', hosts=['example.com'],
+                        search_path='/', item_selector='article', title_selector='h2 a', download_selector='a')
+        catalog = Catalog([source], transport=httpx.MockTransport(lambda req: httpx.Response(500)))
+        try:
+            return search_form(BeautifulSoup(html, 'html.parser'), catalog, source, source.base_url)
+        finally:
+            await catalog.close()
+
+    async def test_musicmakers_search_name_and_hidden_fields(self):
+        value = await self.settings('<form method="post"><input type="search" name="story">'
+            '<input type="hidden" name="do" value="search"><input type="hidden" name="subaction" value="search"></form>')
+        self.assertIsNotNone(value)
+        self.assertEqual(value['query_param'], 'story')
+        self.assertEqual(value['method'], 'POST')
+        self.assertEqual(value['params'], {'do':'search', 'subaction':'search'})
+
+    async def test_custom_names_from_labels_and_form_role(self):
+        for html in ['<form><label for="term">Pesquisar produtos</label><input id="term" name="term"></form>',
+                     '<form role="search"><input name="term"></form>',
+                     '<form><input name="term" placeholder="Поиск по сайту"></form>',
+                     '<form action="/search"><input name="term"></form>']:
+            with self.subTest(html=html):
+                value = await self.settings(html)
+                self.assertIsNotNone(value)
+                self.assertEqual(value['query_param'], 'term')
+
+    async def test_successful_controls_and_submit_override(self):
+        value = await self.settings('<form action="/other" method="post"><input type="search" name="term">'
+            '<input type="hidden" name="token" value="observed">'
+            '<input type="hidden" name="ignore" value="x" disabled>'
+            '<fieldset disabled><input type="hidden" name="ignore2" value="x"></fieldset>'
+            '<input type="checkbox" name="exact" checked><input type="checkbox" name="ignore3">'
+            '<input type="radio" name="where" value="title" checked><input type="radio" name="where" value="all">'
+            '<select name="category"><option value="all">All</option><option selected value="vst">VST</option></select>'
+            '<select name="order"><option value="new">New</option></select>'
+            '<button name="go" value="find" formaction="/search" formmethod="get">Search</button></form>')
+        self.assertIsNotNone(value)
+        self.assertEqual(value['search_path'], 'https://example.com/search')
+        self.assertEqual(value['method'], 'GET')
+        self.assertEqual(value['params'], {'token':'observed','exact':'on','where':'title','category':'vst','order':'new','go':'find'})
+
+    async def test_form_associated_controls_and_disabled_query(self):
+        value = await self.settings('<form id="find" action="/search"></form>'
+            '<input form="find" type="search" name="term"><input form="find" type="hidden" name="mode" value="all">')
+        self.assertIsNotNone(value)
+        self.assertEqual(value['params'], {'mode':'all'})
+        self.assertIsNone(await self.settings('<form><input type="search" name="term" disabled></form>'))
+
+    async def test_disabled_options_and_first_legend_follow_form_semantics(self):
+        value = await self.settings('<form><fieldset disabled><legend><input type="search" name="term">'
+            '<input type="hidden" name="mode" value="all"></legend><input type="hidden" name="ignored" value="x"></fieldset>'
+            '<select name="category"><option value="placeholder" selected disabled>Choose</option><option value="vst">VST</option></select></form>')
+        self.assertIsNotNone(value)
+        self.assertEqual(value['params'], {'mode':'all'})
+
+    async def test_ambiguous_or_unrepresentable_forms_not_guessed(self):
+        for inner in ['<input type="search" name="a"><input type="search" name="b">',
+                      '<input type="search" name="q"><input name="email" type="email">',
+                      '<input type="search" name="q"><input type="hidden" name="a" value="1"><input type="hidden" name="a" value="2">',
+                      '<input type="search" name="q"><select name="a" multiple><option selected>1</option><option selected>2</option></select>']:
+            with self.subTest(inner=inner):
+                self.assertIsNone(await self.settings('<form>'+inner+'</form>'))
+
+    async def test_no_mutation_or_unsupported_encoding(self):
+        for html in ['<form method="post" action="/delete"><input type="search" name="q"></form>',
+                     '<form method="post" action="/?action=delete"><input type="search" name="q"></form>',
+                     '<form method="post"><input type="search" name="q"><input type="hidden" name="action" value="delete"></form>',
+                     '<form method="post" enctype="multipart/form-data"><input type="search" name="q"></form>',
+                     '<form><input name="email" placeholder="Your email"></form>',
+                     '<form><input type="search" name="q"><input type="password"></form>']:
+            with self.subTest(html=html):
+                self.assertIsNone(await self.settings(html))
 
 
 class DiscoveryTests(unittest.IsolatedAsyncioTestCase):

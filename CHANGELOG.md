@@ -2,6 +2,9 @@
 
 ## Em desenvolvimento
 
+- Interface em português, inglês e espanhol com seletor persistido por navegador, sem apagar edições ao trocar idioma.
+- Tradução explícita de fichas por Ollama local ou API DeepL opcional; original preservado e respostas validadas antes da exibição.
+
 - Executável Windows sem console na barra de tarefas, com menu Abrir/Encerrar na bandeja e logs em arquivo.
 - Porta 80 preferida no desktop; endereço sem porta quando disponível. Código/Docker continuam usando 8787.
 - Nome local vstworld.local aceito e preferido quando configurado para 127.0.0.1; não modifica hosts automaticamente.

@@ -60,6 +60,10 @@ Se o Plugins4Free não aparecer numa instalação antiga, abra **Fontes → Font
 
 Os filtros locais e a ordenação consideram os **itens carregados de cada fonte**. Parte dos filtros também é enviada à busca nativa do Plugins4Free. Itens sem os dados exigidos por um filtro ficam de fora, com indicação na tela. Publicação da página, atualização da página e lançamento do produto são datas diferentes; o app não inventa datas ausentes. [Entenda o alcance dos filtros](docs/FILTERS.md).
 
+## Idiomas e tradução
+
+**Em desenvolvimento:** o novo build local oferece interface em **português, inglês e espanhol**, com escolha salva no navegador. Nas fichas, **Traduzir informações** permite traduzir os textos por Ollama local ou DeepL online opcional, mantendo **Ver original**. A interface não exige IA; o modo online exige uma chave configurada no servidor e só envia texto após a ação explícita. [Configuração, privacidade e limites](docs/TRANSLATION.md). Esses recursos ainda não estão no executável publicado da beta 0.2.0-beta.1.
+
 ## Fontes
 
 | Fonte | Estado na beta 0.2.0-beta.1 |
@@ -199,6 +203,7 @@ Manutenção: [@viy2tek](https://github.com/viy2tek). Próximas possibilidades e
 | [Identificação de fontes](docs/DISCOVERY.md) | Métodos de inspeção e casos ainda não representáveis |
 | [Filtros](docs/FILTERS.md) | Alcance, dados ausentes, datas e parâmetros nativos |
 | [IA local](docs/LOCAL_AI.md) | Configuração opcional do Ollama no Windows e Docker |
+| [Idiomas e tradução](docs/TRANSLATION.md) | Interface pt/en/es, conteúdo local/online, configuração e limites |
 | [Inspeção do VSTHouse](docs/INSPECAO.md) | Requisições, paginação e política da fonte principal |
 | [Outras fontes](docs/FREE_SOURCES_INSPECTION.md) | Evidências de integração e limitações observadas |
 | [Detalhes e mídia](docs/DETAIL_INSPECTION.md) | Fichas, instalação, imagens e vídeos |

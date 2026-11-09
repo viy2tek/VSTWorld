@@ -12,6 +12,23 @@ from test_catalog import PAGE, source
 
 
 class AppTests(unittest.TestCase):
+    def test_translation_routes_validation_and_key_not_exposed(self):
+        from unittest.mock import patch
+        with patch.dict('os.environ', {'VSTWORLD_DEEPL_API_KEY':'not-a-real-secret:fx'}):
+            settings=self.client.get('/api/translation-settings')
+        self.assertEqual(settings.json(),{'deepl_configured':True})
+        self.assertNotIn('not-a-real-secret',settings.text)
+        for target,provider in [('ru','local'),('pt','https://evil.example')]:
+            self.assertEqual(self.client.post('/api/translate',json={'ref':'a'*32,'target':target,'provider':provider}).status_code,422)
+        self.assertEqual(self.client.post('/api/translate',json={'ref':'a'*32,'target':'pt','provider':'local'},headers={'origin':'https://evil.example'}).status_code,403)
+        result=self.client.post('/api/search',json={'source':'test','query':'A'}).json()
+        ref=result['items'][0]['ref']
+        with patch('vstworld.translation.translate_item', return_value={'metadata':[]}):
+            response=self.client.post('/api/translate',json={'ref':ref,'target':'es','provider':'deepl'})
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.json()['target'],'es')
+        self.assertIn('title',response.json()['original'])
+
     def test_included_sources_and_optional_ai_rejections(self):
         presets = self.client.get('/api/source-presets').json()
         self.assertEqual(presets[0]['id'], 'vsthouse')

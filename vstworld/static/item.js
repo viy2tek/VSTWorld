@@ -1,6 +1,10 @@
 'use strict';
 const $ = (selector) => document.querySelector(selector);
 const ref = location.pathname.split('/').pop();
+let sourceItem = null, activeOriginal = null;
+const translatedItems = new Map();
+let deeplConfigured = false;
+let showingTranslation = false;
 const labels = {'дата выпуска':'Data de lançamento', 'год выпуска':'Ano de lançamento', 'версия':'Versão',
   'разработчик':'Desenvolvedora', 'издатель':'Distribuidora', 'сайт разработчика':'Site da desenvolvedora',
   'формат':'Formato', 'форматы':'Formatos', 'разрядность':'Arquitetura', 'таблэтка':'Ativação informada pela fonte',
@@ -38,7 +42,11 @@ async function downloads() {
   try {
     const value = await api('/api/files');
     $('#files').replaceChildren();
-    value.files.forEach((file) => $('#files').append(link(file.url, `${file.kind.toUpperCase()} · ${file.name}`, 'file-link')));
+    value.files.forEach((file) => {
+      const anchor = link(file.url, undefined, 'file-link');
+      anchor.append(node('span', file.kind.toUpperCase()), document.createTextNode(' · '), node('span', file.name, 'file-name'));
+      $('#files').append(anchor);
+    });
     value.notices.forEach((text) => $('#files').append(node('p', text, 'hint')));
     if (value.files.some((file) => file.kind === 'torrent' || file.kind === 'magnet')) $('#files').append(node('p', 'Torrents e magnets precisam de um cliente BitTorrent externo.', 'hint'));
     $('#files').append(node('p', 'Links informados pela fonte. Licença, integridade e segurança dos arquivos não verificadas.', 'hint'));
@@ -65,38 +73,117 @@ function imageViewer(image, thumbnail) {
 }
 $('#close-image').addEventListener('click', () => $('#image-dialog').close());
 $('#retry-files').addEventListener('click', downloads);
+function renderText(item, target = '') {
+  $('#facts').replaceChildren();
+  $('#installation').replaceChildren();
+  $('#page-dates').textContent = '';
+  $('#installation').lang = target === 'pt' ? 'pt-BR' : target;
+  $('#facts-section').hidden = !item.metadata.length && !item.dates.published && !item.dates.modified;
+  $('#install-section').hidden = !item.installation.length;
+  item.metadata.forEach((field) => {
+    const value = node('dd', field.value);
+    value.lang = target === 'pt' ? 'pt-BR' : target;
+    $('#facts').append(node('dt', labels[field.label.toLowerCase()] || field.label), value);
+  });
+  const dates = [];
+  if (item.dates.published) dates.push(`Publicação da página: ${item.dates.published}`);
+  if (item.dates.modified) dates.push(`Atualização da página: ${item.dates.modified}`);
+  $('#page-dates').textContent = dates.join(' · ');
+  item.installation.forEach((section) => {
+    const container = node('div'); container.append(node('h3', section.title || 'Instruções da fonte'));
+    section.blocks.forEach((block) => {
+      if (block.kind === 'list') {
+        const list = node('ul', undefined, 'install-block source-list');
+        block.items.forEach((text) => list.append(node('li', text)));
+        container.append(list);
+      } else container.append(node('p', block.text, 'install-block'));
+      addLinks(container, block.links);
+    });
+    $('#installation').append(container);
+  });
+}
+function translationPrivacy() {
+  $('#translation-privacy').textContent = $('#translation-provider').value === 'deepl'
+    ? (deeplConfigured ? 'Ao traduzir, os textos desta ficha serão enviados ao DeepL. Pode haver limites ou cobrança na sua conta.'
+      : 'DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.')
+    : 'A tradução local usa Ollama neste computador. Nenhum texto é enviado a um serviço online.';
+}
+const translationErrors = {
+  deepl_not_configured:'DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.',
+  deepl_key_rejected:'A chave do DeepL foi recusada. Confira a configuração no servidor.',
+  deepl_quota:'O limite da conta DeepL foi atingido.',
+  ollama_unavailable:'Ollama indisponível. Inicie o Ollama e instale o modelo local escolhido.',
+  local_model_required:'Escolha um modelo instalado localmente. Modelos remotos não são permitidos neste modo.',
+  changed_technical_tokens:'A tradução alterou dados técnicos protegidos e foi descartada. O original foi mantido.',
+  translation_too_long:'Esta ficha excede o limite de tradução de 16.000 caracteres ou 160 trechos. O original foi mantido.',
+  invalid_translation:'A tradução não pôde ser validada. O original foi mantido.',
+  provider_unavailable:'O tradutor está indisponível. Tente novamente mais tarde.'
+};
+$('#translation-provider').addEventListener('change', () => {
+  translationPrivacy();
+  if (!showingTranslation) $('#translation-status').textContent = 'Original da fonte.';
+});
+window.addEventListener('vstworld:language', (event) => {
+  if (!showingTranslation && !$('#translate-item').disabled) $('#translation-target').value = event.detail.language;
+});
+$('#show-original').addEventListener('click', () => {
+  if (!sourceItem) return;
+  renderText(activeOriginal || sourceItem);
+  showingTranslation = false;
+  $('#translation-status').textContent = 'Original da fonte.';
+  $('#show-original').disabled = true;
+});
+$('#translate-item').addEventListener('click', async () => {
+  if (!sourceItem) return;
+  const target = $('#translation-target').value, provider = $('#translation-provider').value;
+  const model = $('#translation-model').value.trim();
+  const key = JSON.stringify([target, provider, provider === 'local' ? model : '']);
+  if (provider === 'deepl' && !deeplConfigured) {
+    $('#translation-status').textContent = 'Veja como configurar o tradutor em Configurar tradutores opcionais.';
+    return;
+  }
+  const controls = ['#translate-item','#show-original','#translation-target','#translation-provider','#translation-model'];
+  controls.forEach((selector) => { $(selector).disabled = true; });
+  $('#translation-status').textContent = 'Traduzindo os textos da ficha… Isso pode levar alguns minutos.';
+  try {
+    let result = translatedItems.get(key);
+    if (!result) {
+      const response = await fetch('/api/translate', {method:'POST', headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ref, target, provider, model: model || 'qwen3.5:4b'})});
+      result = await response.json();
+      if (!response.ok) throw new Error(translationErrors[result.error] || result.detail || translationErrors.invalid_translation);
+      translatedItems.set(key, result);
+    }
+    activeOriginal = result.original;
+    renderText(result.item, result.target);
+    showingTranslation = true;
+    $('#translation-status').textContent = 'Tradução automática. Confira as instruções e os dados técnicos com o original antes de usá-los.';
+  } catch (error) {
+    renderText(activeOriginal || sourceItem);
+    showingTranslation = false;
+    $('#translation-status').textContent = error.message;
+  } finally {
+    controls.forEach((selector) => { $(selector).disabled = false; });
+    $('#show-original').disabled = !showingTranslation;
+  }
+});
 async function initialize() {
   const back = new URLSearchParams(location.search).get('back');
   if (back === '/' || back?.startsWith('/?')) $('#back').href = back;
   try {
     const item = await api('/api/details');
+    sourceItem = item;
+    renderText(item);
+    show('#translation-panel');
+    $('#translation-target').value = window.VSTI18n?.language || 'pt';
+    fetch('/api/translation-settings').then((response) => response.json()).then((settings) => {
+      deeplConfigured = settings.deepl_configured === true; translationPrivacy();
+    }).catch(() => { deeplConfigured = false; translationPrivacy(); });
+    translationPrivacy();
     document.title = `${item.title || 'Detalhes'} — VSTWorld`;
     $('#item-title').textContent = item.title || 'Detalhes do item';
     $('#item-source').textContent = item.source;
     $('#item-status').textContent = 'Dados extraídos da página original, sem o texto promocional.';
-    if (item.metadata.length) {
-      show('#facts-section');
-      item.metadata.forEach((field) => $('#facts').append(node('dt', labels[field.label.toLowerCase()] || field.label), node('dd', field.value)));
-    }
-    const dates = [];
-    if (item.dates.published) dates.push(`Publicação da página: ${item.dates.published}`);
-    if (item.dates.modified) dates.push(`Atualização da página: ${item.dates.modified}`);
-    if (dates.length) { show('#facts-section'); $('#page-dates').textContent = dates.join(' · '); }
-    if (item.installation.length) {
-      show('#install-section');
-      item.installation.forEach((section) => {
-        const container = node('div'); container.append(node('h3', section.title || 'Instruções da fonte'));
-        section.blocks.forEach((block) => {
-          if (block.kind === 'list') {
-            const list = node('ul', undefined, 'install-block source-list');
-            block.items.forEach((text) => list.append(node('li', text)));
-            container.append(list);
-          } else container.append(node('p', block.text, 'install-block'));
-          addLinks(container, block.links);
-        });
-        $('#installation').append(container);
-      });
-    }
     if (item.images.length) {
       show('#gallery-section');
       item.images.forEach((image, index) => {

@@ -1,14 +1,31 @@
 <!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalhes — VSTWorld</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/item.css"><script src="/static/item.js" defer></script></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Detalhes — VSTWorld</title><link rel="icon" href="data:,"><link rel="stylesheet" href="/static/style.css"><link rel="stylesheet" href="/static/item.css"><script src="/static/i18n.js" defer></script>
+  <script src="/static/item.js" defer></script></head>
 <body>
   <a class="skip" href="#item">Ir para o conteúdo</a>
-  <header class="topbar"><a class="brand-small" href="/">VST<span>WORLD</span></a><nav aria-label="Navegação principal"><a href="/" aria-current="page">Catálogo</a><a href="/sources">Fontes</a></nav><span class="local">No seu servidor</span></header>
+  <header class="topbar"><a class="brand-small" href="/">VST<span>WORLD</span></a><nav aria-label="Navegação principal"><a href="/" aria-current="page">Catálogo</a><a href="/sources">Fontes</a></nav><span class="local">No seu servidor</span><label class="language-picker"><span class="sr-only">Idioma da interface</span><select id="ui-language" aria-label="Idioma da interface" data-i18n-skip><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label></header>
   <main id="item" class="shell item-shell">
     <a id="back" class="item-back" href="/"><span aria-hidden="true">←</span> Voltar aos resultados</a>
     <header class="item-heading"><p id="item-source" class="hint"></p><h1 id="item-title">Carregando item…</h1>
     <p id="item-status" role="status" aria-live="polite">Consultando a página da fonte.</p>
     </header>
+    <details id="translation-panel" class="item-translation" hidden><summary>Traduzir informações</summary>
+      <p class="hint">A tradução é opcional. O original fica disponível; nomes, versões, números e links devem ser conferidos na fonte.</p>
+      <div class="translation-controls">
+        <label>Traduzir para<select id="translation-target" data-i18n-skip><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
+        <label>Tradutor<select id="translation-provider"><option value="local">Local — Ollama</option><option value="deepl">Online — DeepL</option></select></label>
+        <button id="translate-item" class="primary" type="button">Traduzir</button>
+        <button id="show-original" type="button" disabled>Ver original</button>
+      </div>
+      <p id="translation-privacy" class="hint"></p>
+      <p id="translation-status" class="hint" role="status" aria-live="polite">Original da fonte.</p>
+      <details class="translation-help"><summary>Configurar tradutores opcionais</summary>
+        <p class="hint">Local: instale Ollama e baixe um modelo. O texto só é enviado ao Ollama neste computador.</p>
+        <label>Modelo local<input id="translation-model" value="qwen3.5:4b" maxlength="120" autocomplete="off"></label>
+        <p class="hint">Online: configure VSTWORLD_DEEPL_API_KEY no ambiente do servidor e reinicie o aplicativo. Use uma chave da API DeepL, não uma assinatura comum do site. A chave não é enviada ao navegador.</p>
+      </details>
+    </details>
     <div class="item-layout">
     <aside class="item-downloads" aria-label="Downloads do item"><section id="downloads-section" hidden><h2>Downloads</h2><div id="files" aria-live="polite"></div><button id="retry-files" type="button">Verificar downloads</button></section></aside>
     <div class="item-content">

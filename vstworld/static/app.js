@@ -266,7 +266,10 @@ async function initialize() {
       checkbox.checked = source.enabled && (!params.has('sources') || params.get('sources').split(',').includes(source.id));
       checkbox.disabled = !source.enabled;
       checkbox.addEventListener('change', updateSourceCount);
-      label.append(checkbox, document.createTextNode(source.name + (source.enabled ? '' : ' · desativada')));
+      const name = node('span', source.name);
+      name.setAttribute('data-i18n-skip', '');
+      label.append(checkbox, name);
+      if (!source.enabled) label.append(document.createTextNode(' · desativada'));
       container.append(label);
       if (source.note) {
         const info = node('details', undefined, 'source-info');
@@ -275,7 +278,10 @@ async function initialize() {
       }
       $('#source-options').append(container);
       if (source.enabled) source.sections.forEach((section) => {
-        const button = node('button', `${section.name} · ${source.name}`);
+        const button = node('button');
+        const name = node('span', source.name);
+        name.setAttribute('data-i18n-skip', '');
+        button.append(node('span', section.name), document.createTextNode(' · '), name);
         button.type = 'button';
         button.addEventListener('click', () => startSearch(source, section.id));
         $('#sections').append(button);

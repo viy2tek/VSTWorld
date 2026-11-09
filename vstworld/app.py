@@ -3,6 +3,7 @@ import asyncio
 from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import urlsplit
+from typing import Literal
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, Response
@@ -57,6 +58,12 @@ class DetectSource(BaseModel):
 
 
 class AIDetectSource(DetectSource):
+    model: str = Field(default='qwen3.5:4b', min_length=1, max_length=120)
+
+
+class Translate(Files):
+    target: Literal['pt', 'en', 'es']
+    provider: Literal['local', 'deepl']
     model: str = Field(default='qwen3.5:4b', min_length=1, max_length=120)
 
 
@@ -201,6 +208,23 @@ def create_app(config_path=None, transport=None):
                 return await catalog.details(body.ref)
             except SourceError as exc:
                 raise HTTPException(422, str(exc)) from exc
+
+    @app.get('/api/translation-settings')
+    async def translation_settings():
+        return {'deepl_configured': bool(os.getenv('VSTWORLD_DEEPL_API_KEY', '').strip())}
+
+    @app.post('/api/translate')
+    async def translate_details(body: Translate, request: Request):
+        from .translation import translate_item, TranslationError
+        async with use_catalog(request.app) as catalog:
+            try:
+                original = await catalog.details(body.ref)
+                item = await translate_item(original, body.target, body.provider, body.model)
+                return {'original': original, 'item': item, 'provider': body.provider, 'target': body.target}
+            except SourceError as exc:
+                raise HTTPException(422, str(exc)) from exc
+            except TranslationError as exc:
+                return JSONResponse({'error': exc.code}, status_code=422)
 
     @app.get('/api/media/{ref}')
     async def item_image(ref: str, request: Request):

@@ -22,6 +22,8 @@ jobs:
       - run: node tests/ui-source-editor.cjs
       - run: node tests/ui-filters.cjs
       - run: node tests/ui-filter-loader.cjs
+      - run: node tests/ui-i18n.cjs
+      - run: node tests/ui-translation.cjs
   windows-executable:
     needs: test
     runs-on: windows-latest

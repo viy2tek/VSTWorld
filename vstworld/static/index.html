@@ -7,6 +7,7 @@
   <title>VSTWorld</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/i18n.js" defer></script>
   <script src="/static/filters.js" defer></script>
   <script src="/static/app.js" defer></script>
 </head>
@@ -16,7 +17,7 @@
     <a class="brand-small" href="/">VST<span>WORLD</span></a>
     <nav aria-label="Navegação principal"><a href="/" aria-current="page">Catálogo</a><a href="/sources">Fontes</a></nav>
     <span class="local">No seu servidor</span>
-  </header>
+  <label class="language-picker"><span class="sr-only">Idioma da interface</span><select id="ui-language" aria-label="Idioma da interface" data-i18n-skip><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label></header>
   <div class="shell">
     <main id="main" class="catalog-main">
       <header class="page-heading"><p class="eyebrow">Seu catálogo de áudio</p><h1>Menos procura. Mais música.</h1><p>Plugins, instrumentos e bibliotecas das suas fontes, em uma única busca.</p></header>

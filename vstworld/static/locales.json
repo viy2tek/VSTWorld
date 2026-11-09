@@ -1,0 +1,1491 @@
+{
+  "strings": {
+    "Ir para a busca": {
+      "en": "Skip to search",
+      "es": "Ir a la búsqueda"
+    },
+    "Navegação principal": {
+      "en": "Main navigation",
+      "es": "Navegación principal"
+    },
+    "Catálogo": {
+      "en": "Catalog",
+      "es": "Catálogo"
+    },
+    "Fontes": {
+      "en": "Sources",
+      "es": "Fuentes"
+    },
+    "No seu servidor": {
+      "en": "On your server",
+      "es": "En tu servidor"
+    },
+    "Seu catálogo de áudio": {
+      "en": "Your audio catalog",
+      "es": "Tu catálogo de audio"
+    },
+    "Menos procura. Mais música.": {
+      "en": "Less searching. More music.",
+      "es": "Menos búsquedas. Más música."
+    },
+    "Plugins, instrumentos e bibliotecas das suas fontes, em uma única busca.": {
+      "en": "Plugins, instruments and libraries from your sources, in one search.",
+      "es": "Plugins, instrumentos y bibliotecas de tus fuentes, en una sola búsqueda."
+    },
+    "O que você está procurando?": {
+      "en": "What are you looking for?",
+      "es": "¿Qué estás buscando?"
+    },
+    "Busque por nome": {
+      "en": "Search by name",
+      "es": "Busca por nombre"
+    },
+    "Pesquisar": {
+      "en": "Search",
+      "es": "Buscar"
+    },
+    "No VSTHouse, pesquise com palavras completas.": {
+      "en": "On VSTHouse, search using complete words.",
+      "es": "En VSTHouse, busca con palabras completas."
+    },
+    "Gerenciar fontes": {
+      "en": "Manage sources",
+      "es": "Gestionar fuentes"
+    },
+    "para adicionar ou editar sites.": {
+      "en": "to add or edit sites.",
+      "es": "para añadir o editar sitios."
+    },
+    "Filtros": {
+      "en": "Filters",
+      "es": "Filtros"
+    },
+    "Sistema": {
+      "en": "System",
+      "es": "Sistema"
+    },
+    "Todos": {
+      "en": "All",
+      "es": "Todos"
+    },
+    "Todas": {
+      "en": "All",
+      "es": "Todas"
+    },
+    "Formato": {
+      "en": "Format",
+      "es": "Formato"
+    },
+    "Formatos": {
+      "en": "Formats",
+      "es": "Formatos"
+    },
+    "Família VST": {
+      "en": "VST family",
+      "es": "Familia VST"
+    },
+    "VST2 confirmado": {
+      "en": "Confirmed VST2",
+      "es": "VST2 confirmado"
+    },
+    "VST3 confirmado": {
+      "en": "Confirmed VST3",
+      "es": "VST3 confirmado"
+    },
+    "Arquitetura": {
+      "en": "Architecture",
+      "es": "Arquitectura"
+    },
+    "Tipo": {
+      "en": "Type",
+      "es": "Tipo"
+    },
+    "Instrumentos": {
+      "en": "Instruments",
+      "es": "Instrumentos"
+    },
+    "Efeitos": {
+      "en": "Effects",
+      "es": "Efectos"
+    },
+    "Samples e bibliotecas": {
+      "en": "Samples and libraries",
+      "es": "Samples y bibliotecas"
+    },
+    "Softwares e DAWs": {
+      "en": "Software and DAWs",
+      "es": "Software y DAWs"
+    },
+    "Desenvolvedora": {
+      "en": "Developer",
+      "es": "Desarrollador"
+    },
+    "Nome ou parte do nome": {
+      "en": "Name or part of a name",
+      "es": "Nombre o parte del nombre"
+    },
+    "Versão contém": {
+      "en": "Version contains",
+      "es": "La versión contiene"
+    },
+    "Por exemplo 1.0.5": {
+      "en": "For example 1.0.5",
+      "es": "Por ejemplo 1.0.5"
+    },
+    "Data da página": {
+      "en": "Page date",
+      "es": "Fecha de la página"
+    },
+    "Publicação": {
+      "en": "Published",
+      "es": "Publicación"
+    },
+    "Última atualização": {
+      "en": "Last updated",
+      "es": "Última actualización"
+    },
+    "De": {
+      "en": "From",
+      "es": "Desde"
+    },
+    "Até": {
+      "en": "To",
+      "es": "Hasta"
+    },
+    "Aplicar filtros": {
+      "en": "Apply filters",
+      "es": "Aplicar filtros"
+    },
+    "Limpar filtros": {
+      "en": "Clear filters",
+      "es": "Borrar filtros"
+    },
+    "Ler fichas dos itens carregados": {
+      "en": "Read details of loaded items",
+      "es": "Leer fichas de los elementos cargados"
+    },
+    "Parar leitura": {
+      "en": "Stop reading",
+      "es": "Detener lectura"
+    },
+    "Filtros locais consideram apenas os itens carregados e os dados confirmados pela fonte.": {
+      "en": "Local filters only use loaded items and data confirmed by the source.",
+      "es": "Los filtros locales solo usan elementos cargados y datos confirmados por la fuente."
+    },
+    "Como funcionam os filtros e a leitura de fichas": {
+      "en": "How filters and detail loading work",
+      "es": "Cómo funcionan los filtros y la lectura de fichas"
+    },
+    "Os filtros refinam os itens carregados. Ao pesquisar, Plugins4Free também recebe os filtros de sistema, formato e Windows 32/64 bits que suporta. VST2/VST3 são refinados localmente dentro da família VST da origem.": {
+      "en": "Filters refine loaded items. During searches, Plugins4Free also receives the system, format and Windows 32/64-bit filters it supports. VST2/VST3 are refined locally within the source's VST family.",
+      "es": "Los filtros refinan los elementos cargados. Al buscar, Plugins4Free también recibe los filtros de sistema, formato y Windows de 32/64 bits que admite. VST2/VST3 se refinan localmente dentro de la familia VST de la fuente."
+    },
+    "Itens sem dados confirmados ficam de fora quando um filtro exige essa informação. Ler fichas consulta os detalhes, sem baixar produtos, e pode levar tempo. Publicação e atualização não usam a data de lançamento do produto.": {
+      "en": "Items without confirmed data are excluded when a filter requires that information. Reading details does not download products and may take time. Publication and update dates do not use the product release date.",
+      "es": "Los elementos sin datos confirmados se excluyen cuando un filtro requiere esa información. Leer fichas consulta los detalles sin descargar productos y puede tardar. Publicación y actualización no usan la fecha de lanzamiento del producto."
+    },
+    "Navegar por categorias": {
+      "en": "Browse categories",
+      "es": "Explorar categorías"
+    },
+    "Navegar no catálogo": {
+      "en": "Browse catalog",
+      "es": "Explorar catálogo"
+    },
+    "Carregando fontes…": {
+      "en": "Loading sources…",
+      "es": "Cargando fuentes…"
+    },
+    "Ordenar": {
+      "en": "Sort",
+      "es": "Ordenar"
+    },
+    "Ordem da fonte": {
+      "en": "Source order",
+      "es": "Orden de la fuente"
+    },
+    "Publicação mais recente": {
+      "en": "Newest publication",
+      "es": "Publicación más reciente"
+    },
+    "Publicação mais antiga": {
+      "en": "Oldest publication",
+      "es": "Publicación más antigua"
+    },
+    "Atualização mais recente": {
+      "en": "Most recently updated",
+      "es": "Actualización más reciente"
+    },
+    "A ordenação por datas depende das informações da fonte.": {
+      "en": "Date sorting depends on information from the source.",
+      "es": "La ordenación por fechas depende de la información de la fuente."
+    },
+    "Ative o JavaScript para consultar as fontes e navegar nos resultados.": {
+      "en": "Enable JavaScript to query sources and browse results.",
+      "es": "Activa JavaScript para consultar las fuentes y explorar los resultados."
+    },
+    "Seu catálogo, no seu servidor.": {
+      "en": "Your catalog, on your server.",
+      "es": "Tu catálogo, en tu servidor."
+    },
+    "Sobre as fontes e os arquivos": {
+      "en": "About sources and files",
+      "es": "Sobre las fuentes y los archivos"
+    },
+    "Interface local, sem anúncios incorporados. Consultas e arquivos dependem das fontes. Torrents precisam de um cliente externo.": {
+      "en": "Local interface with no embedded ads. Searches and files depend on the sources. Torrents require an external client.",
+      "es": "Interfaz local sin anuncios integrados. Las consultas y los archivos dependen de las fuentes. Los torrents requieren un cliente externo."
+    },
+    "Use arquivos conforme suas licenças. A disponibilidade de um link não comprova autorização ou segurança.": {
+      "en": "Use files according to their licenses. An available link does not establish authorization or safety.",
+      "es": "Usa los archivos según sus licencias. Que un enlace esté disponible no demuestra autorización ni seguridad."
+    },
+    "Detalhes — VSTWorld": {
+      "en": "Details — VSTWorld",
+      "es": "Detalles — VSTWorld"
+    },
+    "Ir para o conteúdo": {
+      "en": "Skip to content",
+      "es": "Ir al contenido"
+    },
+    "Voltar aos resultados": {
+      "en": "Back to results",
+      "es": "Volver a los resultados"
+    },
+    "Consultando a página da fonte.": {
+      "en": "Checking the source page.",
+      "es": "Consultando la página de la fuente."
+    },
+    "Downloads do item": {
+      "en": "Item downloads",
+      "es": "Descargas del elemento"
+    },
+    "Verificar downloads": {
+      "en": "Check downloads",
+      "es": "Comprobar descargas"
+    },
+    "Verificar downloads novamente": {
+      "en": "Check downloads again",
+      "es": "Comprobar descargas de nuevo"
+    },
+    "Informações técnicas": {
+      "en": "Technical information",
+      "es": "Información técnica"
+    },
+    "Instalação": {
+      "en": "Installation",
+      "es": "Instalación"
+    },
+    "Clique para tentar abrir a maior imagem disponível. O tamanho é informado após carregar.": {
+      "en": "Click to try opening the largest available image. Dimensions appear after loading.",
+      "es": "Haz clic para intentar abrir la imagen más grande disponible. El tamaño se muestra al cargar."
+    },
+    "Vídeos": {
+      "en": "Videos",
+      "es": "Vídeos"
+    },
+    "O YouTube só é carregado quando você escolhe reproduzir um vídeo.": {
+      "en": "YouTube only loads when you choose to play a video.",
+      "es": "YouTube solo se carga cuando eliges reproducir un vídeo."
+    },
+    "Sobre os dados extraídos": {
+      "en": "About extracted data",
+      "es": "Sobre los datos extraídos"
+    },
+    "Fechar imagem": {
+      "en": "Close image",
+      "es": "Cerrar imagen"
+    },
+    "Screenshot ampliada do item": {
+      "en": "Enlarged item screenshot",
+      "es": "Captura ampliada del elemento"
+    },
+    "Fontes — VSTWorld": {
+      "en": "Sources — VSTWorld",
+      "es": "Fuentes — VSTWorld"
+    },
+    "Ir para o editor": {
+      "en": "Skip to editor",
+      "es": "Ir al editor"
+    },
+    "Seu catálogo, suas fontes": {
+      "en": "Your catalog, your sources",
+      "es": "Tu catálogo, tus fuentes"
+    },
+    "Fontes de pesquisa": {
+      "en": "Search sources",
+      "es": "Fuentes de búsqueda"
+    },
+    "Escolha onde pesquisar ou adicione um site pelo link.": {
+      "en": "Choose where to search or add a website by URL.",
+      "es": "Elige dónde buscar o añade un sitio mediante su enlace."
+    },
+    "Voltar ao catálogo": {
+      "en": "Back to catalog",
+      "es": "Volver al catálogo"
+    },
+    "Fontes cadastradas": {
+      "en": "Registered sources",
+      "es": "Fuentes registradas"
+    },
+    "Adicionar fonte": {
+      "en": "Add source",
+      "es": "Añadir fuente"
+    },
+    "Cadastradas": {
+      "en": "Registered",
+      "es": "Registradas"
+    },
+    "Atualizar lista": {
+      "en": "Refresh list",
+      "es": "Actualizar lista"
+    },
+    "Fontes prontas para adicionar": {
+      "en": "Ready-to-add sources",
+      "es": "Fuentes listas para añadir"
+    },
+    "Prepare uma fonte incluída no app e revise antes de salvar.": {
+      "en": "Prepare a bundled source and review it before saving.",
+      "es": "Prepara una fuente incluida en la aplicación y revísala antes de guardar."
+    },
+    "Alterações salvas valem imediatamente.": {
+      "en": "Saved changes take effect immediately.",
+      "es": "Los cambios guardados se aplican inmediatamente."
+    },
+    "Nova fonte": {
+      "en": "New source",
+      "es": "Nueva fuente"
+    },
+    "Carregando configuração…": {
+      "en": "Loading configuration…",
+      "es": "Cargando configuración…"
+    },
+    "Cadastro por link": {
+      "en": "Add by URL",
+      "es": "Registro por enlace"
+    },
+    "Link do site": {
+      "en": "Website URL",
+      "es": "Enlace del sitio"
+    },
+    "Identificar site": {
+      "en": "Identify website",
+      "es": "Identificar sitio"
+    },
+    "Cole o endereço. O app tenta encontrar a busca, os itens e os downloads e mostra o que conseguiu verificar.": {
+      "en": "Paste the URL. The app tries to find search, items and downloads and shows what it could verify.",
+      "es": "Pega la dirección. La aplicación intenta encontrar la búsqueda, los elementos y las descargas y muestra lo que pudo verificar."
+    },
+    "Salvar fonte": {
+      "en": "Save source",
+      "es": "Guardar fuente"
+    },
+    "Remover fonte": {
+      "en": "Remove source",
+      "es": "Eliminar fuente"
+    },
+    "Confirmar": {
+      "en": "Confirm",
+      "es": "Confirmar"
+    },
+    "Cancelar": {
+      "en": "Cancel",
+      "es": "Cancelar"
+    },
+    "IA local opcional": {
+      "en": "Optional local AI",
+      "es": "IA local opcional"
+    },
+    "Não é necessária para pesquisar nem para usar fontes prontas. Ajuda a propor configurações de sites desconhecidos; o app verifica o resultado antes de preparar a fonte.": {
+      "en": "It is not needed to search or use bundled sources. It helps propose configurations for unfamiliar sites; the app verifies the result before preparing the source.",
+      "es": "No es necesaria para buscar ni para usar fuentes incluidas. Ayuda a proponer configuraciones de sitios desconocidos; la aplicación verifica el resultado antes de preparar la fuente."
+    },
+    "Instale o": {
+      "en": "Install",
+      "es": "Instala"
+    },
+    "Ative o modo local com": {
+      "en": "Enable local mode with",
+      "es": "Activa el modo local con"
+    },
+    "e reinicie o Ollama.": {
+      "en": "and restart Ollama.",
+      "es": "y reinicia Ollama."
+    },
+    "Baixe um modelo:": {
+      "en": "Download a model:",
+      "es": "Descarga un modelo:"
+    },
+    "Com o Ollama aberto, cole o site acima e clique no botão abaixo.": {
+      "en": "With Ollama running, paste the site above and click the button below.",
+      "es": "Con Ollama abierto, pega el sitio arriba y pulsa el botón de abajo."
+    },
+    "Modelo instalado": {
+      "en": "Installed model",
+      "es": "Modelo instalado"
+    },
+    "Identificar com IA local": {
+      "en": "Identify with local AI",
+      "es": "Identificar con IA local"
+    },
+    "Conecta somente a 127.0.0.1:11434. O modelo é um download separado e pode consumir vários GB. Nada é instalado automaticamente. O HTML público é enviado ao modelo local apenas ao clicar neste botão. Para Docker, veja as instruções de IA local no README.": {
+      "en": "Connects only to 127.0.0.1:11434. The model is a separate download and may require several GB. Nothing is installed automatically. Public HTML is sent to the local model only when you click this button. For Docker, see the local AI instructions in the README.",
+      "es": "Solo se conecta a 127.0.0.1:11434. El modelo se descarga por separado y puede ocupar varios GB. Nada se instala automáticamente. El HTML público solo se envía al modelo local al pulsar este botón. Para Docker, consulta las instrucciones de IA local del README."
+    },
+    "Configurações avançadas": {
+      "en": "Advanced settings",
+      "es": "Configuración avanzada"
+    },
+    "Relatório técnico da identificação": {
+      "en": "Technical identification report",
+      "es": "Informe técnico de identificación"
+    },
+    "Identificação": {
+      "en": "Identification",
+      "es": "Identificación"
+    },
+    "Nome da fonte": {
+      "en": "Source name",
+      "es": "Nombre de la fuente"
+    },
+    "Nome exibido no catálogo": {
+      "en": "Name displayed in the catalog",
+      "es": "Nombre mostrado en el catálogo"
+    },
+    "Identificador": {
+      "en": "Identifier",
+      "es": "Identificador"
+    },
+    "minha-fonte": {
+      "en": "my-source",
+      "es": "mi-fuente"
+    },
+    "Único; letras minúsculas, números, hífen ou sublinhado.": {
+      "en": "Unique; lowercase letters, numbers, hyphens or underscores.",
+      "es": "Único; letras minúsculas, números, guiones o guiones bajos."
+    },
+    "URL base": {
+      "en": "Base URL",
+      "es": "URL base"
+    },
+    "Domínios permitidos": {
+      "en": "Allowed domains",
+      "es": "Dominios permitidos"
+    },
+    "Nomes exatos, separados por vírgula; sem https:// ou caminhos.": {
+      "en": "Exact names separated by commas; no https:// or paths.",
+      "es": "Nombres exactos separados por comas; sin https:// ni rutas."
+    },
+    "Observação": {
+      "en": "Note",
+      "es": "Nota"
+    },
+    "Orientações ou limitações conhecidas da fonte": {
+      "en": "Known source guidance or limitations",
+      "es": "Indicaciones o limitaciones conocidas de la fuente"
+    },
+    "Habilitar no catálogo": {
+      "en": "Enable in catalog",
+      "es": "Habilitar en el catálogo"
+    },
+    "Aplicar as regras de robots.txt no app": {
+      "en": "Apply robots.txt rules in the app",
+      "es": "Aplicar las reglas de robots.txt en la aplicación"
+    },
+    "Desmarcar permite enviar consultas públicas sem o bloqueio local de robots. Limites, validação de destinos e restrições reais do servidor continuam ativos.": {
+      "en": "Unchecking allows public requests without the local robots block. Limits, destination validation and actual server restrictions remain active.",
+      "es": "Desmarcar permite enviar consultas públicas sin el bloqueo local de robots. Los límites, la validación de destinos y las restricciones reales del servidor siguen activos."
+    },
+    "Requisição de busca": {
+      "en": "Search request",
+      "es": "Solicitud de búsqueda"
+    },
+    "Caminho de busca": {
+      "en": "Search path",
+      "es": "Ruta de búsqueda"
+    },
+    "Caminho ou URL dentro dos domínios permitidos.": {
+      "en": "Path or URL within allowed domains.",
+      "es": "Ruta o URL dentro de los dominios permitidos."
+    },
+    "Método": {
+      "en": "Method",
+      "es": "Método"
+    },
+    "POST envia formulário, não JSON.": {
+      "en": "POST sends form data, not JSON.",
+      "es": "POST envía un formulario, no JSON."
+    },
+    "Parâmetro da consulta": {
+      "en": "Query parameter",
+      "es": "Parámetro de consulta"
+    },
+    "Máximo de caracteres": {
+      "en": "Maximum characters",
+      "es": "Máximo de caracteres"
+    },
+    "Intervalo entre requisições (s)": {
+      "en": "Request interval (s)",
+      "es": "Intervalo entre solicitudes (s)"
+    },
+    "Parâmetros fixos — objeto JSON": {
+      "en": "Fixed parameters — JSON object",
+      "es": "Parámetros fijos — objeto JSON"
+    },
+    "Chaves e valores como texto. Use {} se não houver.": {
+      "en": "Keys and values as text. Use {} if none.",
+      "es": "Claves y valores como texto. Usa {} si no hay ninguno."
+    },
+    "Resultados, paginação e downloads": {
+      "en": "Results, pagination and downloads",
+      "es": "Resultados, paginación y descargas"
+    },
+    "Seletores CSS do HTML real. Título, link e descrição são relativos a cada resultado.": {
+      "en": "CSS selectors from actual HTML. Title, link and description are relative to each result.",
+      "es": "Selectores CSS del HTML real. El título, enlace y descripción son relativos a cada resultado."
+    },
+    "Seletor de cada resultado": {
+      "en": "Result selector",
+      "es": "Selector de cada resultado"
+    },
+    "Seletor do título": {
+      "en": "Title selector",
+      "es": "Selector del título"
+    },
+    "Seletor do link do detalhe": {
+      "en": "Detail link selector",
+      "es": "Selector del enlace de detalle"
+    },
+    "(opcional)": {
+      "en": "(optional)",
+      "es": "(opcional)"
+    },
+    "Mesmo elemento do título, se vazio": {
+      "en": "Same as title element if empty",
+      "es": "Mismo elemento del título si está vacío"
+    },
+    "Seletor da descrição": {
+      "en": "Description selector",
+      "es": "Selector de descripción"
+    },
+    "Link da próxima página": {
+      "en": "Next page link",
+      "es": "Enlace de la página siguiente"
+    },
+    "Precisa ter href; a próxima página é consultada por GET.": {
+      "en": "Requires href; the next page is requested using GET.",
+      "es": "Requiere href; la página siguiente se consulta por GET."
+    },
+    "Links de download no detalhe": {
+      "en": "Download links on detail page",
+      "es": "Enlaces de descarga en el detalle"
+    },
+    "Arquivos, rotas intermediárias ou magnets.": {
+      "en": "Files, intermediate routes or magnets.",
+      "es": "Archivos, rutas intermedias o magnets."
+    },
+    "Integração de download": {
+      "en": "Download integration",
+      "es": "Integración de descarga"
+    },
+    "Links HTML": {
+      "en": "HTML links",
+      "es": "Enlaces HTML"
+    },
+    "Plugins4Free (integração verificada)": {
+      "en": "Plugins4Free (verified integration)",
+      "es": "Plugins4Free (integración verificada)"
+    },
+    "Conteúdo do detalhe (opcional)": {
+      "en": "Detail content (optional)",
+      "es": "Contenido del detalle (opcional)"
+    },
+    "Data de publicação na listagem (opcional)": {
+      "en": "Publication date in listings (optional)",
+      "es": "Fecha de publicación en el listado (opcional)"
+    },
+    "Data de atualização na listagem (opcional)": {
+      "en": "Update date in listings (optional)",
+      "es": "Fecha de actualización en el listado (opcional)"
+    },
+    "Navegação por seções": {
+      "en": "Section navigation",
+      "es": "Navegación por secciones"
+    },
+    "Seções — lista JSON": {
+      "en": "Sections — JSON list",
+      "es": "Secciones — lista JSON"
+    },
+    "Use [] se não houver. Cada seção tem id, name e path.": {
+      "en": "Use [] if none. Each section has id, name and path.",
+      "es": "Usa [] si no hay ninguna. Cada sección tiene id, name y path."
+    },
+    "Testar antes de salvar": {
+      "en": "Test before saving",
+      "es": "Probar antes de guardar"
+    },
+    "O teste usa os campos atuais, mesmo que a fonte esteja desativada. Não altera o arquivo.": {
+      "en": "The test uses the current fields, even if the source is disabled. It does not change the file.",
+      "es": "La prueba usa los campos actuales, aunque la fuente esté desactivada. No modifica el archivo."
+    },
+    "Consulta de teste": {
+      "en": "Test query",
+      "es": "Consulta de prueba"
+    },
+    "Nome de um item conhecido": {
+      "en": "Name of a known item",
+      "es": "Nombre de un elemento conocido"
+    },
+    "Ou identificador de uma seção cadastrada": {
+      "en": "Or identifier of a registered section",
+      "es": "O identificador de una sección registrada"
+    },
+    "Por exemplo recentes": {
+      "en": "For example recent",
+      "es": "Por ejemplo recientes"
+    },
+    "Se preenchido, testa a seção em vez da busca.": {
+      "en": "If filled in, tests the section instead of searching.",
+      "es": "Si se completa, prueba la sección en lugar de la búsqueda."
+    },
+    "Testar configuração": {
+      "en": "Test configuration",
+      "es": "Probar configuración"
+    },
+    "JSON avançado da fonte": {
+      "en": "Advanced source JSON",
+      "es": "JSON avanzado de la fuente"
+    },
+    "Edite todos os campos do conector. Clique em Aplicar JSON para preencher o formulário e depois em Salvar fonte.": {
+      "en": "Edit all connector fields. Click Apply JSON to fill the form, then Save source.",
+      "es": "Edita todos los campos del conector. Pulsa Aplicar JSON para completar el formulario y después Guardar fuente."
+    },
+    "Definição completa da fonte": {
+      "en": "Complete source definition",
+      "es": "Definición completa de la fuente"
+    },
+    "Aplicar JSON ao formulário": {
+      "en": "Apply JSON to form",
+      "es": "Aplicar JSON al formulario"
+    },
+    "Atualizar JSON com os campos atuais": {
+      "en": "Update JSON from current fields",
+      "es": "Actualizar JSON con los campos actuales"
+    },
+    "Compatível com fontes HTML por GET/POST. URLs e seletores são validados; robots segue a opção desta fonte. Não executa scripts do site nem remove restrições reais de acesso. Não armazene credenciais nos parâmetros.": {
+      "en": "Supports HTML sources using GET/POST. URLs and selectors are validated; robots follows this source's setting. Does not execute website scripts or remove actual access restrictions. Do not store credentials in parameters.",
+      "es": "Compatible con fuentes HTML mediante GET/POST. Se validan las URL y los selectores; robots sigue la opción de esta fuente. No ejecuta scripts del sitio ni elimina restricciones reales de acceso. No guardes credenciales en los parámetros."
+    },
+    "Solicitação inválida. Refaça a pesquisa.": {
+      "en": "Invalid request. Search again.",
+      "es": "Solicitud no válida. Repite la búsqueda."
+    },
+    "Nenhum item carregado corresponde aos filtros com os dados disponíveis.": {
+      "en": "No loaded item matches the filters with the available data.",
+      "es": "Ningún elemento cargado coincide con los filtros con los datos disponibles."
+    },
+    "Ordena apenas os itens carregados de cada fonte. Sem data ficam ao final.": {
+      "en": "Sorts only loaded items from each source. Undated items appear last.",
+      "es": "Solo ordena los elementos cargados de cada fuente. Los que no tienen fecha aparecen al final."
+    },
+    "Ordem da fonte. Não há datas verificáveis para ordenar estes resultados.": {
+      "en": "Source order. There are no verifiable dates to sort these results.",
+      "es": "Orden de la fuente. No hay fechas verificables para ordenar estos resultados."
+    },
+    "Carregando próxima página…": {
+      "en": "Loading next page…",
+      "es": "Cargando la página siguiente…"
+    },
+    "Consultando a fonte…": {
+      "en": "Checking source…",
+      "es": "Consultando la fuente…"
+    },
+    "Falha na conexão com o aplicativo. Tente novamente.": {
+      "en": "Connection to the app failed. Try again.",
+      "es": "Error de conexión con la aplicación. Inténtalo de nuevo."
+    },
+    "Selecione ao menos uma fonte.": {
+      "en": "Select at least one source.",
+      "es": "Selecciona al menos una fuente."
+    },
+    "Digite o nome do que procura.": {
+      "en": "Enter the name you are looking for.",
+      "es": "Escribe el nombre que buscas."
+    },
+    "Fonte original": {
+      "en": "Original source",
+      "es": "Fuente original"
+    },
+    "As fichas destes itens já foram lidas.": {
+      "en": "Details for these items have already been read.",
+      "es": "Las fichas de estos elementos ya se han leído."
+    },
+    "Sobre esta fonte": {
+      "en": "About this source",
+      "es": "Sobre esta fuente"
+    },
+    "Pronto para pesquisar": {
+      "en": "Ready to search",
+      "es": "Listo para buscar"
+    },
+    "Pesquise nas fontes selecionadas ou navegue pelos itens recentes.": {
+      "en": "Search selected sources or browse recent items.",
+      "es": "Busca en las fuentes seleccionadas o explora los elementos recientes."
+    },
+    "Não foi possível carregar as fontes.": {
+      "en": "Could not load sources.",
+      "es": "No se pudieron cargar las fuentes."
+    },
+    "Verifique se o servidor está em execução e recarregue a página.": {
+      "en": "Check that the server is running and reload the page.",
+      "es": "Comprueba que el servidor esté en ejecución y vuelve a cargar la página."
+    },
+    "Selecione uma opção válida para os filtros.": {
+      "en": "Select a valid filter option.",
+      "es": "Selecciona una opción válida para los filtros."
+    },
+    "Fabricante e versão devem ter no máximo 120 caracteres.": {
+      "en": "Developer and version must be at most 120 characters.",
+      "es": "El fabricante y la versión deben tener un máximo de 120 caracteres."
+    },
+    "Informe datas válidas no formato ano-mês-dia.": {
+      "en": "Enter valid dates in year-month-day format.",
+      "es": "Introduce fechas válidas con formato año-mes-día."
+    },
+    "A data inicial deve ser anterior ou igual à data final.": {
+      "en": "The start date must be on or before the end date.",
+      "es": "La fecha inicial debe ser anterior o igual a la fecha final."
+    },
+    "Não foi possível carregar este item. Refaça a pesquisa.": {
+      "en": "Could not load this item. Search again.",
+      "es": "No se pudo cargar este elemento. Repite la búsqueda."
+    },
+    "Verificando os links disponibilizados pela fonte…": {
+      "en": "Checking links provided by the source…",
+      "es": "Comprobando los enlaces proporcionados por la fuente…"
+    },
+    "Torrents e magnets precisam de um cliente BitTorrent externo.": {
+      "en": "Torrents and magnets require an external BitTorrent client.",
+      "es": "Los torrents y magnets requieren un cliente BitTorrent externo."
+    },
+    "Links informados pela fonte. Licença, integridade e segurança dos arquivos não verificadas.": {
+      "en": "Links provided by the source. File license, integrity and safety have not been verified.",
+      "es": "Enlaces proporcionados por la fuente. No se han verificado la licencia, integridad ni seguridad de los archivos."
+    },
+    "Consultando a maior imagem disponibilizada pela origem…": {
+      "en": "Checking the largest image provided by the source…",
+      "es": "Consultando la imagen más grande proporcionada por la fuente…"
+    },
+    "A origem não disponibilizou esta imagem no momento.": {
+      "en": "The source has not made this image available at this time.",
+      "es": "La fuente no ha puesto esta imagen a disposición en este momento."
+    },
+    "Link de imagem identificado": {
+      "en": "Image link identified",
+      "es": "Enlace de imagen identificado"
+    },
+    "Resolução original será verificada ao abrir": {
+      "en": "Original resolution will be checked on opening",
+      "es": "La resolución original se comprobará al abrir"
+    },
+    "Conteúdo de": {
+      "en": "Content from",
+      "es": "Contenido de"
+    },
+    "Data de lançamento": {
+      "en": "Release date",
+      "es": "Fecha de lanzamiento"
+    },
+    "Ano de lançamento": {
+      "en": "Release year",
+      "es": "Año de lanzamiento"
+    },
+    "Versão": {
+      "en": "Version",
+      "es": "Versión"
+    },
+    "Distribuidora": {
+      "en": "Publisher",
+      "es": "Distribuidor"
+    },
+    "Site da desenvolvedora": {
+      "en": "Developer website",
+      "es": "Sitio del desarrollador"
+    },
+    "Ativação informada pela fonte": {
+      "en": "Activation reported by source",
+      "es": "Activación indicada por la fuente"
+    },
+    "Requisitos do sistema": {
+      "en": "System requirements",
+      "es": "Requisitos del sistema"
+    },
+    "Tamanho": {
+      "en": "Size",
+      "es": "Tamaño"
+    },
+    "Idioma": {
+      "en": "Language",
+      "es": "Idioma"
+    },
+    "Sistema operacional": {
+      "en": "Operating system",
+      "es": "Sistema operativo"
+    },
+    "Plataforma": {
+      "en": "Platform",
+      "es": "Plataforma"
+    },
+    "Alterações não salvas": {
+      "en": "Unsaved changes",
+      "es": "Cambios sin guardar"
+    },
+    "Falha na solicitação. Tente novamente.": {
+      "en": "Request failed. Try again.",
+      "es": "Error en la solicitud. Inténtalo de nuevo."
+    },
+    "Seções precisam ser uma lista JSON.": {
+      "en": "Sections must be a JSON list.",
+      "es": "Las secciones deben ser una lista JSON."
+    },
+    "Parâmetros precisam ser um objeto JSON.": {
+      "en": "Parameters must be a JSON object.",
+      "es": "Los parámetros deben ser un objeto JSON."
+    },
+    "Nenhuma fonte cadastrada.": {
+      "en": "No registered sources.",
+      "es": "No hay fuentes registradas."
+    },
+    "Habilitada": {
+      "en": "Enabled",
+      "es": "Habilitada"
+    },
+    "Desativada": {
+      "en": "Disabled",
+      "es": "Desactivada"
+    },
+    "Fonte pronta para revisar e salvar.": {
+      "en": "Source ready to review and save.",
+      "es": "Fuente lista para revisar y guardar."
+    },
+    "Fonte parcial e desativada. Leia as limitações antes de salvar ou habilitar.": {
+      "en": "Partial, disabled source. Read the limitations before saving or enabling it.",
+      "es": "Fuente parcial y desactivada. Lee las limitaciones antes de guardarla o habilitarla."
+    },
+    "Descartar as alterações não salvas desta fonte?": {
+      "en": "Discard unsaved changes to this source?",
+      "es": "¿Descartar los cambios sin guardar de esta fuente?"
+    },
+    "Salvando configuração…": {
+      "en": "Saving configuration…",
+      "es": "Guardando configuración…"
+    },
+    "Fontes salvas e aplicadas. Recarregue outras abas do catálogo para atualizar seus resultados.": {
+      "en": "Sources saved and applied. Reload other catalog tabs to update their results.",
+      "es": "Fuentes guardadas y aplicadas. Vuelve a cargar las otras pestañas del catálogo para actualizar sus resultados."
+    },
+    "Clique em Identificar site para preparar a configuração desse endereço antes de salvar.": {
+      "en": "Click Identify website to prepare this URL's configuration before saving.",
+      "es": "Pulsa Identificar sitio para preparar la configuración de esa dirección antes de guardar."
+    },
+    "O JSON avançado tem alterações. Clique em Aplicar JSON ao formulário antes de salvar.": {
+      "en": "The advanced JSON has changes. Click Apply JSON to form before saving.",
+      "es": "El JSON avanzado tiene cambios. Pulsa Aplicar JSON al formulario antes de guardar."
+    },
+    "Já existe uma fonte com esse identificador. Escolha outro.": {
+      "en": "A source with this identifier already exists. Choose another.",
+      "es": "Ya existe una fuente con ese identificador. Elige otro."
+    },
+    "Cole o link do site e clique em Identificar site.": {
+      "en": "Paste the website URL and click Identify website.",
+      "es": "Pega el enlace del sitio y pulsa Identificar sitio."
+    },
+    "Configuração carregada. Escolha uma fonte ou adicione um site.": {
+      "en": "Configuration loaded. Choose a source or add a site.",
+      "es": "Configuración cargada. Elige una fuente o añade un sitio."
+    },
+    "JSON atualizado com os campos do formulário.": {
+      "en": "JSON updated from form fields.",
+      "es": "JSON actualizado con los campos del formulario."
+    },
+    "Substituir as alterações no JSON pelos campos atuais do formulário?": {
+      "en": "Replace JSON changes with the current form fields?",
+      "es": "¿Sustituir los cambios del JSON por los campos actuales del formulario?"
+    },
+    "Use um objeto JSON para uma única fonte.": {
+      "en": "Use a JSON object for a single source.",
+      "es": "Usa un objeto JSON para una sola fuente."
+    },
+    "JSON aplicado ao formulário. Revise e clique em Salvar fonte para persistir.": {
+      "en": "JSON applied to form. Review and click Save source to persist it.",
+      "es": "JSON aplicado al formulario. Revisa y pulsa Guardar fuente para conservarlo."
+    },
+    "Cole o link do site que deseja adicionar.": {
+      "en": "Paste the URL of the website you want to add.",
+      "es": "Pega el enlace del sitio que quieres añadir."
+    },
+    "Consultando a IA local e verificando a proposta no site… Pode levar alguns minutos.": {
+      "en": "Consulting local AI and checking its proposal on the site… This may take a few minutes.",
+      "es": "Consultando la IA local y verificando su propuesta en el sitio… Puede tardar unos minutos."
+    },
+    "Inspecionando o site e conferindo sua busca…": {
+      "en": "Inspecting the site and checking its search…",
+      "es": "Inspeccionando el sitio y comprobando su búsqueda…"
+    },
+    "Página do site": {
+      "en": "Website page",
+      "es": "Página del sitio"
+    },
+    "Busca": {
+      "en": "Search",
+      "es": "Búsqueda"
+    },
+    "Resultados": {
+      "en": "Results",
+      "es": "Resultados"
+    },
+    "Teste da busca": {
+      "en": "Search test",
+      "es": "Prueba de búsqueda"
+    },
+    "Próxima página": {
+      "en": "Next page",
+      "es": "Página siguiente"
+    },
+    "Página do item": {
+      "en": "Item page",
+      "es": "Página del elemento"
+    },
+    "Links de download": {
+      "en": "Download links",
+      "es": "Enlaces de descarga"
+    },
+    "Política da fonte": {
+      "en": "Source policy",
+      "es": "Política de la fuente"
+    },
+    "Acesso": {
+      "en": "Access",
+      "es": "Acceso"
+    },
+    "Endereço": {
+      "en": "Address",
+      "es": "Dirección"
+    },
+    "IA local": {
+      "en": "Local AI",
+      "es": "IA local"
+    },
+    "Acessível.": {
+      "en": "Accessible.",
+      "es": "Accesible."
+    },
+    "Campo de pesquisa identificado.": {
+      "en": "Search field identified.",
+      "es": "Campo de búsqueda identificado."
+    },
+    "Títulos identificados.": {
+      "en": "Titles identified.",
+      "es": "Títulos identificados."
+    },
+    "O teste encontrou resultados.": {
+      "en": "The test found results.",
+      "es": "La prueba encontró resultados."
+    },
+    "Link encontrado; a página seguinte ainda não foi testada.": {
+      "en": "Link found; the next page has not been tested yet.",
+      "es": "Enlace encontrado; la página siguiente aún no se ha probado."
+    },
+    "Página consultada.": {
+      "en": "Page checked.",
+      "es": "Página consultada."
+    },
+    "Link encontrado; o arquivo não foi baixado nem validado.": {
+      "en": "Link found; the file was not downloaded or validated.",
+      "es": "Enlace encontrado; el archivo no se ha descargado ni validado."
+    },
+    "Regras da fonte verificadas.": {
+      "en": "Source rules checked.",
+      "es": "Reglas de la fuente verificadas."
+    },
+    "Verificado.": {
+      "en": "Verified.",
+      "es": "Verificado."
+    },
+    "Não foi possível consultar esta parte do site. Veja o relatório avançado para o motivo.": {
+      "en": "Could not check this part of the site. See the advanced report for the reason.",
+      "es": "No se pudo consultar esta parte del sitio. Consulta el informe avanzado para conocer el motivo."
+    },
+    "Segue a política de acesso já definida para esta fonte.": {
+      "en": "Follows the access policy already defined for this source.",
+      "es": "Sigue la política de acceso ya definida para esta fuente."
+    },
+    "Ainda não confirmado nesta amostra.": {
+      "en": "Not yet confirmed in this sample.",
+      "es": "Aún no confirmado en esta muestra."
+    },
+    "Fonte preparada. Confira as verificações antes de salvar.": {
+      "en": "Source prepared. Review the checks before saving.",
+      "es": "Fuente preparada. Revisa las comprobaciones antes de guardar."
+    },
+    "Não conseguimos identificar este site automaticamente. A configuração manual fica em Avançadas.": {
+      "en": "We could not identify this site automatically. Manual configuration is under Advanced settings.",
+      "es": "No pudimos identificar este sitio automáticamente. La configuración manual está en Configuración avanzada."
+    },
+    "Aplique o JSON ao formulário antes de testar.": {
+      "en": "Apply the JSON to the form before testing.",
+      "es": "Aplica el JSON al formulario antes de probar."
+    },
+    "Informe uma consulta de teste ou o identificador de uma seção.": {
+      "en": "Enter a test query or a section identifier.",
+      "es": "Introduce una consulta de prueba o el identificador de una sección."
+    },
+    "Testando…": {
+      "en": "Testing…",
+      "es": "Probando…"
+    },
+    "Consultando a fonte com a configuração atual…": {
+      "en": "Checking the source with the current configuration…",
+      "es": "Consultando la fuente con la configuración actual…"
+    },
+    "Próxima página identificada.": {
+      "en": "Next page identified.",
+      "es": "Página siguiente identificada."
+    },
+    "Nenhuma próxima página identificada.": {
+      "en": "No next page identified.",
+      "es": "No se ha identificado una página siguiente."
+    },
+    "Idioma da interface": {
+      "en": "Interface language",
+      "es": "Idioma de la interfaz"
+    },
+    "Carregando item…": {
+      "en": "Loading item…",
+      "es": "Cargando elemento…"
+    },
+    "Detalhes do item": {
+      "en": "Item details",
+      "es": "Detalles del elemento"
+    },
+    "Não foi possível abrir o item": {
+      "en": "Could not open item",
+      "es": "No se pudo abrir el elemento"
+    },
+    "Dados extraídos da página original, sem o texto promocional.": {
+      "en": "Data extracted from the original page, without promotional text.",
+      "es": "Datos extraídos de la página original, sin texto promocional."
+    },
+    "Traduzir informações": {
+      "en": "Translate information",
+      "es": "Traducir información"
+    },
+    "A tradução é opcional. O original fica disponível; nomes, versões, números e links devem ser conferidos na fonte.": {
+      "en": "Translation is optional. The original remains available; check names, versions, numbers and links against the source.",
+      "es": "La traducción es opcional. El original sigue disponible; comprueba nombres, versiones, números y enlaces en la fuente."
+    },
+    "Traduzir para": {
+      "en": "Translate to",
+      "es": "Traducir a"
+    },
+    "Tradutor": {
+      "en": "Translator",
+      "es": "Traductor"
+    },
+    "Traduzir": {
+      "en": "Translate",
+      "es": "Traducir"
+    },
+    "Ver original": {
+      "en": "View original",
+      "es": "Ver original"
+    },
+    "Original da fonte.": {
+      "en": "Source original.",
+      "es": "Original de la fuente."
+    },
+    "Configurar tradutores opcionais": {
+      "en": "Set up optional translators",
+      "es": "Configurar traductores opcionales"
+    },
+    "Local: instale Ollama e baixe um modelo. O texto só é enviado ao Ollama neste computador.": {
+      "en": "Local: install Ollama and download a model. Text is only sent to Ollama on this computer.",
+      "es": "Local: instala Ollama y descarga un modelo. El texto solo se envía a Ollama en este equipo."
+    },
+    "Modelo local": {
+      "en": "Local model",
+      "es": "Modelo local"
+    },
+    "Online: configure VSTWORLD_DEEPL_API_KEY no ambiente do servidor e reinicie o aplicativo. Use uma chave da API DeepL, não uma assinatura comum do site. A chave não é enviada ao navegador.": {
+      "en": "Online: set VSTWORLD_DEEPL_API_KEY in the server environment and restart the app. Use a DeepL API key, not a regular website subscription. The key is not sent to the browser.",
+      "es": "Online: configura VSTWORLD_DEEPL_API_KEY en el entorno del servidor y reinicia la aplicación. Usa una clave de la API DeepL, no una suscripción normal del sitio. La clave no se envía al navegador."
+    },
+    "Ao traduzir, os textos desta ficha serão enviados ao DeepL. Pode haver limites ou cobrança na sua conta.": {
+      "en": "When translating, the text on this page will be sent to DeepL. Your account may have limits or charges.",
+      "es": "Al traducir, los textos de esta ficha se enviarán a DeepL. Puede haber límites o cargos en tu cuenta."
+    },
+    "DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.": {
+      "en": "DeepL is not configured. Set the key on the server before using online translation.",
+      "es": "DeepL no está configurado. Define la clave en el servidor antes de usar la traducción online."
+    },
+    "A tradução local usa Ollama neste computador. Nenhum texto é enviado a um serviço online.": {
+      "en": "Local translation uses Ollama on this computer. No text is sent to an online service.",
+      "es": "La traducción local usa Ollama en este equipo. No se envía texto a un servicio online."
+    },
+    "A chave do DeepL foi recusada. Confira a configuração no servidor.": {
+      "en": "The DeepL key was rejected. Check the server configuration.",
+      "es": "La clave de DeepL fue rechazada. Comprueba la configuración del servidor."
+    },
+    "O limite da conta DeepL foi atingido.": {
+      "en": "The DeepL account limit has been reached.",
+      "es": "Se ha alcanzado el límite de la cuenta DeepL."
+    },
+    "Ollama indisponível. Inicie o Ollama e instale o modelo local escolhido.": {
+      "en": "Ollama is unavailable. Start Ollama and install the selected local model.",
+      "es": "Ollama no está disponible. Inicia Ollama e instala el modelo local elegido."
+    },
+    "Escolha um modelo instalado localmente. Modelos remotos não são permitidos neste modo.": {
+      "en": "Choose a locally installed model. Remote models are not allowed in this mode.",
+      "es": "Elige un modelo instalado localmente. No se permiten modelos remotos en este modo."
+    },
+    "A tradução alterou dados técnicos protegidos e foi descartada. O original foi mantido.": {
+      "en": "The translation changed protected technical data and was discarded. The original was kept.",
+      "es": "La traducción alteró datos técnicos protegidos y se descartó. Se conservó el original."
+    },
+    "Esta ficha excede o limite de tradução de 16.000 caracteres ou 160 trechos. O original foi mantido.": {
+      "en": "This page exceeds the translation limit of 16,000 characters or 160 segments. The original was kept.",
+      "es": "Esta ficha supera el límite de traducción de 16.000 caracteres o 160 fragmentos. Se conservó el original."
+    },
+    "A tradução não pôde ser validada. O original foi mantido.": {
+      "en": "The translation could not be validated. The original was kept.",
+      "es": "No se pudo validar la traducción. Se conservó el original."
+    },
+    "O tradutor está indisponível. Tente novamente mais tarde.": {
+      "en": "The translator is unavailable. Try again later.",
+      "es": "El traductor no está disponible. Inténtalo de nuevo más tarde."
+    },
+    "Traduzindo os textos da ficha… Isso pode levar alguns minutos.": {
+      "en": "Translating the text on this page… This may take a few minutes.",
+      "es": "Traduciendo los textos de la ficha… Puede tardar unos minutos."
+    },
+    "Tradução automática. Confira as instruções e os dados técnicos com o original antes de usá-los.": {
+      "en": "Automatic translation. Check instructions and technical data against the original before using them.",
+      "es": "Traducción automática. Comprueba las instrucciones y los datos técnicos con el original antes de usarlos."
+    },
+    "Recentes": {
+      "en": "Recent",
+      "es": "Recientes"
+    },
+    "Samples e presets": {
+      "en": "Samples and presets",
+      "es": "Samples y presets"
+    },
+    "Aplicativos": {
+      "en": "Applications",
+      "es": "Aplicaciones"
+    },
+    "32 bits": {
+      "en": "32-bit",
+      "es": "32 bits"
+    },
+    "64 bits": {
+      "en": "64-bit",
+      "es": "64 bits"
+    },
+    "Local — Ollama": {
+      "en": "Local — Ollama",
+      "es": "Local — Ollama"
+    },
+    "Online — DeepL": {
+      "en": "Online — DeepL",
+      "es": "En línea — DeepL"
+    },
+    "· desativada": {
+      "en": "· disabled",
+      "es": "· desactivada"
+    },
+    "· cadastrada": {
+      "en": "· registered",
+      "es": "· registrada"
+    },
+    "· experimental, desativada": {
+      "en": "· experimental, disabled",
+      "es": "· experimental, desactivada"
+    },
+    "· adicionar": {
+      "en": "· add",
+      "es": "· añadir"
+    },
+    "ARQUIVO": {
+      "en": "FILE",
+      "es": "ARCHIVO"
+    },
+    "Downloads": {
+      "en": "Downloads",
+      "es": "Descargas"
+    },
+    "Screenshots": {
+      "en": "Screenshots",
+      "es": "Capturas de pantalla"
+    },
+    "Veja como configurar o tradutor em Configurar tradutores opcionais.": {
+      "en": "See how to set up the translator under Set up optional translators.",
+      "es": "Consulta cómo configurar el traductor en Configurar traductores opcionales."
+    }
+  },
+  "patterns": [
+    {
+      "pt": "^(\\d+) de (\\d+) itens carregados(.*)$",
+      "en": "$1 of $2 items loaded$3",
+      "es": "$1 de $2 elementos cargados$3",
+      "translateCaptures": [
+        3
+      ]
+    },
+    {
+      "pt": "^· (\\d+) fonte\\(s\\) consultando…(.*)$",
+      "en": "· Querying $1 source(s)…$2",
+      "es": "· Consultando $1 fuente(s)…$2",
+      "translateCaptures": [
+        2
+      ]
+    },
+    {
+      "pt": "^· (\\d+) sem dados para os filtros$",
+      "en": "· $1 without filter data",
+      "es": "· $1 sin datos para los filtros"
+    },
+    {
+      "pt": "^(\\d+) ativo\\(s\\)$",
+      "en": "$1 active",
+      "es": "$1 activo(s)"
+    },
+    {
+      "pt": "^(\\d+) selecionada\\(s\\)$",
+      "en": "$1 selected",
+      "es": "$1 seleccionada(s)"
+    },
+    {
+      "pt": "^Próxima página · (.+)$",
+      "en": "Next page · $1",
+      "es": "Página siguiente · $1"
+    },
+    {
+      "pt": "^Resultados para “([\\s\\S]*)”$",
+      "en": "Results for “$1”",
+      "es": "Resultados para “$1”"
+    },
+    {
+      "pt": "^Lendo fichas: (\\d+)/(\\d+)…$",
+      "en": "Reading details: $1/$2…",
+      "es": "Leyendo fichas: $1/$2…"
+    },
+    {
+      "pt": "^Fichas processadas: (\\d+)/(\\d+)(.*)\\.$",
+      "en": "Details processed: $1/$2$3.",
+      "es": "Fichas procesadas: $1/$2$3.",
+      "translateCaptures": [
+        3
+      ]
+    },
+    {
+      "pt": "^· (\\d+) falha\\(s\\), tente novamente ou refaça a pesquisa$",
+      "en": "· $1 failure(s), try again or repeat the search",
+      "es": "· $1 fallo(s), inténtalo de nuevo o repite la búsqueda"
+    },
+    {
+      "pt": "^Leitura interrompida\\. (\\d+) ficha\\(s\\) processada\\(s\\)\\.$",
+      "en": "Reading stopped. $1 detail page(s) processed.",
+      "es": "Lectura detenida. $1 ficha(s) procesada(s)."
+    },
+    {
+      "pt": "^Original indisponível\\. Miniatura: (\\d+ × \\d+ pixels)\\.$",
+      "en": "Original unavailable. Thumbnail: $1.",
+      "es": "Original no disponible. Miniatura: $1."
+    },
+    {
+      "pt": "^Imagem disponibilizada pela fonte: (\\d+ × \\d+ pixels)\\.$",
+      "en": "Image provided by the source: $1.",
+      "es": "Imagen proporcionada por la fuente: $1."
+    },
+    {
+      "pt": "^Nenhuma resolução maior confirmada\\. Imagem recebida: (\\d+ × \\d+ pixels)\\.$",
+      "en": "No higher resolution confirmed. Received image: $1.",
+      "es": "No se ha confirmado una resolución mayor. Imagen recibida: $1."
+    },
+    {
+      "pt": "^Ampliar screenshot (\\d+)$",
+      "en": "Enlarge screenshot $1",
+      "es": "Ampliar captura $1"
+    },
+    {
+      "pt": "^Reproduzir vídeo (\\d+) do YouTube$",
+      "en": "Play YouTube video $1",
+      "es": "Reproducir vídeo $1 de YouTube"
+    },
+    {
+      "pt": "^Vídeo (\\d+) do item$",
+      "en": "Item video $1",
+      "es": "Vídeo $1 del elemento"
+    },
+    {
+      "pt": "^Editar (.+)$",
+      "en": "Edit $1",
+      "es": "Editar $1"
+    },
+    {
+      "pt": "^Remover “(.+)” do catálogo\\?$",
+      "en": "Remove “$1” from the catalog?",
+      "es": "¿Eliminar “$1” del catálogo?"
+    },
+    {
+      "pt": "^Campo não suportado: (.+)$",
+      "en": "Unsupported field: $1",
+      "es": "Campo no compatible: $1"
+    },
+    {
+      "pt": "^Parâmetros: JSON inválido\\. Confira vírgulas, aspas e colchetes\\.$",
+      "en": "Parameters: invalid JSON. Check commas, quotes and brackets.",
+      "es": "Parámetros: JSON no válido. Revisa comas, comillas y corchetes."
+    },
+    {
+      "pt": "^Seções: JSON inválido\\. Confira vírgulas, aspas e colchetes\\.$",
+      "en": "Sections: invalid JSON. Check commas, quotes and brackets.",
+      "es": "Secciones: JSON no válido. Revisa comas, comillas y corchetes."
+    },
+    {
+      "pt": "^(\\d+) resultado\\(s\\) extraído\\(s\\)\\. Próxima página identificada\\.$",
+      "en": "$1 result(s) extracted. Next page identified.",
+      "es": "$1 resultado(s) extraído(s). Página siguiente identificada."
+    },
+    {
+      "pt": "^(\\d+) resultado\\(s\\) extraído\\(s\\)\\. Nenhuma próxima página identificada\\.$",
+      "en": "$1 result(s) extracted. No next page identified.",
+      "es": "$1 resultado(s) extraído(s). No se ha identificado una página siguiente."
+    },
+    {
+      "pt": "^(.+) · cadastrada$",
+      "en": "$1 · registered",
+      "es": "$1 · registrada"
+    },
+    {
+      "pt": "^(.+) · experimental, desativada$",
+      "en": "$1 · experimental, disabled",
+      "es": "$1 · experimental, desactivada"
+    },
+    {
+      "pt": "^(.+) · adicionar$",
+      "en": "$1 · add",
+      "es": "$1 · añadir"
+    },
+    {
+      "pt": "^Publicação da página: ([\\s\\S]+?)( · Atualização da página: ([\\s\\S]+))?$",
+      "en": "Page published: $1$2",
+      "es": "Publicación de la página: $1$2",
+      "translateCaptures": [
+        2
+      ]
+    },
+    {
+      "pt": "^(· )?Atualização da página: ([\\s\\S]+)$",
+      "en": "$1Page updated: $2",
+      "es": "$1Actualización de la página: $2"
+    },
+    {
+      "pt": "^Não foi possível aplicar o JSON: ([\\s\\S]*)$",
+      "en": "Could not apply JSON: $1",
+      "es": "No se pudo aplicar el JSON: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Página do site: ([\\s\\S]*)$",
+      "en": "Website page: $1",
+      "es": "Página del sitio: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Busca: ([\\s\\S]*)$",
+      "en": "Search: $1",
+      "es": "Búsqueda: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Resultados: ([\\s\\S]*)$",
+      "en": "Results: $1",
+      "es": "Resultados: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Teste da busca: ([\\s\\S]*)$",
+      "en": "Search test: $1",
+      "es": "Prueba de búsqueda: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Próxima página: ([\\s\\S]*)$",
+      "en": "Next page: $1",
+      "es": "Página siguiente: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Página do item: ([\\s\\S]*)$",
+      "en": "Item page: $1",
+      "es": "Página del elemento: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Links de download: ([\\s\\S]*)$",
+      "en": "Download links: $1",
+      "es": "Enlaces de descarga: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Política da fonte: ([\\s\\S]*)$",
+      "en": "Source policy: $1",
+      "es": "Política de la fuente: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Acesso: ([\\s\\S]*)$",
+      "en": "Access: $1",
+      "es": "Acceso: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^Endereço: ([\\s\\S]*)$",
+      "en": "Address: $1",
+      "es": "Dirección: $1",
+      "translateCaptures": [
+        1
+      ]
+    },
+    {
+      "pt": "^IA local: ([\\s\\S]*)$",
+      "en": "Local AI: $1",
+      "es": "IA local: $1",
+      "translateCaptures": [
+        1
+      ]
+    }
+  ]
+}

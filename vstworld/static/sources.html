@@ -7,6 +7,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/sources.css">
+  <script src="/static/i18n.js" defer></script>
   <script src="/static/sources.js" defer></script>
 </head>
 <body>
@@ -15,7 +16,7 @@
     <a class="brand-small" href="/">VST<span>WORLD</span></a>
     <nav aria-label="Navegação principal"><a href="/">Catálogo</a><a href="/sources" aria-current="page">Fontes</a></nav>
     <span class="local">No seu servidor</span>
-  </header>
+  <label class="language-picker"><span class="sr-only">Idioma da interface</span><select id="ui-language" aria-label="Idioma da interface" data-i18n-skip><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label></header>
   <main class="shell settings-shell">
     <div class="settings-heading"><div><p class="eyebrow">Seu catálogo, suas fontes</p><h1>Fontes de pesquisa</h1><p>Escolha onde pesquisar ou adicione um site pelo link.</p></div><a href="/">Voltar ao catálogo <span aria-hidden="true">→</span></a></div>
     <div class="settings-layout">

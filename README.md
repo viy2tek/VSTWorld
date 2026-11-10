@@ -8,11 +8,11 @@ Português (BR) · [English](README.en.md) · [Español](README.es.md)
 
 Um catálogo gratuito e self-hosted para consultar informações e links de download em uma interface sem os anúncios das páginas de origem.
 
-[![Beta](https://img.shields.io/badge/beta-0.3.0--beta.1-27676c)](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.1)
+[![Beta](https://img.shields.io/badge/beta-0.3.0--beta.2-27676c)](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.2)
 [![Verificações](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml)
 [![Licença DWL](https://img.shields.io/badge/licen%C3%A7a-DWL-555)](LICENSE)
 
-**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.1/VSTWorld-windows-x64.exe)** · [Documentação](#documentação) · [Reportar problema](https://github.com/viy2tek/VSTWorld/issues)
+**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.2/VSTWorld-windows-x64.exe)** · [Documentação](#documentação) · [Reportar problema](https://github.com/viy2tek/VSTWorld/issues)
 
 </div>
 
@@ -33,11 +33,11 @@ Um catálogo gratuito e self-hosted para consultar informações e links de down
 
 ### Windows
 
-1. [Baixe o executável](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.1/VSTWorld-windows-x64.exe) e abra com dois cliques.
+1. [Baixe o executável](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.2/VSTWorld-windows-x64.exe) e abra com dois cliques.
 2. Aguarde o navegador abrir, pesquise e clique em um título para ver os detalhes.
 3. Use o ícone **W** na bandeja, perto do relógio, para abrir ou encerrar o app.
 
-Não exige Python, Node ou Docker. Ao atualizar, encerre a versão anterior e mantenha apenas uma instância aberta. Suas fontes salvas são preservadas. O executável ainda não tem assinatura digital nem atualização automática; os [arquivos do release](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.1) incluem o checksum SHA-256.
+Não exige Python, Node ou Docker. Ao atualizar, encerre a versão anterior e mantenha apenas uma instância aberta. Suas fontes salvas são preservadas. O executável ainda não tem assinatura digital nem atualização automática; os [arquivos do release](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.2) incluem o checksum SHA-256.
 
 O endereço abre automaticamente. O nome `vstworld.local` exige configuração no computador; uma porta alternativa aparece se a porta 80 estiver ocupada. [Guia do aplicativo Windows](docs/DESKTOP.md).
 

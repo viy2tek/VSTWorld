@@ -1,5 +1,10 @@
 # Histórico
 
+## 0.3.0-beta.2 — 2026-11-10
+
+- Licença do VSTWorld alterada de MIT para DWL; o executável desta versão inclui o texto DWL.
+- README disponível em português, inglês e espanhol, com links de navegação entre idiomas.
+
 ## 0.3.0-beta.1 — 2026-11-09
 
 - Interface em português, inglês e espanhol com seletor persistido por navegador, sem apagar edições ao trocar idioma.

@@ -2,13 +2,15 @@
 
 # VSTWorld
 
+Português (BR) · [English](README.en.md) · [Español](README.es.md)
+
 **Plugins, instrumentos e bibliotecas de áudio. Uma busca, várias fontes.**
 
 Um catálogo gratuito e self-hosted para consultar informações e links de download em uma interface sem os anúncios das páginas de origem.
 
 [![Beta](https://img.shields.io/badge/beta-0.3.0--beta.1-27676c)](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.1)
 [![Verificações](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml)
-[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-555)](LICENSE)
+[![Licença DWL](https://img.shields.io/badge/licen%C3%A7a-DWL-555)](LICENSE)
 
 **[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.1/VSTWorld-windows-x64.exe)** · [Documentação](#documentação) · [Reportar problema](https://github.com/viy2tek/VSTWorld/issues)
 
@@ -94,4 +96,4 @@ Encontrou um problema? [Abra uma issue](https://github.com/viy2tek/VSTWorld/issu
 
 ## Licença
 
-[MIT](LICENSE) · © 2026 [viy2tek](https://github.com/viy2tek). Projeto independente, sem afiliação às fontes ou fabricantes. Conteúdos e dependências mantêm suas próprias licenças.
+[DWL](LICENSE) · © 2026 [viy2tek](https://github.com/viy2tek). Projeto independente, sem afiliação às fontes ou fabricantes. Conteúdos e dependências mantêm suas próprias licenças.

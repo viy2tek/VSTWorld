@@ -6,7 +6,7 @@
 - Porta HTTP 80 preferida no desktop, com escolha de outra porta quando ocupada. Nome `vstworld.local` aceito e preferido somente quando resolve para `127.0.0.1`; o app não altera hosts automaticamente nem expõe o servidor na rede.
 - Interface em português, inglês e espanhol com preferência no navegador, troca sem recarregar a página e conteúdo original protegido da tradução fixa.
 - Tradução explícita das fichas pelo LibreTranslate local ou Ollama local, com identificação de tradução automática, retorno ao original, proteção de tokens técnicos e validação antes de aplicar. [Tradução](TRANSLATION.md).
-- Licença MIT do aplicativo incluída no executável e na imagem Docker, separada das licenças das dependências.
+- Licença DWL do aplicativo incluída no executável e na imagem Docker, separada das licenças das dependências.
 
 VSTHouse e Plugins4Free continuam como fontes incluídas; Musicmakers permanece candidata desativada. Não foram acrescentadas outras fontes nesta versão.
 

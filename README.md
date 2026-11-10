@@ -6,11 +6,11 @@ Pesquise em diferentes fontes por uma única interface. Abra cada resultado para
 
 [![Verificações Windows e Linux](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml/badge.svg?branch=main)](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml)
 
-**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.2.0-beta.1/VSTWorld-windows-x64.exe)** · [Notas da beta 0.2.0-beta.1](https://github.com/viy2tek/VSTWorld/releases/tag/v0.2.0-beta.1) · [Reportar problema](https://github.com/viy2tek/VSTWorld/issues)
+**[Baixar para Windows x64](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.1/VSTWorld-windows-x64.exe)** · [Notas da beta 0.3.0-beta.1](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.1) · [Reportar problema](https://github.com/viy2tek/VSTWorld/issues)
 
 ![Catálogo do VSTWorld com busca por piano, filtros ativos e resultados somente com títulos](docs/images/catalogo.jpg)
 
-*Interface real da beta 0.2.0: consulta ao Plugins4Free com filtros. A contagem representa os itens carregados, não o tamanho total do catálogo.*
+*Interface da beta 0.3.0 com inglês selecionado. O idioma pode ser trocado para português ou espanhol no cabeçalho.*
 
 ## Conteúdo
 
@@ -32,21 +32,21 @@ O VSTWorld consulta os sites e apresenta os links identificados. Nenhum plugin, 
 
 Não precisa instalar Python, Node ou Docker.
 
-1. [Baixe VSTWorld-windows-x64.exe](https://github.com/viy2tek/VSTWorld/releases/download/v0.2.0-beta.1/VSTWorld-windows-x64.exe).
+1. [Baixe VSTWorld-windows-x64.exe](https://github.com/viy2tek/VSTWorld/releases/download/v0.3.0-beta.1/VSTWorld-windows-x64.exe).
 2. Salve o arquivo em uma pasta e abra com dois cliques.
 3. Aguarde o navegador abrir e faça sua primeira pesquisa.
 
-Mantenha a janela do programa aberta enquanto usa o app. Para encerrar, feche essa janela ou pressione **Ctrl+C** nela. Fechar somente a aba do navegador não encerra o servidor.
+O aplicativo fica na **bandeja do Windows**, perto do relógio, sem janela na barra de tarefas. O ícone **W** oferece **Abrir VSTWorld** e **Encerrar**; ele pode estar entre os ícones ocultos. Fechar a aba do navegador não encerra o servidor.
 
-O aplicativo tenta usar `http://127.0.0.1:8787`. Se a porta estiver ocupada, o executável escolhe outra e abre o endereço correto. O binário é para **Windows x64**, não tem assinatura digital e pode gerar um aviso do Windows. O arquivo `SHA256SUMS.txt` está disponível nos [arquivos do release](https://github.com/viy2tek/VSTWorld/releases/tag/v0.2.0-beta.1).
+O executável prefere a porta HTTP **80**. Sem configuração de nome, abre `http://127.0.0.1`; quando `vstworld.local` está configurado para `127.0.0.1` neste computador, abre `http://vstworld.local`. Se a porta estiver ocupada, escolhe outra e inclui o número no endereço. Código e Docker continuam usando 8787.
 
-**Desktop em desenvolvimento:** o novo build Windows fica na bandeja, perto do relógio, com **Abrir VSTWorld** e **Encerrar**; não mantém uma janela na barra de tarefas. Logs ficam em `vstworld.log`, junto do JSON de fontes. Prefere a porta HTTP 80; se ela estiver livre, o endereço não mostra porta. Se estiver ocupada, usa outra porta e abre o endereço completo. Código e Docker continuam usando 8787.
+Para habilitar o nome, adicione `127.0.0.1 vstworld.local` ao arquivo de hosts do computador. O app não faz essa alteração automaticamente, não registra um domínio público e não exige esse nome para funcionar. [Nome local, bandeja e logs](docs/DESKTOP.md).
 
-O novo build também aceita `vstworld.local`. Para esse nome funcionar, configure `127.0.0.1 vstworld.local` no arquivo de hosts do computador; o executável prefere esse endereço quando ele resolve para `127.0.0.1`. Essa configuração é local, não um domínio público, e o app não modifica hosts automaticamente. A beta 0.2.0-beta.1 já publicada ainda usa janela de console e não inclui essas mudanças. [Funcionamento e verificação do novo desktop](docs/DESKTOP.md).
+O binário é para **Windows x64**, não tem assinatura digital e pode gerar um aviso do Windows. `SHA256SUMS.txt` acompanha os [arquivos do release](https://github.com/viy2tek/VSTWorld/releases/tag/v0.3.0-beta.1). Os logs ficam em `vstworld.log`, junto do arquivo de fontes.
 
 ### Atualizar uma versão anterior
 
-Feche o programa, baixe o novo executável e abra-o. As fontes pessoais são preservadas; não existe atualização automática.
+Encerre a versão anterior (pela bandeja ou, nas betas antigas, fechando a janela do programa), baixe o novo executável e abra-o. As fontes pessoais são preservadas; não existe atualização automática.
 
 Se o Plugins4Free não aparecer numa instalação antiga, abra **Fontes → Fontes prontas para adicionar → Plugins4Free → Salvar fonte**. As fontes incluídas no novo binário não substituem silenciosamente a sua configuração.
 
@@ -62,11 +62,11 @@ Os filtros locais e a ordenação consideram os **itens carregados de cada fonte
 
 ## Idiomas e tradução
 
-**Em desenvolvimento:** o novo build local oferece interface em **português, inglês e espanhol**, com escolha salva no navegador. Nas fichas, **Traduzir informações** permite traduzir os textos por Ollama local ou DeepL online opcional, mantendo **Ver original**. A interface não exige IA; o modo online exige uma chave configurada no servidor e só envia texto após a ação explícita. [Configuração, privacidade e limites](docs/TRANSLATION.md). Esses recursos ainda não estão no executável publicado da beta 0.2.0-beta.1.
+A beta 0.3.0 oferece interface em **português, inglês e espanhol**, com escolha salva no navegador. Nas fichas, **Traduzir informações** permite traduzir os textos por Ollama local ou DeepL online opcional, mantendo **Ver original**. A interface não exige IA; o modo online exige uma chave configurada no servidor e só envia texto após a ação explícita. [Configuração, privacidade e limites](docs/TRANSLATION.md).
 
 ## Fontes
 
-| Fonte | Estado na beta 0.2.0-beta.1 |
+| Fonte | Estado na beta 0.3.0-beta.1 |
 | --- | --- |
 | **VSTHouse** | Fonte principal incluída: busca, seções, detalhes e identificação de downloads. |
 | **Plugins4Free** | Incluída: busca, seções, detalhes e integração de links de arquivo. |
@@ -173,9 +173,11 @@ node tests/ui-pagination.cjs
 node tests/ui-source-editor.cjs
 node tests/ui-filters.cjs
 node tests/ui-filter-loader.cjs
+node tests/ui-i18n.cjs
+node tests/ui-translation.cjs
 ```
 
-No Linux, use `.venv/bin/python` no primeiro comando. O [workflow Checks](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml) executa os testes em Windows/Linux e constrói e verifica o executável no Windows. A beta 0.2.0-beta.1 passou por 103 testes Python, quatro verificações JavaScript e teste de inicialização/persistência do binário. [Evidências e limites](docs/RELEASE_0_2.md).
+No Linux, use `.venv/bin/python` no primeiro comando. O [workflow Checks](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml) executa os testes em Windows/Linux e constrói e verifica o executável no Windows. A beta 0.3.0-beta.1 passou por 115 testes Python, seis verificações JavaScript e teste de inicialização/persistência do binário. [Evidências e limites](docs/RELEASE_0_3.md).
 
 ### Gerar o executável Windows
 

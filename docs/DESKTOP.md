@@ -1,6 +1,6 @@
-# Desktop Windows em desenvolvimento
+# Desktop Windows
 
-Estas mudanças ainda não fazem parte do executável publicado da beta 0.2.0-beta.1.
+Bandeja e nome local disponíveis a partir da beta 0.3.0-beta.1.
 
 ## Nome local e porta
 
@@ -31,4 +31,4 @@ A bandeja usa [pystray](https://pystray.readthedocs.io/en/latest/usage.html) e P
 - Instância real consultada em `http://vstworld.local/api/health` na porta 80, vinculada somente ao loopback; mesma origem aceita nas requisições POST.
 - A configuração existente manteve VSTHouse e Plugins4Free. A aba do navegador abriu o novo nome com sucesso.
 
-O menu foi exercitado pelos testes; o posicionamento visual dos ícones depende do Windows. Não foi criada outra versão pública nem alterado o arquivo do release anterior.
+O menu foi exercitado pelos testes; o posicionamento visual dos ícones depende do Windows. O release 0.3.0-beta.1 inclui essas mudanças; o arquivo do release anterior é preservado.

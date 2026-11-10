@@ -1,6 +1,6 @@
 # Idiomas e tradução de conteúdo
 
-Disponíveis no código em desenvolvimento e no novo build local; o release público 0.2.0-beta.1 ainda não foi atualizado.
+Disponíveis a partir da beta 0.3.0-beta.1.
 
 ## Idioma da interface
 

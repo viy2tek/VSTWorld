@@ -1,6 +1,6 @@
 # Histórico
 
-## Em desenvolvimento
+## 0.3.0-beta.1 — 2026-11-09
 
 - Interface em português, inglês e espanhol com seletor persistido por navegador, sem apagar edições ao trocar idioma.
 - Tradução explícita de fichas por Ollama local ou API DeepL opcional; original preservado e respostas validadas antes da exibição.

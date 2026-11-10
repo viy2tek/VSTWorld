@@ -1,6 +1,6 @@
 # Depois da primeira beta
 
-Esta lista registra candidatos e melhorias. A beta 0.2.0-beta.1 inclui VSTHouse, Plugins4Free e uma candidata Musicmakers desativada; as demais não são anunciadas como suportadas. Instalações antigas preservam suas fontes e podem adicionar Plugins4Free pela lista de fontes prontas.
+Esta lista registra candidatos e melhorias. A beta 0.3.0-beta.1 inclui VSTHouse, Plugins4Free e uma candidata Musicmakers desativada; as demais não são anunciadas como suportadas. Instalações antigas preservam suas fontes e podem adicionar Plugins4Free pela lista de fontes prontas.
 
 ## Fontes experimentais
 
@@ -22,9 +22,9 @@ Para aprovar cada fonte: registrar requisição real, parâmetros, codificação
 
 ## Melhorias sugeridas antes de ampliar o catálogo
 
-1. Impedir múltiplas instâncias do executável usando o mesmo JSON e permitir encerrar o app pela interface. Hoje deve-se manter uma janela aberta e fechá-la ao terminar.
+1. Impedir múltiplas instâncias do executável usando o mesmo JSON. O encerramento já está disponível no menu da bandeja desde a beta 0.3.0; não há mais janela de console no desktop.
 2. Exportar/importar fontes pela interface com validação. Hoje o backup é a cópia do JSON documentada no README.
-3. Preservar seleção de fontes e ordenação ao voltar dos detalhes. Hoje a URL preserva a consulta ou seção, e a busca é refeita.
+3. Avaliar como evitar refazer a busca ao voltar dos detalhes, sem adicionar um cache complexo. A URL já preserva consulta, seção, filtros, fontes e ordenação.
 4. Deduplicação entre fontes, depois de observar identificadores reais. Nome parecido e mesma versão não bastam para comprovar que são o mesmo arquivo.
 5. Favoritos, se houver demanda; exigiriam referências persistentes, pois as referências atuais expiram.
 

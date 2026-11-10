@@ -39,11 +39,14 @@ with tempfile.TemporaryDirectory(prefix='vstworld-smoke-') as folder:
                         time.sleep(.1)
                 else:
                     raise RuntimeError('O executável não iniciou a tempo')
-                for route in ('/', '/sources', '/static/app.js', '/static/item.js', '/static/filters.js', '/static/i18n.js', '/static/locales.json', '/api/translation-settings'):
+                for route in ('/', '/sources', '/static/app.js', '/static/item.js', '/static/filters.js', '/static/i18n.js', '/static/locales.json'):
                     with urllib.request.urlopen(base + route, timeout=3) as response:
                         assert response.status == 200
                 with urllib.request.urlopen(base + '/api/source-presets', timeout=3) as response:
                     assert any(source['id'] == 'plugins4free' for source in json.load(response))
+                with urllib.request.urlopen(base + '/static/item.html', timeout=3) as response:
+                    page = response.read().decode('utf-8')
+                    assert 'translation-provider' in page and 'LibreTranslate local' in page and 'Ollama local' in page
                 request = urllib.request.Request(base + '/api/source-detect-ai', method='POST',
                     data=b'{"url":"https://127.0.0.1/"}', headers={'Content-Type':'application/json'})
                 with urllib.request.urlopen(request, timeout=3) as response:

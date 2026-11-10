@@ -1,6 +1,5 @@
 from copy import deepcopy
 import json
-import os
 import unittest
 from unittest.mock import patch
 
@@ -19,22 +18,29 @@ ITEM = {'title':'Brand Plugin v1.2.3', 'source':'Source', 'source_url':'https://
 
 
 class TranslationTests(unittest.IsolatedAsyncioTestCase):
-    def deepl(self, calls, invalid=None, status=200):
+    def setUp(self):
+        self.calls=[]
+
+    def transport(self, invalid=None, info=None, truncated=False, redirect=False):
         def handler(request):
-            calls.append(request)
+            self.calls.append(request)
+            self.assertEqual(str(request.url).split('/api')[0],'http://127.0.0.1:11434')
+            if redirect:
+                return httpx.Response(302,headers={'location':'https://elsewhere.example'})
+            if request.url.path=='/api/show':
+                return httpx.Response(200,json=info if info is not None else {'model_info':{'general.architecture':'qwen'}})
             payload=json.loads(request.content)
-            self.assertEqual(request.url.host,'api-free.deepl.com')
-            self.assertEqual(request.headers['authorization'],'DeepL-Auth-Key test:fx')
-            self.assertEqual(payload['target_lang'],'ES')
-            values=[invalid if invalid is not None else 'Traducido: '+text for text in payload['text']]
-            return httpx.Response(status,json={'translations':[{'text':text} for text in values]})
+            self.assertFalse(payload['stream'])
+            self.assertEqual(payload['format']['additionalProperties'],False)
+            lines=json.loads(payload['prompt'])
+            for line in lines['texts']:
+                line['text']=invalid if invalid is not None else 'Translated: '+line['text']
+            return httpx.Response(200,json={'done':True,'done_reason':'length' if truncated else 'stop','response':json.dumps(lines)})
         return httpx.MockTransport(handler)
 
-    async def test_online_changes_only_translatable_text_and_preserves_original(self):
-        calls=[]
+    async def test_changes_only_eligible_text_and_preserves_original(self):
         before=deepcopy(ITEM)
-        with patch.dict(os.environ,{'VSTWORLD_DEEPL_API_KEY':'test:fx'}):
-            result=await translate_item(ITEM,'es','deepl',transport=self.deepl(calls))
+        result=await translate_item(ITEM,'es',transport=self.transport())
         self.assertEqual(ITEM,before)
         for key in ('title','source','source_url','images','videos','dates'):
             self.assertEqual(result[key],ITEM[key])
@@ -42,73 +48,92 @@ class TranslationTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn('Windows 10 x64',result['metadata'][2]['value'])
         self.assertIn('setup.exe',result['installation'][0]['blocks'][0]['items'][0])
         self.assertEqual(result['installation'][0]['blocks'][0]['links'][0]['url'],ITEM['installation'][0]['blocks'][0]['links'][0]['url'])
-        self.assertTrue(calls)
-        sent=calls[0].content.decode()
+        sent=''.join(r.content.decode() for r in self.calls if r.url.path=='/api/generate')
         self.assertNotIn('https://source.example/setup.exe',sent)
         self.assertNotIn('Brand Plugin',sent)
 
-    async def test_online_requires_key_without_sending_anything(self):
-        calls=[]
-        with patch.dict(os.environ,{'VSTWORLD_DEEPL_API_KEY':''}), self.assertRaises(TranslationError) as caught:
-            await translate_item(ITEM,'es','deepl',transport=self.deepl(calls))
-        self.assertEqual(caught.exception.code,'deepl_not_configured')
-        self.assertEqual(calls,[])
+    async def test_unavailable_ollama_is_reported(self):
+        def unavailable(request):
+            raise httpx.ConnectError('offline',request=request)
+        with self.assertRaises(TranslationError) as caught:
+            await translate_item(ITEM,'pt',transport=httpx.MockTransport(unavailable))
+        self.assertEqual(caught.exception.code,'ollama_unavailable')
 
-    async def test_altered_numbers_or_placeholders_are_rejected_atomically(self):
-        for value in ('Translated 999', 'Translated without protected data'):
+    async def test_changed_numbers_or_tokens_rejected_atomically(self):
+        for value in ('Translated 999','Translated without protected data'):
             original=deepcopy(ITEM)
-            with patch.dict(os.environ,{'VSTWORLD_DEEPL_API_KEY':'test:fx'}), self.assertRaises(TranslationError):
-                await translate_item(ITEM,'es','deepl',transport=self.deepl([],invalid=value))
+            with self.assertRaises(TranslationError):
+                await translate_item(ITEM,'en',transport=self.transport(invalid=value))
             self.assertEqual(ITEM,original)
 
-    async def test_quota_and_unsupported_language(self):
-        with patch.dict(os.environ,{'VSTWORLD_DEEPL_API_KEY':'test:fx'}), self.assertRaises(TranslationError) as caught:
-            await translate_item(ITEM,'es','deepl',transport=self.deepl([],status=456))
-        self.assertEqual(caught.exception.code,'deepl_quota')
+    async def test_unsupported_language_is_rejected_before_request(self):
         with self.assertRaises(TranslationError):
-            await translate_item(ITEM,'xx','deepl')
+            await translate_item(ITEM,'xx',transport=self.transport())
+        self.assertEqual(self.calls,[])
 
-    async def test_local_validates_model_and_schema(self):
-        calls=[]
-        def handler(request):
-            self.assertEqual(str(request.url).split('/api')[0],'http://127.0.0.1:11434')
-            calls.append(request)
-            if request.url.path=='/api/show':
-                return httpx.Response(200,json={'model_info':{'general.architecture':'qwen'}})
-            payload=json.loads(request.content)
-            self.assertFalse(payload['stream'])
-            self.assertEqual(payload['format']['additionalProperties'],False)
-            lines=json.loads(payload['prompt'])
-            for line in lines['texts']:
-                line['text']='Translated: '+line['text']
-            return httpx.Response(200,json={'done':True,'response':json.dumps(lines)})
-        result=await translate_item(ITEM,'en','local',transport=httpx.MockTransport(handler))
-        self.assertTrue(result['installation'][0]['title'].startswith('Translated:'))
-        self.assertEqual(result['title'],ITEM['title'])
-        with self.assertRaises(TranslationError):
-            await translate_item(ITEM,'en','local',model='qwen:cloud',transport=httpx.MockTransport(handler))
-
-    async def test_local_remote_backing_and_truncation_are_rejected(self):
-        for data in ({'remote_host':'https://cloud.example','model_info':{'general.architecture':'qwen'}},
-                     {'model_info':{'general.architecture':'qwen'}}):
-            def handler(request):
-                if request.url.path=='/api/show': return httpx.Response(200,json=data)
-                return httpx.Response(200,json={'done':True,'done_reason':'length','response':'{}'})
+    async def test_remote_identifiers_blocked_before_request(self):
+        for model in ('qwen:cloud','https://example.com/model',''):
             with self.assertRaises(TranslationError):
-                await translate_item(ITEM,'pt','local',transport=httpx.MockTransport(handler))
+                await translate_item(ITEM,'en',model=model,transport=self.transport())
+        self.assertEqual(self.calls,[])
 
-    async def test_bound_before_request_and_redirect_rejected(self):
+    async def test_remote_backing_and_truncation_rejected(self):
+        with self.assertRaises(TranslationError):
+            await translate_item(ITEM,'pt',transport=self.transport(info={'remote_host':'https://cloud.example','model_info':{'general.architecture':'qwen'}}))
+        self.assertFalse(any(r.url.path=='/api/generate' for r in self.calls))
+        with self.assertRaises(TranslationError):
+            await translate_item(ITEM,'pt',transport=self.transport(truncated=True))
+
+    async def test_size_bound_and_redirect_rejected(self):
         large=deepcopy(ITEM)
         large['installation'][0]['blocks'][0]['items']=['a'*16001]
-        calls=[]
         with self.assertRaises(TranslationError):
-            await translate_item(large,'es','deepl',transport=self.deepl(calls))
-        self.assertEqual(calls,[])
-        with patch.dict(os.environ,{'VSTWORLD_DEEPL_API_KEY':'test:fx'}), self.assertRaises(TranslationError):
-            await translate_item(ITEM,'es','deepl',transport=httpx.MockTransport(lambda request:httpx.Response(302,headers={'location':'https://elsewhere.example'})))
+            await translate_item(large,'es',transport=self.transport())
+        self.assertEqual(self.calls,[])
+        with self.assertRaises(TranslationError):
+            await translate_item(ITEM,'es',transport=self.transport(redirect=True))
+        self.assertTrue(all(r.url.host=='127.0.0.1' for r in self.calls))
 
-    def test_tokens_are_exact_and_not_duplicated(self):
+    def test_tokens_exact_and_not_duplicated(self):
         value,mapping=shield('Build 1.2.3: https://source.example/file.zip (64 bits)')
         self.assertEqual(restore(value,mapping),'Build 1.2.3: https://source.example/file.zip (64 bits)')
         token=next(iter(mapping))
         with self.assertRaises(TranslationError): restore(value+token,mapping)
+
+    async def test_libretranslate_keeps_tokens_outside_translator(self):
+        def handler(request):
+            self.assertEqual(str(request.url), 'http://127.0.0.1:5000/translate')
+            payload = json.loads(request.content)
+            self.assertEqual(payload['source'], 'auto')
+            self.assertEqual(payload['target'], 'pt')
+            self.assertEqual(payload['format'], 'text')
+            self.assertLessEqual(len(payload['q']), 6)
+            self.assertNotIn('__VW_KEEP_', request.content.decode())
+            self.assertNotIn('setup.exe', request.content.decode())
+            return httpx.Response(200, json={'translatedText': ['Traduzido: '+text for text in payload['q']]})
+        before = deepcopy(ITEM)
+        result = await translate_item(ITEM, 'pt', provider='libretranslate', transport=httpx.MockTransport(handler))
+        self.assertEqual(ITEM, before)
+        self.assertEqual(result['metadata'][:2], ITEM['metadata'][:2])
+        self.assertIn('Windows 10 x64', result['metadata'][2]['value'])
+        self.assertIn('setup.exe', result['installation'][0]['blocks'][0]['items'][0])
+        self.assertEqual(result['images'], ITEM['images'])
+
+    async def test_libretranslate_invalid_and_redirect_rejected(self):
+        for response in (httpx.Response(200, json={'translatedText': ['incomplete']}),
+                         httpx.Response(302, headers={'location': 'https://elsewhere.example'}),
+                         httpx.Response(400, json={'error': 'language unavailable'})):
+            calls = []
+            def handler(request):
+                calls.append(request)
+                return response
+            with self.assertRaises(TranslationError):
+                await translate_item(ITEM, 'es', provider='libretranslate', transport=httpx.MockTransport(handler))
+            self.assertEqual(len(calls), 1)
+
+    async def test_libretranslate_connection_failure(self):
+        def handler(request):
+            raise httpx.ConnectError('offline', request=request)
+        with self.assertRaises(TranslationError) as caught:
+            await translate_item(ITEM, 'pt', provider='libretranslate', transport=httpx.MockTransport(handler))
+        self.assertEqual(caught.exception.code, 'libretranslate_unavailable')

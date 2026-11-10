@@ -12,22 +12,22 @@ from test_catalog import PAGE, source
 
 
 class AppTests(unittest.TestCase):
-    def test_translation_routes_validation_and_key_not_exposed(self):
+    def test_translation_route_rejects_online_and_other_origin(self):
         from unittest.mock import patch
-        with patch.dict('os.environ', {'VSTWORLD_DEEPL_API_KEY':'not-a-real-secret:fx'}):
-            settings=self.client.get('/api/translation-settings')
-        self.assertEqual(settings.json(),{'deepl_configured':True})
-        self.assertNotIn('not-a-real-secret',settings.text)
-        for target,provider in [('ru','local'),('pt','https://evil.example')]:
-            self.assertEqual(self.client.post('/api/translate',json={'ref':'a'*32,'target':target,'provider':provider}).status_code,422)
-        self.assertEqual(self.client.post('/api/translate',json={'ref':'a'*32,'target':'pt','provider':'local'},headers={'origin':'https://evil.example'}).status_code,403)
+        self.assertEqual(self.client.get('/api/translation-settings').status_code,404)
+        for body in ({'ref':'a'*32,'target':'ru'}, {'ref':'a'*32,'target':'pt','provider':'deepl'}):
+            self.assertEqual(self.client.post('/api/translate',json=body).status_code,422)
+        self.assertEqual(self.client.post('/api/translate',json={'ref':'a'*32,'target':'pt'},headers={'origin':'https://evil.example'}).status_code,403)
         result=self.client.post('/api/search',json={'source':'test','query':'A'}).json()
         ref=result['items'][0]['ref']
-        with patch('vstworld.translation.translate_item', return_value={'metadata':[]}):
-            response=self.client.post('/api/translate',json={'ref':ref,'target':'es','provider':'deepl'})
-        self.assertEqual(response.status_code,200)
-        self.assertEqual(response.json()['target'],'es')
-        self.assertIn('title',response.json()['original'])
+        for provider in ('local', 'libretranslate'):
+            with patch('vstworld.translation.translate_item',return_value={'metadata':[]}) as translator:
+                response=self.client.post('/api/translate',json={'ref':ref,'target':'es','provider':provider})
+            self.assertEqual(response.status_code,200)
+            self.assertEqual(response.json()['target'],'es')
+            self.assertEqual(response.json()['provider'],provider)
+            self.assertEqual(translator.call_args.kwargs['provider'],provider)
+            self.assertIn('title',response.json()['original'])
 
     def test_included_sources_and_optional_ai_rejections(self):
         presets = self.client.get('/api/source-presets').json()

@@ -14,16 +14,16 @@
       <p class="hint">A tradução é opcional. O original fica disponível; nomes, versões, números e links devem ser conferidos na fonte.</p>
       <div class="translation-controls">
         <label>Traduzir para<select id="translation-target" data-i18n-skip><option value="pt">Português</option><option value="en">English</option><option value="es">Español</option></select></label>
-        <label>Tradutor<select id="translation-provider"><option value="local">Local — Ollama</option><option value="deepl">Online — DeepL</option></select></label>
+        <label>Tradutor<select id="translation-provider"><option value="libretranslate">LibreTranslate local</option><option value="local">Ollama local</option></select></label>
         <button id="translate-item" class="primary" type="button">Traduzir</button>
         <button id="show-original" type="button" disabled>Ver original</button>
       </div>
-      <p id="translation-privacy" class="hint"></p>
+      <p id="translation-privacy" class="hint">Os dois tradutores funcionam localmente e precisam ser instalados separadamente. Nenhum texto é enviado a um serviço online.</p>
       <p id="translation-status" class="hint" role="status" aria-live="polite">Original da fonte.</p>
       <details class="translation-help"><summary>Configurar tradutores opcionais</summary>
-        <p class="hint">Local: instale Ollama e baixe um modelo. O texto só é enviado ao Ollama neste computador.</p>
-        <label>Modelo local<input id="translation-model" value="qwen3.5:4b" maxlength="120" autocomplete="off"></label>
-        <p class="hint">Online: configure VSTWORLD_DEEPL_API_KEY no ambiente do servidor e reinicie o aplicativo. Use uma chave da API DeepL, não uma assinatura comum do site. A chave não é enviada ao navegador.</p>
+        <p class="hint">LibreTranslate: inicie o serviço local na porta 5000 com os idiomas russo, inglês, português e espanhol. Consulte o guia de tradução do projeto para instalar.</p>
+        <p class="hint">Ollama: instale o serviço e baixe um modelo local. O campo abaixo só é usado ao escolher Ollama.</p>
+        <label>Modelo Ollama<input id="translation-model" value="qwen3.5:4b" maxlength="120" autocomplete="off"></label>
       </details>
     </details>
     <div class="item-layout">

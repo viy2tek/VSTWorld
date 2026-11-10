@@ -3,7 +3,6 @@ const $ = (selector) => document.querySelector(selector);
 const ref = location.pathname.split('/').pop();
 let sourceItem = null, activeOriginal = null;
 const translatedItems = new Map();
-let deeplConfigured = false;
 let showingTranslation = false;
 const labels = {'дата выпуска':'Data de lançamento', 'год выпуска':'Ano de lançamento', 'версия':'Versão',
   'разработчик':'Desenvolvedora', 'издатель':'Distribuidora', 'сайт разработчика':'Site da desenvolvedora',
@@ -102,27 +101,14 @@ function renderText(item, target = '') {
     $('#installation').append(container);
   });
 }
-function translationPrivacy() {
-  $('#translation-privacy').textContent = $('#translation-provider').value === 'deepl'
-    ? (deeplConfigured ? 'Ao traduzir, os textos desta ficha serão enviados ao DeepL. Pode haver limites ou cobrança na sua conta.'
-      : 'DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.')
-    : 'A tradução local usa Ollama neste computador. Nenhum texto é enviado a um serviço online.';
-}
 const translationErrors = {
-  deepl_not_configured:'DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.',
-  deepl_key_rejected:'A chave do DeepL foi recusada. Confira a configuração no servidor.',
-  deepl_quota:'O limite da conta DeepL foi atingido.',
+  libretranslate_unavailable:'LibreTranslate indisponível. Inicie o serviço local na porta 5000 e aguarde o carregamento dos idiomas.',
   ollama_unavailable:'Ollama indisponível. Inicie o Ollama e instale o modelo local escolhido.',
   local_model_required:'Escolha um modelo instalado localmente. Modelos remotos não são permitidos neste modo.',
   changed_technical_tokens:'A tradução alterou dados técnicos protegidos e foi descartada. O original foi mantido.',
   translation_too_long:'Esta ficha excede o limite de tradução de 16.000 caracteres ou 160 trechos. O original foi mantido.',
-  invalid_translation:'A tradução não pôde ser validada. O original foi mantido.',
-  provider_unavailable:'O tradutor está indisponível. Tente novamente mais tarde.'
+  invalid_translation:'A tradução não pôde ser validada. O original foi mantido.'
 };
-$('#translation-provider').addEventListener('change', () => {
-  translationPrivacy();
-  if (!showingTranslation) $('#translation-status').textContent = 'Original da fonte.';
-});
 window.addEventListener('vstworld:language', (event) => {
   if (!showingTranslation && !$('#translate-item').disabled) $('#translation-target').value = event.detail.language;
 });
@@ -135,14 +121,11 @@ $('#show-original').addEventListener('click', () => {
 });
 $('#translate-item').addEventListener('click', async () => {
   if (!sourceItem) return;
-  const target = $('#translation-target').value, provider = $('#translation-provider').value;
+  const target = $('#translation-target').value;
   const model = $('#translation-model').value.trim();
+  const provider = $('#translation-provider').value;
   const key = JSON.stringify([target, provider, provider === 'local' ? model : '']);
-  if (provider === 'deepl' && !deeplConfigured) {
-    $('#translation-status').textContent = 'Veja como configurar o tradutor em Configurar tradutores opcionais.';
-    return;
-  }
-  const controls = ['#translate-item','#show-original','#translation-target','#translation-provider','#translation-model'];
+  const controls = ['#translate-item','#show-original','#translation-target','#translation-model','#translation-provider'];
   controls.forEach((selector) => { $(selector).disabled = true; });
   $('#translation-status').textContent = 'Traduzindo os textos da ficha… Isso pode levar alguns minutos.';
   try {
@@ -176,10 +159,6 @@ async function initialize() {
     renderText(item);
     show('#translation-panel');
     $('#translation-target').value = window.VSTI18n?.language || 'pt';
-    fetch('/api/translation-settings').then((response) => response.json()).then((settings) => {
-      deeplConfigured = settings.deepl_configured === true; translationPrivacy();
-    }).catch(() => { deeplConfigured = false; translationPrivacy(); });
-    translationPrivacy();
     document.title = `${item.title || 'Detalhes'} — VSTWorld`;
     $('#item-title').textContent = item.title || 'Detalhes do item';
     $('#item-source').textContent = item.source;

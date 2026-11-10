@@ -62,7 +62,7 @@ Os filtros locais e a ordenação consideram os **itens carregados de cada fonte
 
 ## Idiomas e tradução
 
-A beta 0.3.0 oferece interface em **português, inglês e espanhol**, com escolha salva no navegador. Nas fichas, **Traduzir informações** permite traduzir os textos por Ollama local ou DeepL online opcional, mantendo **Ver original**. A interface não exige IA; o modo online exige uma chave configurada no servidor e só envia texto após a ação explícita. [Configuração, privacidade e limites](docs/TRANSLATION.md).
+A beta 0.3.0 oferece interface em **português, inglês e espanhol**, com escolha salva no navegador. Nas fichas, **Traduzir informações** permite traduzir os textos pelo LibreTranslate local ou Ollama local, mantendo **Ver original**. A interface não exige IA; a tradução dos textos exige um dos serviços locais e seus modelos instalados, e só começa após a ação explícita. Não há tradutor online nem chave de API de tradução. [Configuração, privacidade e limites](docs/TRANSLATION.md).
 
 ## Fontes
 
@@ -177,7 +177,7 @@ node tests/ui-i18n.cjs
 node tests/ui-translation.cjs
 ```
 
-No Linux, use `.venv/bin/python` no primeiro comando. O [workflow Checks](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml) executa os testes em Windows/Linux e constrói e verifica o executável no Windows. A beta 0.3.0-beta.1 passou por 115 testes Python, seis verificações JavaScript e teste de inicialização/persistência do binário. [Evidências e limites](docs/RELEASE_0_3.md).
+No Linux, use `.venv/bin/python` no primeiro comando. O [workflow Checks](https://github.com/viy2tek/VSTWorld/actions/workflows/checks.yml) executa os testes em Windows/Linux e constrói e verifica o executável no Windows. A beta 0.3.0-beta.1 passou por 118 testes Python, seis verificações JavaScript e teste de inicialização/persistência do binário. [Evidências e limites](docs/RELEASE_0_3.md).
 
 ### Gerar o executável Windows
 
@@ -205,7 +205,7 @@ Manutenção: [@viy2tek](https://github.com/viy2tek). Próximas possibilidades e
 | [Identificação de fontes](docs/DISCOVERY.md) | Métodos de inspeção e casos ainda não representáveis |
 | [Filtros](docs/FILTERS.md) | Alcance, dados ausentes, datas e parâmetros nativos |
 | [IA local](docs/LOCAL_AI.md) | Configuração opcional do Ollama no Windows e Docker |
-| [Idiomas e tradução](docs/TRANSLATION.md) | Interface pt/en/es, conteúdo local/online, configuração e limites |
+| [Idiomas e tradução](docs/TRANSLATION.md) | Interface pt/en/es, conteúdo com tradutores locais, configuração e limites |
 | [Inspeção do VSTHouse](docs/INSPECAO.md) | Requisições, paginação e política da fonte principal |
 | [Outras fontes](docs/FREE_SOURCES_INSPECTION.md) | Evidências de integração e limitações observadas |
 | [Detalhes e mídia](docs/DETAIL_INSPECTION.md) | Fichas, instalação, imagens e vídeos |

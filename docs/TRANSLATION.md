@@ -11,7 +11,7 @@ As traduções fixas ficam em `static/locales.json`, servidas pelo próprio app.
 ## Traduzir uma ficha
 
 1. Abra um item e expanda **Traduzir informações**.
-2. Escolha português, inglês ou espanhol e um tradutor.
+2. Escolha português, inglês ou espanhol e o tradutor: **LibreTranslate local** ou **Ollama local**.
 3. Clique em **Traduzir**. Não há tradução automática ao pesquisar ou abrir o item.
 4. Use **Ver original** para comparar. Reaplicar a mesma tradução nesta página usa a resposta já recebida; recarregar a página perde esse resultado em memória.
 
@@ -19,31 +19,38 @@ São traduzidos rótulos e valores técnicos elegíveis, títulos de seções de
 
 A resposta deve manter a quantidade de trechos e todos os tokens protegidos. Se perder, duplicar ou alterar um token, introduzir dígitos não protegidos, vier incompleta ou falhar, o conjunto é descartado; a interface mantém o original. Isso não comprova a qualidade linguística nem impede toda alteração de sentido. Traduções são identificadas como automáticas e precisam ser conferidas, especialmente nas instruções de instalação.
 
-## Local — Ollama
+## Configurar LibreTranslate local
+
+O LibreTranslate é um serviço separado, gratuito para hospedar, sem chave de API nesta configuração. Usa recursos da sua máquina e baixa modelos na primeira inicialização. Não faz parte do executável do VSTWorld.
+
+Para o executável Windows ou execução Python, instale o Docker e execute:
+
+```powershell
+docker run -d --name vstworld-translator -p 127.0.0.1:5000:5000 -e LT_HOST=0.0.0.0 -e LT_LOAD_ONLY=ru,en,pt,es -v vstworld-translation:/home/libretranslate/.local libretranslate/libretranslate:latest
+```
+
+Espere o carregamento dos modelos; acompanhe com `docker logs -f vstworld-translator`. Depois, escolha **LibreTranslate local** na ficha. Para iniciar novamente após parar o container, use `docker start vstworld-translator`.
+
+Se o VSTWorld também roda via Compose, use o perfil opcional que compartilha a rede do aplicativo:
+
+```sh
+docker compose --profile translate up -d --build
+docker compose logs -f libretranslate
+```
+
+O app consulta somente `http://127.0.0.1:5000/translate`, no computador ou na rede compartilhada dos containers. A origem do texto é detectada pelo tradutor. É preciso ter modelos para os idiomas envolvidos; disponibilizar um idioma não comprova a qualidade da tradução. Se o serviço ou um par de idiomas falhar, o original é preservado. Os tokens técnicos são separados localmente e reinseridos, sem passar pelo modelo de tradução; isso pode reduzir o contexto linguístico de uma frase.
+
+Referências: [instalação e argumentos](https://docs.libretranslate.com/guides/installation/), [API de tradução](https://docs.libretranslate.com/api/operations/translate/), [idiomas e modelos](https://docs.libretranslate.com/guides/supported_languages/) e [volume dos modelos no Compose oficial](https://github.com/LibreTranslate/LibreTranslate/blob/main/docker-compose.yml). A imagem `latest` pode mudar; fixe uma versão validada no seu ambiente para instalações reproduzíveis. O serviço tem licença própria, separada da MIT do VSTWorld.
+
+## Configurar Ollama local
 
 Siga o [guia de IA local](LOCAL_AI.md). Em **Configurar tradutores opcionais**, informe o nome do modelo instalado; o padrão é `qwen3.5:4b`. O aplicativo não instala modelo nem inicia o Ollama automaticamente.
 
-O texto vai apenas para `http://127.0.0.1:11434`. Modelos com identificadores de nuvem ou metadados de backend remoto são recusados neste modo. Respostas usam esquema JSON e validação, seguindo a [documentação de saídas estruturadas do Ollama](https://docs.ollama.com/capabilities/structured-outputs). A inferência pode ser lenta ou exigir memória adicional, dependendo do modelo e da máquina.
-
-## Online — DeepL
-
-É opcional e requer uma **chave da API DeepL**. Uma assinatura comum do tradutor web não substitui a chave da API. Endpoints Free/Pro e autenticação seguem a [documentação oficial](https://developers.deepl.com/docs/getting-started/auth).
-
-No Windows, crie a variável de ambiente da sua conta `VSTWORLD_DEEPL_API_KEY` com a chave e reabra o aplicativo a partir de um processo que receba essa variável. Pelo código, também é possível defini-la apenas no ambiente do terminal antes de iniciar o servidor. Não coloque a chave em `sources.json`, no código da interface ou em arquivos públicos.
-
-No Docker Compose, a variável é repassada ao contêiner. Configure-a no ambiente do Compose ou num arquivo `.env` local, ignorado pelo Git, e recrie o contêiner:
-
-```sh
-docker compose up -d --build --force-recreate
-```
-
-O servidor escolhe `api-free.deepl.com` para chaves terminadas em `:fx` e `api.deepl.com` para as demais. Não aceita um endpoint arbitrário fornecido pelo navegador. A chave permanece no servidor, nunca é devolvida à interface e não é usada como parte da URL. O pedido segue a [API oficial de tradução de texto](https://developers.deepl.com/api-reference/translate/request-translation).
-
-Escolher **Online — DeepL** mostra um aviso antes do botão: ao clicar em Traduzir, os trechos textuais elegíveis são enviados ao DeepL. O campo de título do item e os arquivos/imagens não são enviados para tradução. Podem existir limites e cobranças na conta do provedor; falhar após um pedido não garante ausência de consumo. Sem chave, a opção explica o que falta e não faz um pedido online. Não há troca automática do modo local para online.
+O texto vai apenas para `http://127.0.0.1:11434`. Modelos com identificadores de nuvem ou metadados de backend remoto são recusados neste modo. Nenhuma chave de API de tradução é necessária. Não há fallback para serviços online. Respostas usam esquema JSON e validação, seguindo a [documentação de saídas estruturadas do Ollama](https://docs.ollama.com/capabilities/structured-outputs). A inferência pode ser lenta ou exigir memória adicional, dependendo do modelo e da máquina.
 
 ## Limites e verificação
 
 - Até 160 trechos e 16.000 caracteres elegíveis por ficha; textos maiores geram mensagem, sem truncamento silencioso.
 - Até 210 segundos por operação, com limites de resposta e requisições em lotes. Apenas uma geração local por vez, compartilhada com a identificação por IA.
-- Testes simulam Ollama e DeepL para validar fluxo, idiomas, contagem de trechos, tokens, dados preservados, quotas, chave ausente, modelos remotos, redirecionamentos e falhas. Nenhuma chave real ou texto de usuário foi enviado ao DeepL nesta verificação.
-- Não foi executado um modelo Ollama real para medir a qualidade das traduções. Não há suporte a legendas de vídeos ou texto dentro de screenshots.
+- Testes simulam LibreTranslate e Ollama para validar fluxo, idiomas, contagem de trechos, tokens, dados preservados, modelos remotos, redirecionamentos e falhas. Não há integração com tradutor online nesta versão.
+- Docker/LibreTranslate e modelos Ollama reais não foram executados nesta preparação; qualidade, desempenho e compatibilidade dos modelos ainda precisam de teste no ambiente do usuário. Não há suporte a legendas de vídeos ou texto dentro de screenshots.

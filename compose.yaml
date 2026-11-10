@@ -7,7 +7,6 @@ services:
       - source-data:/data
     environment:
       VSTWORLD_ALLOWED_HOSTS: "${VSTWORLD_ALLOWED_HOSTS:-}"
-      VSTWORLD_DEEPL_API_KEY: "${VSTWORLD_DEEPL_API_KEY:-}"
     read_only: true
     cap_drop:
       - ALL
@@ -24,6 +23,18 @@ services:
     volumes:
       - model-data:/root/.ollama
     restart: unless-stopped
+  libretranslate:
+    image: libretranslate/libretranslate:latest
+    profiles: [translate]
+    network_mode: service:vstworld
+    environment:
+      LT_HOST: "127.0.0.1"
+      LT_PORT: "5000"
+      LT_LOAD_ONLY: "ru,en,pt,es"
+    volumes:
+      - translation-data:/home/libretranslate/.local
+    restart: unless-stopped
 volumes:
   source-data:
   model-data:
+  translation-data:

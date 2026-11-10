@@ -1116,29 +1116,9 @@
       "en": "Local model",
       "es": "Modelo local"
     },
-    "Online: configure VSTWORLD_DEEPL_API_KEY no ambiente do servidor e reinicie o aplicativo. Use uma chave da API DeepL, não uma assinatura comum do site. A chave não é enviada ao navegador.": {
-      "en": "Online: set VSTWORLD_DEEPL_API_KEY in the server environment and restart the app. Use a DeepL API key, not a regular website subscription. The key is not sent to the browser.",
-      "es": "Online: configura VSTWORLD_DEEPL_API_KEY en el entorno del servidor y reinicia la aplicación. Usa una clave de la API DeepL, no una suscripción normal del sitio. La clave no se envía al navegador."
-    },
-    "Ao traduzir, os textos desta ficha serão enviados ao DeepL. Pode haver limites ou cobrança na sua conta.": {
-      "en": "When translating, the text on this page will be sent to DeepL. Your account may have limits or charges.",
-      "es": "Al traducir, los textos de esta ficha se enviarán a DeepL. Puede haber límites o cargos en tu cuenta."
-    },
-    "DeepL não configurado. Defina a chave no servidor antes de usar a tradução online.": {
-      "en": "DeepL is not configured. Set the key on the server before using online translation.",
-      "es": "DeepL no está configurado. Define la clave en el servidor antes de usar la traducción online."
-    },
     "A tradução local usa Ollama neste computador. Nenhum texto é enviado a um serviço online.": {
       "en": "Local translation uses Ollama on this computer. No text is sent to an online service.",
       "es": "La traducción local usa Ollama en este equipo. No se envía texto a un servicio online."
-    },
-    "A chave do DeepL foi recusada. Confira a configuração no servidor.": {
-      "en": "The DeepL key was rejected. Check the server configuration.",
-      "es": "La clave de DeepL fue rechazada. Comprueba la configuración del servidor."
-    },
-    "O limite da conta DeepL foi atingido.": {
-      "en": "The DeepL account limit has been reached.",
-      "es": "Se ha alcanzado el límite de la cuenta DeepL."
     },
     "Ollama indisponível. Inicie o Ollama e instale o modelo local escolhido.": {
       "en": "Ollama is unavailable. Start Ollama and install the selected local model.",
@@ -1159,10 +1139,6 @@
     "A tradução não pôde ser validada. O original foi mantido.": {
       "en": "The translation could not be validated. The original was kept.",
       "es": "No se pudo validar la traducción. Se conservó el original."
-    },
-    "O tradutor está indisponível. Tente novamente mais tarde.": {
-      "en": "The translator is unavailable. Try again later.",
-      "es": "El traductor no está disponible. Inténtalo de nuevo más tarde."
     },
     "Traduzindo os textos da ficha… Isso pode levar alguns minutos.": {
       "en": "Translating the text on this page… This may take a few minutes.",
@@ -1196,10 +1172,6 @@
       "en": "Local — Ollama",
       "es": "Local — Ollama"
     },
-    "Online — DeepL": {
-      "en": "Online — DeepL",
-      "es": "En línea — DeepL"
-    },
     "· desativada": {
       "en": "· disabled",
       "es": "· desactivada"
@@ -1231,6 +1203,34 @@
     "Veja como configurar o tradutor em Configurar tradutores opcionais.": {
       "en": "See how to set up the translator under Set up optional translators.",
       "es": "Consulta cómo configurar el traductor en Configurar traductores opcionales."
+    },
+    "LibreTranslate local": {
+      "en": "Local LibreTranslate",
+      "es": "LibreTranslate local"
+    },
+    "Ollama local": {
+      "en": "Local Ollama",
+      "es": "Ollama local"
+    },
+    "Modelo Ollama": {
+      "en": "Ollama model",
+      "es": "Modelo Ollama"
+    },
+    "Os dois tradutores funcionam localmente e precisam ser instalados separadamente. Nenhum texto é enviado a um serviço online.": {
+      "en": "Both translators run locally and must be installed separately. No text is sent to an online service.",
+      "es": "Ambos traductores funcionan localmente y deben instalarse por separado. No se envía texto a servicios en línea."
+    },
+    "LibreTranslate: inicie o serviço local na porta 5000 com os idiomas russo, inglês, português e espanhol. Consulte o guia de tradução do projeto para instalar.": {
+      "en": "LibreTranslate: start the local service on port 5000 with Russian, English, Portuguese and Spanish. See the project translation guide for installation.",
+      "es": "LibreTranslate: inicie el servicio local en el puerto 5000 con ruso, inglés, portugués y español. Consulte la guía de traducción del proyecto para instalarlo."
+    },
+    "Ollama: instale o serviço e baixe um modelo local. O campo abaixo só é usado ao escolher Ollama.": {
+      "en": "Ollama: install the service and download a local model. The field below is only used with Ollama.",
+      "es": "Ollama: instale el servicio y descargue un modelo local. El campo siguiente solo se usa con Ollama."
+    },
+    "LibreTranslate indisponível. Inicie o serviço local na porta 5000 e aguarde o carregamento dos idiomas.": {
+      "en": "LibreTranslate unavailable. Start the local service on port 5000 and wait for languages to load.",
+      "es": "LibreTranslate no está disponible. Inicie el servicio local en el puerto 5000 y espere a que se carguen los idiomas."
     }
   },
   "patterns": [

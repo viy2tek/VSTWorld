@@ -14,7 +14,7 @@ docker compose logs -f
 docker compose down
 ```
 
-Abra a mesma URL local. O editor **Fontes** salva em `/data/sources.json`, persistido no volume nomeado `source-data`. Na primeira execução, o arquivo é inicializado a partir do `sources.json` incluído no build; reinícios e novos builds preservam a configuração do volume. Depois dessa inicialização, editar o JSON da pasta do projeto não altera o volume: use o editor. Para iniciar com um JSON próprio, ajuste o arquivo antes do primeiro `docker compose up --build`.
+Abra `http://127.0.0.1:8787`. O editor **Fontes** salva em `/data/sources.json`, persistido no volume nomeado `source-data`. Na primeira execução, o arquivo é inicializado a partir do `sources.json` incluído no build; reinícios e novos builds preservam a configuração do volume. Depois dessa inicialização, editar o JSON da pasta do projeto não altera o volume: use o editor. Para iniciar com um JSON próprio, ajuste o arquivo antes do primeiro `docker compose up --build`.
 
 Para copiar a configuração persistida para backup, use `docker compose cp vstworld:/data/sources.json ./sources-backup.json`. `docker compose down` preserva o volume; `down -v` apaga as fontes salvas. O processo roda como usuário sem privilégios, com sistema de arquivos somente para leitura, exceto o volume de configuração. Dependências estão fixadas em `requirements.txt`; a imagem base acompanha a série Python 3.14 e pode variar entre builds.
 
@@ -25,6 +25,21 @@ ssh -L 8787:127.0.0.1:8787 usuario@seu-servidor
 ```
 
 Depois abra `http://127.0.0.1:8787` no computador cliente. Alternativamente, use um reverse proxy com HTTPS e controle de acesso; configure o hostname exato em `VSTWORLD_ALLOWED_HOSTS` e preserve o cabeçalho Host. **O app não tem autenticação própria.** O Compose publica somente no loopback. `--host 0.0.0.0` é usado dentro do contêiner; fora dele, muda a exposição de rede e deve ser usado apenas no ambiente pretendido.
+
+## Configuração e backup
+
+| Modo de execução | Arquivo de fontes |
+| --- | --- |
+| Executável da beta pública | `%LOCALAPPDATA%\VSTWorld\sources.json` |
+| Código local | `sources.json` na pasta do projeto, ou caminho de `--sources` / `VSTWORLD_SOURCES` |
+| Docker | `/data/sources.json`, no volume `source-data` |
+| Builds antigas `0.2.0-dev` | `%LOCALAPPDATA%\VSTWorld Experimental\sources.json`, separado da beta pública |
+
+Para fazer backup, feche o app e copie o JSON. No Docker, use `docker compose cp vstworld:/data/sources.json ./sources-backup.json`. `docker compose down` preserva o volume; `docker compose down -v` remove os dados persistidos.
+
+Mantenha **uma instância por configuração**. O editor aplica alterações salvas sem reiniciar o servidor; recarregue outras abas do catálogo. Editar o JSON manualmente exige reiniciar.
+
+O executável também reconhece a configuração do nome antigo `VSTHouse Brasil`, copiando-a na primeira execução quando o destino ainda não existe e o JSON é válido. Variáveis `VSTHOUSE_SOURCES` e `VSTHOUSE_ALLOWED_HOSTS` continuam como alternativas às variáveis `VSTWORLD_*`.
 
 ## Configurar fontes em detalhe
 

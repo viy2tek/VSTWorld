@@ -32,3 +32,9 @@ A bandeja usa [pystray](https://pystray.readthedocs.io/en/latest/usage.html) e P
 - A configuração existente manteve VSTHouse e Plugins4Free. A aba do navegador abriu o novo nome com sucesso.
 
 O menu foi exercitado pelos testes; o posicionamento visual dos ícones depende do Windows. O release 0.3.0-beta.1 inclui essas mudanças; o arquivo do release anterior é preservado.
+
+## Atualizar uma versão anterior
+
+Encerre a versão anterior (pela bandeja ou, nas betas antigas, fechando a janela do programa), baixe o novo executável e abra-o. As fontes pessoais são preservadas; não existe atualização automática.
+
+Se o Plugins4Free não aparecer numa instalação antiga, abra **Fontes → Fontes prontas para adicionar → Plugins4Free → Salvar fonte**. As fontes incluídas no novo binário não substituem silenciosamente a sua configuração.
